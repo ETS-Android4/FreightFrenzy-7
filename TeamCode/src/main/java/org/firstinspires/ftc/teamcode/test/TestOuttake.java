@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.hardware.Outtake;
 
-@Autonomous (name= "Outtake test")
+@Autonomous(name= "Outtake test")
 @Disabled
 public class TestOuttake  extends LinearOpMode {
     Outtake outtake;

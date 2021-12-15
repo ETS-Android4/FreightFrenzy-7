@@ -1,9 +1,6 @@
 package org.firstinspires.ftc.teamcode.hardware;
 
 
-import android.os.AsyncTask;
-
-import com.qualcomm.hardware.ams.AMSColorSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;

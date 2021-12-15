@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-@Autonomous (name = "slimeAutonInitial", group = "PRTest")
+@Autonomous(name = "slimeAutonInitial", group = "PRTest")
 @Disabled
 public class slimeAutonInitial extends LinearOpMode {
 

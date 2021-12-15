@@ -247,7 +247,7 @@ public class DrivetrainJ implements Constants {
      * Basic pivot turn by power variable
      * @param dir direction to turn
      */
-    public void pivotTurn(Constants.Status dir) {
+    public void pivotTurn(Status dir) {
         switch (dir) {
             case LEFT:
                 setBase(power, -power, power, -power);

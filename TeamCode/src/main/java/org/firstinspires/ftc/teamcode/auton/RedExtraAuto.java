@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.hardware.Constants;
 import org.firstinspires.ftc.teamcode.hardware.Robot2;
 
-@Autonomous (name = "ExtraAutoNaZyia", group = "PRTest")
+@Autonomous(name = "ExtraAutoNaZyia", group = "PRTest")
 @Disabled
 public class RedExtraAuto extends LinearOpMode {
 

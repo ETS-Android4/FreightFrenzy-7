@@ -2,15 +2,10 @@ package org.firstinspires.ftc.teamcode.teleop;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
-
-import org.firstinspires.ftc.teamcode.hardware.Constants;
 import org.firstinspires.ftc.teamcode.hardware.Robot;
 
-import static org.firstinspires.ftc.teamcode.hardware.Constants.Status.NORMAL;
-
-@TeleOp (name = "PRTELEOP", group = "PRTeleop")
+@TeleOp(name = "PRTELEOP", group = "PRTeleop")
 public class slimeTeleOp2 extends LinearOpMode {
 
 

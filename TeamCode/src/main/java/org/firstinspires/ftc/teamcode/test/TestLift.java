@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.hardware.Lift;
 
-@Autonomous (name = "Kofi", group = "PRTest")
+@Autonomous(name = "Kofi", group = "PRTest")
 @Disabled
 public class TestLift extends LinearOpMode {
 

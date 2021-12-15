@@ -3,10 +3,9 @@ package org.firstinspires.ftc.teamcode.teleop;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-@TeleOp (name = "slimeTeleOpInitial", group = "PRTest")
+@TeleOp(name = "slimeTeleOpInitial", group = "PRTest")
 @Disabled
 public class slimeTeleOpInitial extends OpMode {
 

@@ -3,10 +3,9 @@ package org.firstinspires.ftc.teamcode.auton.working;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.hardware.Constants;
 import org.firstinspires.ftc.teamcode.hardware.Robot2;
 
-@Autonomous (name = "RedRight", group = "PRTest")
+@Autonomous(name = "RedRight", group = "PRTest")
 public class RedRight extends LinearOpMode {
 
 Robot2 robot = new Robot2();

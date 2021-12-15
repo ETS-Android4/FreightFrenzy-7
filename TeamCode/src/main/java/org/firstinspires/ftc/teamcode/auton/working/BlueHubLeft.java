@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.hardware.Robot2;
 
-@Autonomous (name = "BlueHubLeft", group = "PRTEST")
+@Autonomous(name = "BlueHubLeft", group = "PRTEST")
 public class BlueHubLeft extends LinearOpMode {
 
    Robot2 zoom = new Robot2();

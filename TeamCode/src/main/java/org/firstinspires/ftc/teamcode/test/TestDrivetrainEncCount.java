@@ -3,10 +3,9 @@ package org.firstinspires.ftc.teamcode.test;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.hardware.Drivetrain;
 import org.firstinspires.ftc.teamcode.hardware.DrivetrainJ;
 
-@TeleOp (name = "TestDrivetrainEnc")
+@TeleOp(name = "TestDrivetrainEnc")
 public class TestDrivetrainEncCount extends LinearOpMode {
     DrivetrainJ drive;
     @Override

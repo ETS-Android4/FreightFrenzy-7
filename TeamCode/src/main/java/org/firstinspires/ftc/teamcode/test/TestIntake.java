@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.hardware.Intake;
 
-@Autonomous (name = "Intake Test")
+@Autonomous(name = "Intake Test")
 @Disabled
 public class TestIntake extends LinearOpMode {
     Intake intake;

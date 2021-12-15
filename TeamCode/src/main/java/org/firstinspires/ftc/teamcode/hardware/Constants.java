@@ -4,7 +4,7 @@ public interface Constants {
 
     int STOP = 0;
 
-    double forwardPos = 15 / 300.0;
+    double forwardPos = 0 / 300.0;
     double neutralPos = 90 / 300.0;
     double backPos = 240 / 300.0;
 

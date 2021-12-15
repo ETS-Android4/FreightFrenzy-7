@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.hardware.Carousel;
 
-@Autonomous (name = "CarouselTest", group = "PRTest")
+@Autonomous(name = "CarouselTest", group = "PRTest")
 @Disabled
 
 public class TestCarousel extends LinearOpMode {

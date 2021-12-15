@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.hardware.Robot2;
 
-@Autonomous (name = "Turn90", group = "PRTest")
+@Autonomous(name = "Turn90", group = "PRTest")
 @Disabled
 public class Turn90 extends LinearOpMode {
 
