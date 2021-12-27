@@ -1,12 +1,12 @@
 package org.firstinspires.ftc.teamcode.hardware;
 
 public interface Constants {
-
+//nuts
     int STOP = 0;
 
     double forwardPos = 0 / 300.0;
     double neutralPos = 90 / 300.0;
-    double backPos = 240 / 300.0;
+    double backPos = 210 / 300.0;
 
     double bowlOne = 10;
     double bowlTwo = 20;
@@ -14,7 +14,9 @@ public interface Constants {
 
     // 96 mm wheels = 537.6/((120 / 25.4)*Math.PI)
     // 120 mm wheels = (537.6/((120 / 25.4)*Math.PI)) * (5.0/6.0)
-    double TICKS_PER_IN = 537.6/((96 / 25.4)*Math.PI);
+    //double TICKS_PER_IN = 537.6/((96 / 25.4)*Math.PI);
+
+    double TICKS_PER_IN = (537.6/((120 / 25.4)*Math.PI));
 
     int LIFT_THRESHOLD = -500;
 
@@ -24,8 +26,8 @@ public interface Constants {
     int LEVEL_SUBTWO = 0;
     int LEVEL_SUBONE = 0;
 
-    int LEVEL_ZERO = 0;
-//
+    int LEVEL_ZERO = 50;
+
     int LEVEL_ONE = 250;
     int LEVEL_TWO = 1400;
     int LEVEL_THREE = 0;

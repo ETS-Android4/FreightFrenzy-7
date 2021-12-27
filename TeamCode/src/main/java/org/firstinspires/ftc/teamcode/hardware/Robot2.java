@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.hardware;
 
 
+import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -12,6 +13,7 @@ public class Robot2 {
     public Outtake2 outtake;
     public Lift lift;
     public Carousel carousel;
+    public IMU imu;
 
 
     public void init(HardwareMap hwMap, Telemetry telemetry) {
@@ -20,6 +22,7 @@ public class Robot2 {
         outtake = new Outtake2(hwMap.servo.get("outtake"));
         lift = new Lift(hwMap.dcMotor.get("lift"));
         carousel = new Carousel(hwMap.dcMotor.get("leftCarousel"), hwMap.dcMotor.get("rightCarousel"));
+        imu = new IMU(hwMap.get(BNO055IMU.class, "imu 1"));
 
         lift.setMaxPower(.8);
         lift.useBrake(true);

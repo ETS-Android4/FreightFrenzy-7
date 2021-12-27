@@ -19,6 +19,8 @@ public class Outtake2 implements Constants {
         outtake2.setPosition(forwardPos);
     }
 
+    public void setPos(double pos) { outtake2.setPosition(pos); }
+
     public Servo getOuttake2() {
         return outtake2;
     }

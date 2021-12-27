@@ -11,9 +11,11 @@ public class slimeTeleOp2 extends LinearOpMode {
 
     Robot zoom = new Robot();
 
-    boolean lbState, lbCurr, lbPrev, rbState, rbCurr, rbPrev;
+    boolean xState, xCurr, xPrev, bState, bCurr, bPrev;
     boolean rTCurr, rTPrev, rTState, rTToggle;
+    boolean lBCurr, lBPrev, lBState, lBToggle;
     int liftEnc;
+    double servoPos;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -45,21 +47,6 @@ public class slimeTeleOp2 extends LinearOpMode {
         waitForStart();
         zoom.outtake.neutralPosition();
         while (opModeIsActive()) {
-
-//            lbState = gamepad2.dpad_down;
-//            lbPrev = lbCurr;
-//            lbCurr = lbState;
-//
-//            rbState = gamepad2.dpad_up;
-//            rbPrev = rbCurr;
-//            rbCurr = rbState;
-//
-//            if (!lbPrev && lbCurr) {
-//                zoom.lift.decreaseLevel();
-//            }
-//            if (!rbPrev && rbCurr) {
-//                zoom.lift.increaseLevel();
-//            }
 
 //        Movement
 
@@ -109,8 +96,6 @@ public class slimeTeleOp2 extends LinearOpMode {
                 }
             }
 
-
-
 //        Intake
 
             if (gamepad2.left_trigger > 0.1) {
@@ -139,16 +124,49 @@ public class slimeTeleOp2 extends LinearOpMode {
 
 //         Outtake
 
-            if (gamepad2.x) {
-                zoom.outtake.backPosition();
+            lBState = gamepad2.left_bumper;
+            lBPrev = lBCurr;
+            lBCurr = lBState;
+
+            if (lBCurr && !lBPrev) {
+                lBToggle = !lBToggle;
             }
 
-            if (gamepad2.y) {
-                zoom.outtake.neutralPosition();
-            }
+            if (!lBToggle) {
+                if (gamepad2.x) {
+                    zoom.outtake.backPosition();
+                }
 
-            if (gamepad2.b) {
-                zoom.outtake.forwardPosition();
+                if (gamepad2.y) {
+                    zoom.outtake.neutralPosition();
+                }
+
+                if (gamepad2.b) {
+                    zoom.outtake.forwardPosition();
+                }
+            } else {
+
+                xState = gamepad2.x;
+                xPrev = xCurr;
+                xCurr = xState;
+
+                bState = gamepad2.b;
+                bPrev = bCurr;
+                bCurr = bState;
+
+                if (!xPrev && xCurr) {
+                    servoPos -= 0.1;
+                }
+                if (!bPrev && bCurr) {
+                    servoPos += 0.1;
+                }
+
+                if (servoPos > 1)
+                    servoPos = 1;
+                if (servoPos < 0)
+                    servoPos = 0;
+
+                zoom.outtake.setPos(servoPos);
             }
 
 //         Lift
@@ -188,6 +206,8 @@ public class slimeTeleOp2 extends LinearOpMode {
             telemetry.addData("outtake back", "x");
             telemetry.addData("outtake neutral", "y");
             telemetry.addData("outtake forward", "b");
+            telemetry.addData("servo pos", servoPos);
+            telemetry.addData("manual servo", lBToggle);
             telemetry.addData("lift 2", "dpad_up");
             telemetry.addData("lift 1", "dpad_down");
             telemetry.addData("lift 0", "neutral");

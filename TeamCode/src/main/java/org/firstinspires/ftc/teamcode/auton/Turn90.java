@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.hardware.Robot2;
 
 @Autonomous(name = "Turn90", group = "PRTest")
-@Disabled
+//@Disabled
 public class Turn90 extends LinearOpMode {
 
     Robot2 zoom = new Robot2();
@@ -17,6 +17,7 @@ public class Turn90 extends LinearOpMode {
         zoom.init(hardwareMap, telemetry);
         zoom.drivetrain.setPower(.5);
         zoom.drivetrain.setTelemetry(telemetry);
+        zoom.drivetrain.useBrake(true);
         waitForStart();
         while (opModeIsActive()) {
             zoom.drivetrain.pointTurnLeft();

@@ -1,12 +1,12 @@
-package org.firstinspires.ftc.teamcode.auton.working;
+package org.firstinspires.ftc.teamcode.test;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.hardware.Robot2;
 
-@Autonomous(name = "TestWheels", group = "PRTest")
-public class Forward extends LinearOpMode {
+@Autonomous(name = "ResetLiftTest", group = "PRTest")
+public class ResetLiftTest extends LinearOpMode {
 
     Robot2 zoom = new Robot2();
 
@@ -17,19 +17,29 @@ public class Forward extends LinearOpMode {
         zoom.drivetrain.setTelemetry(telemetry);
         zoom.drivetrain.useBrake(true);
         zoom.outtake.neutralPosition();
+
+        zoom.lift.init();
+        zoom.lift.setTelemetry(telemetry);
+        zoom.lift.useEncoders(true);
+        zoom.lift.useBrake(true);
+        zoom.lift.setMaxPower(.3);
+
         waitForStart();
         //Line Up With Second Panel from Right, Left Seam
         while (opModeIsActive()) {
-            //forward
-            zoom.drivetrain.forward(5);
-            sleep(3000);
-            zoom.drivetrain.forward(3);
-            sleep(3000);
-            zoom.drivetrain.forward(24);
-            sleep(3000);
-            zoom.drivetrain.pointTurnRight();
+            zoom.lift.setLevel(0);
+
+            sleep(1000);
+
+            //zoom.lift.setLevel(1);
+
+            //sleep(1000);
+
+            zoom.lift.setLevel(2);
+
+            sleep(1000);
+            zoom.lift.setLevel(0);
             break;
-            //LETS FUCKING GO
         }
     }
 }
