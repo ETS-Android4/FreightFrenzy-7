@@ -1,12 +1,13 @@
-package org.firstinspires.ftc.teamcode.auton.working;
+package org.firstinspires.ftc.teamcode.auton.working.blue;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.teamcode.hardware.Constants;
 import org.firstinspires.ftc.teamcode.hardware.Robot2;
 
-@Autonomous(name = "BlueWarehouseRight", group = "PRTest")
-public class BlueWarehouseRight extends LinearOpMode {
+@Autonomous(name = "BlueRight", group = "PRTest")
+public class BlueRight extends LinearOpMode {
 
     Robot2 zoom = new Robot2();
 
@@ -25,12 +26,27 @@ public class BlueWarehouseRight extends LinearOpMode {
         //Line Up With Second Panel from Right, Left Seam
         while (opModeIsActive()) {
             //forward
-            zoom.drivetrain.forward(16);
-            sleep(1000);
-            zoom.drivetrain.pointTurnLeft();
+            zoom.drivetrain.forward(4.5);
             sleep(500);
-            zoom.drivetrain.setPower(.5);
-            zoom.drivetrain.forward(90);
+            //turn left 135 degrees
+            zoom.drivetrain.pointTurn(Constants.Status.LEFT, 13.0);
+            sleep(500);
+            //backward
+            zoom.drivetrain.backward(29.5);
+            sleep(500);
+            //turn on carousel
+            zoom.carousel.rightSpin(.5);
+            sleep(3500);
+            zoom.carousel.stopSpin();
+            //forward
+            zoom.drivetrain.forward(2);
+            //turn right
+            zoom.drivetrain.pointTurn(Constants.Status.RIGHT, 14.8);
+            sleep(500);
+            //forward
+            zoom.drivetrain.forward(18);
+            //stop
+            zoom.drivetrain.stop();
             break;
             //LETS FUCKING GO
         }

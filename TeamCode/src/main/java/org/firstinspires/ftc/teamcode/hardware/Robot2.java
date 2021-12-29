@@ -24,9 +24,11 @@ public class Robot2 {
         carousel = new Carousel(hwMap.dcMotor.get("leftCarousel"), hwMap.dcMotor.get("rightCarousel"));
         imu = new IMU(hwMap.get(BNO055IMU.class, "imu 1"));
 
-        lift.setMaxPower(.8);
-        lift.useBrake(true);
+        lift.init();
+        lift.setTelemetry(telemetry);
         lift.useEncoders(true);
+        lift.useBrake(true);
+        lift.setMaxPower(.3);
     }
 
 

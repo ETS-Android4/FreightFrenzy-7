@@ -1,12 +1,12 @@
-package org.firstinspires.ftc.teamcode.auton.working;
+package org.firstinspires.ftc.teamcode.auton.working.red;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.hardware.Robot2;
 
-@Autonomous(name = "BlueHubLeft", group = "PRTEST")
-public class BlueHubLeft extends LinearOpMode {
+@Autonomous(name = "RedHubLeft", group = "PRTEST")
+public class RedHubLeft extends LinearOpMode {
 
    Robot2 zoom = new Robot2();
     @Override
@@ -34,7 +34,7 @@ public class BlueHubLeft extends LinearOpMode {
             zoom.drivetrain.pointTurnLeft();
             sleep(250);
             //backward
-            zoom.drivetrain.backward(16);
+            zoom.drivetrain.backward(21);
             sleep(250);
             //turn
             zoom.drivetrain.pointTurnRight();
@@ -56,16 +56,28 @@ public class BlueHubLeft extends LinearOpMode {
             zoom.lift.updateLevel();
             sleep(250);
 
-            zoom.drivetrain.backward(4);
+            zoom.drivetrain.backward(16);
             sleep(250);
 
             zoom.drivetrain.pointTurnRight();
             sleep(250);
 
-            zoom.drivetrain.setPower(.9);
-            zoom.drivetrain.backward(70);
+            zoom.drivetrain.backward(53);
             sleep(250);
 
+            zoom.carousel.leftSpin(.5);
+            sleep(3500);
+            zoom.carousel.stopSpin();
+
+            //forward
+            zoom.drivetrain.forward(2);
+            //turn right
+            zoom.drivetrain.pointTurnLeft();
+            sleep(500);
+            //forward
+            zoom.drivetrain.forward(18);
+            //stop
+            zoom.drivetrain.stop();
             //lift down
             //backward
             //turn

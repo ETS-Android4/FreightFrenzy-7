@@ -1,12 +1,12 @@
-package org.firstinspires.ftc.teamcode.auton.working;
+package org.firstinspires.ftc.teamcode.auton.working.blue;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.hardware.Robot2;
 
-@Autonomous(name = "RedHubRight", group = "PRTEST")
-public class RedHubRight extends LinearOpMode {
+@Autonomous(name = "BlueHubLeft", group = "PRTEST")
+public class BlueHubLeft extends LinearOpMode {
 
    Robot2 zoom = new Robot2();
     @Override
@@ -31,13 +31,13 @@ public class RedHubRight extends LinearOpMode {
             zoom.drivetrain.forward(12);
             sleep(250);
             //turn
-            zoom.drivetrain.pointTurnRight();
+            zoom.drivetrain.pointTurnLeft();
             sleep(250);
             //backward
             zoom.drivetrain.backward(16);
             sleep(250);
             //turn
-            zoom.drivetrain.pointTurnLeft();
+            zoom.drivetrain.pointTurnRight();
             sleep(250);
             // forward
             zoom.drivetrain.forward(6);
@@ -59,7 +59,7 @@ public class RedHubRight extends LinearOpMode {
             zoom.drivetrain.backward(4);
             sleep(250);
 
-            zoom.drivetrain.pointTurnLeft();
+            zoom.drivetrain.pointTurnRight();
             sleep(250);
 
             zoom.drivetrain.setPower(.9);
