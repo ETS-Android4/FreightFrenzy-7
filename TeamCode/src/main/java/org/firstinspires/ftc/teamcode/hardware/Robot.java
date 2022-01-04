@@ -24,6 +24,7 @@ public class Robot implements Constants {
         imu = new IMU(hwMap.get(BNO055IMU.class, "imu 1"));
         lift.setTelemetry(telemetry);
         drivetrain.setTelemetry(telemetry);
+        drivetrain.setIMU(imu);
     }
 
     public void setMode(Status mode) {

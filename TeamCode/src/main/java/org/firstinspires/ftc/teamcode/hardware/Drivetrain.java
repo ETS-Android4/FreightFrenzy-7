@@ -4,6 +4,10 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 /**
  * Date: 1/28/21
@@ -16,6 +20,7 @@ public class Drivetrain implements Constants {
     private double power;
     public int fLTickGoal, fRTickGoal, bLTickGoal, bRTickGoal;
     public Telemetry telem;
+    public IMU imu;
 
     /**
      * Defines the parts needed for the subsystem
@@ -48,6 +53,8 @@ public class Drivetrain implements Constants {
     public void setTelemetry(Telemetry telem) {
         this.telem = telem;
     }
+
+    public void setIMU(IMU imu) { this.imu = imu; }
 
     /**
      * @param use RUN_USING_ENCODER
@@ -256,6 +263,77 @@ public class Drivetrain implements Constants {
                 setBase(-power, power, -power, power);
                 break;
         }
+    }
+
+    /*
+    Relative angle
+     */
+    public void turnIMU(double degrees) {
+
+        imu.resetAngle();
+
+        double error = degrees;
+
+        while (Math.abs(error) > 2) {
+            double motorPower = (error > 0 ? -0.4 : 0.4 );
+            setBase(-motorPower, motorPower, -motorPower, motorPower);
+            error = degrees - imu.getAngle();
+            telem.addData("error", error);
+            telem.update();
+        }
+
+        stop();
+    }
+
+    /*
+    Absolute angle
+     */
+    public void turnToIMU(double degrees) {
+
+        Orientation orientation = imu.getIMU().getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+
+        double error = degrees - orientation.firstAngle;
+
+        if (error > 180) {
+            error -= 360;
+        } else if (error < -180) {
+            error += 360;
+        }
+
+        turnIMU(error);
+    }
+
+    /*
+    Turning using PID
+     */
+    public void PIDTurn(double targetAngle) {
+
+        PIDController turnPID = new PIDController(targetAngle, 0.01, 0, 20);
+
+        double correction = turnPID.output(targetAngle, imu.getFirstAngleNum());
+
+        // May need to calculate slope, rise over run to stop it from oscillating
+        while (Math.abs(targetAngle - imu.getFirstAngleNum()) > 0.5) {
+            setBase(correction, -correction, correction, -correction);
+            correction = turnPID.output(targetAngle, imu.getFirstAngleNum());
+        }
+
+        stop();
+    }
+
+    public void PIDTurn(double targetAngle, PIDController pid) {
+
+        double correction = pid.output(targetAngle, imu.getFirstAngleNum());
+
+        // May need to calculate slope, rise over run to stop it from oscillating
+        while (Math.abs(targetAngle - imu.getFirstAngleNum()) > 0.5) {
+            setBase(correction, -correction, correction, -correction);
+            correction = pid.output(targetAngle, imu.getFirstAngleNum());
+            telem.addData("y", correction);
+            telem.update();
+        }
+
+        stop();
     }
 
     /**

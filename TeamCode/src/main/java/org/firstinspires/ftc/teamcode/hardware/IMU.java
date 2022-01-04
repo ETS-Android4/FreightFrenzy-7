@@ -18,6 +18,9 @@ public class IMU {
     private Orientation angles;
     private Acceleration gravity;
 
+    private Orientation lastAngles;
+    private double currAngle;
+
     public IMU(BNO055IMU imu) {
         this.imu = imu;
         BNO055IMU.Parameters param = new BNO055IMU.Parameters();
@@ -100,6 +103,28 @@ public class IMU {
 
     String formatDegrees(double degrees){
         return String.format(Locale.getDefault(), "%.1f", AngleUnit.DEGREES.normalize(degrees));
+    }
+
+    public void resetAngle() {
+        lastAngles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+    }
+
+    public double getAngle() {
+
+        Orientation orientation = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+
+        double deltaAngle = orientation.firstAngle - lastAngles.firstAngle;
+
+        if (deltaAngle < -180) {
+            deltaAngle += 360;
+        } else if (deltaAngle > 180) {
+            deltaAngle -= 360;
+        }
+
+        currAngle += deltaAngle;
+        lastAngles = orientation;
+
+        return currAngle;
     }
 
     /**

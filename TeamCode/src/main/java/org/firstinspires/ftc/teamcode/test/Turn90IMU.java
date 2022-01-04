@@ -19,12 +19,16 @@ public class Turn90IMU extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive()) {
-            while (prbot.imu.getFirstAngleNum() < 90) {
-                prbot.imu.updateAngles();
-                prbot.drivetrain.pivotTurn(Constants.Status.LEFT);
-            }
-            prbot.imu.updateAngles();
-            prbot.drivetrain.stop();
+            prbot.drivetrain.turnIMU(90);
+            sleep(250);
+            telemetry.addData("angle", prbot.imu.getFirstAngleNum());
+            telemetry.update();
+            sleep(3000);
+            prbot.drivetrain.turnToIMU(-90);
+            sleep(250);
+            telemetry.addData("angle", prbot.imu.getFirstAngleNum());
+            telemetry.update();
+            sleep(2000);
             break;
         }
     }
