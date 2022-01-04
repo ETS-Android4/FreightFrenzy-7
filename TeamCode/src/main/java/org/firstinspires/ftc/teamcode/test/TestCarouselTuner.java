@@ -80,7 +80,11 @@ public class TestCarouselTuner extends LinearOpMode {
 
             if (a.isPressed()) aToggle = !aToggle;
 
-            if (aToggle) carousel.spin(power);
+            if (aToggle) {
+                carousel.spin(power);
+            } else {
+                carousel.stopSpin();
+            }
 
             telemetry.addData("power", power);
             telemetry.addData("a toggle", aToggle);

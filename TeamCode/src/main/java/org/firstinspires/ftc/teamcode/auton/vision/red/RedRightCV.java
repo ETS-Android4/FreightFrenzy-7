@@ -133,7 +133,7 @@ public class RedRightCV extends LinearOpMode {
                     prbot.drivetrain.pointTurnLeft();
                     sleep(wait);
                     // forward
-                    prbot.drivetrain.forward(2);
+                    prbot.drivetrain.forward(3);
                     sleep(wait);
 
                     //drop lift
@@ -173,7 +173,7 @@ public class RedRightCV extends LinearOpMode {
                     prbot.drivetrain.pointTurnLeft();
                     sleep(wait);
                     // forward
-                    prbot.drivetrain.forward(3);
+                    prbot.drivetrain.forward(4);
                     sleep(wait);
 
                     //drop lift

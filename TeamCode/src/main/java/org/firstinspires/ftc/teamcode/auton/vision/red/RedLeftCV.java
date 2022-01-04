@@ -128,13 +128,13 @@ public class RedLeftCV extends LinearOpMode {
                     prbot.drivetrain.pointTurnLeft();
                     sleep(wait);
                     //backward
-                    prbot.drivetrain.backward(20);
+                    prbot.drivetrain.forward(18.7);
                     sleep(wait);
                     //turn
                     prbot.drivetrain.pointTurnLeft();
                     sleep(wait);
                     // forward
-                    prbot.drivetrain.forward(2);
+                    prbot.drivetrain.forward(2.5);
                     sleep(wait);
 
                     //drop lift
@@ -150,15 +150,33 @@ public class RedLeftCV extends LinearOpMode {
                     //prbot.lift.updateLevel();
                     sleep(wait);
 
-                    prbot.drivetrain.backward(2);
+                    prbot.drivetrain.backward(10.5);
                     sleep(wait);
 
+                    prbot.drivetrain.pointTurn(Constants.Status.RIGHT, 11.65);
+                    sleep(wait);
+
+                    prbot.drivetrain.backward(48);
+                    sleep(wait);
+
+                    prbot.drivetrain.setPower(.1);
+                    prbot.drivetrain.backward(1);
+                    prbot.drivetrain.setPower(.4);
+
+                    prbot.carousel.leftSpin(.5);
+                    sleep(3500);
+                    prbot.carousel.stopSpin();
+
+                    //forward
+                    prbot.drivetrain.forward(2);
+                    //turn right
                     prbot.drivetrain.pointTurnLeft();
                     sleep(wait);
+                    //forward
+                    prbot.drivetrain.forward(16);
+                    //stop
+                    prbot.drivetrain.stop();
 
-                    prbot.drivetrain.setPower(.9);
-                    prbot.drivetrain.backward(60);
-                    sleep(wait);
                     break;
                 case CENTER:
                     //forward
@@ -168,13 +186,13 @@ public class RedLeftCV extends LinearOpMode {
                     prbot.drivetrain.pointTurnLeft();
                     sleep(wait);
                     //backward
-                    prbot.drivetrain.backward(20);
+                    prbot.drivetrain.forward(18.7);
                     sleep(wait);
                     //turn
                     prbot.drivetrain.pointTurnLeft();
                     sleep(wait);
                     // forward
-                    prbot.drivetrain.forward(3);
+                    prbot.drivetrain.forward(2);
                     sleep(wait);
 
                     //drop lift
@@ -190,15 +208,33 @@ public class RedLeftCV extends LinearOpMode {
                     prbot.lift.updateLevel();
                     sleep(wait);
 
-                    prbot.drivetrain.backward(3);
+                    prbot.drivetrain.backward(10.7);
                     sleep(wait);
 
+                    prbot.drivetrain.pointTurn(Constants.Status.RIGHT, 11.6);
+                    sleep(wait);
+
+                    prbot.drivetrain.backward(48);
+                    sleep(wait);
+
+                    prbot.drivetrain.setPower(.1);
+                    prbot.drivetrain.backward(1);
+                    prbot.drivetrain.setPower(.4);
+
+                    prbot.carousel.leftSpin(.5);
+                    sleep(3500);
+                    prbot.carousel.stopSpin();
+
+                    //forward
+                    prbot.drivetrain.forward(2);
+                    //turn right
                     prbot.drivetrain.pointTurnLeft();
                     sleep(wait);
+                    //forward
+                    prbot.drivetrain.forward(16);
+                    //stop
+                    prbot.drivetrain.stop();
 
-                    prbot.drivetrain.setPower(.9);
-                    prbot.drivetrain.backward(60);
-                    sleep(wait);
                     break;
                 case RIGHT:
                     //forward
@@ -208,7 +244,7 @@ public class RedLeftCV extends LinearOpMode {
                     prbot.drivetrain.pointTurnLeft();
                     sleep(wait);
                     //backward
-                    prbot.drivetrain.backward(20);
+                    prbot.drivetrain.forward(18.7);
                     sleep(wait);
                     //turn
                     prbot.drivetrain.pointTurnLeft();
@@ -230,16 +266,32 @@ public class RedLeftCV extends LinearOpMode {
                     prbot.lift.updateLevel();
                     sleep(wait);
 
-                    prbot.drivetrain.backward(4);
+                    prbot.drivetrain.backward(12);
                     sleep(wait);
 
+                    prbot.drivetrain.pointTurn(Constants.Status.RIGHT, 11.65);
+                    sleep(wait);
+
+                    prbot.drivetrain.backward(48);
+                    sleep(wait);
+
+                    prbot.drivetrain.setPower(.1);
+                    prbot.drivetrain.backward(1);
+                    prbot.drivetrain.setPower(.4);
+
+                    prbot.carousel.leftSpin(.5);
+                    sleep(3500);
+                    prbot.carousel.stopSpin();
+
+                    //forward
+                    prbot.drivetrain.forward(2);
+                    //turn right
                     prbot.drivetrain.pointTurnLeft();
                     sleep(wait);
-
-                    prbot.drivetrain.setPower(.9);
-                    prbot.drivetrain.backward(60);
-                    sleep(wait);
-                    break;
+                    //forward
+                    prbot.drivetrain.forward(16);
+                    //stop
+                    prbot.drivetrain.stop();
             }
 
             //reminder to use the KNO3 auto transitioner once this code is working

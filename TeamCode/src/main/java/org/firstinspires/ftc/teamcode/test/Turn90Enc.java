@@ -13,7 +13,6 @@ public class Turn90Enc extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        zoom.init(hardwareMap, telemetry);
         zoom.drivetrain.setPower(.5);
         zoom.drivetrain.setTelemetry(telemetry);
         zoom.drivetrain.useBrake(true);

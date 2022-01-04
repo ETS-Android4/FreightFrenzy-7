@@ -276,7 +276,7 @@ public class Drivetrain implements Constants {
 
         while (Math.abs(error) > 2) {
             double motorPower = (error > 0 ? -0.4 : 0.4 );
-            setBase(-motorPower, motorPower, -motorPower, motorPower);
+            setBase(motorPower, -motorPower, motorPower, -motorPower);
             error = degrees - imu.getAngle();
             telem.addData("error", error);
             telem.update();
@@ -326,12 +326,12 @@ public class Drivetrain implements Constants {
         double correction = pid.output(targetAngle, imu.getFirstAngleNum());
 
         // May need to calculate slope, rise over run to stop it from oscillating
-        while (Math.abs(targetAngle - imu.getFirstAngleNum()) > 0.5) {
-            setBase(correction, -correction, correction, -correction);
-            correction = pid.output(targetAngle, imu.getFirstAngleNum());
-            telem.addData("y", correction);
-            telem.update();
-        }
+//        while (Math.abs(targetAngle - imu.getFirstAngleNum()) > 0.5) {
+//            setBase(correction, -correction, correction, -correction);
+//            correction = pid.output(targetAngle, imu.getFirstAngleNum());
+//            telem.addData("y", correction);
+//            telem.update();
+//        }
 
         stop();
     }

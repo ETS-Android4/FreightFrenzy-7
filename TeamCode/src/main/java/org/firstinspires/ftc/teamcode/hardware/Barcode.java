@@ -36,7 +36,7 @@ public class Barcode extends OpenCvPipeline implements Constants {
 
     private Telemetry telemetry;
     private Constants.StartPos startPos;
-    private int pos;
+    private int pos = 1;
     private int side;
 
     /*
@@ -49,56 +49,25 @@ public class Barcode extends OpenCvPipeline implements Constants {
         RIGHT
     }
 
+    final int REGION_HEIGHT;
+    final int REGION_WIDTH;
+
+    final Point REGION1_TOPLEFT_ANCHOR_POINT;
+    final Point REGION2_TOPLEFT_ANCHOR_POINT;
+    final Point REGION3_TOPLEFT_ANCHOR_POINT;
+
+    Point region1_pointA;
+    Point region1_pointB;
+    Point region2_pointA;
+    Point region2_pointB;
+    Point region3_pointA;
+    Point region3_pointB;
+
     /*
      * Some color constants
      */
     public final Scalar BLUE = new Scalar(0, 0, 255);
     public final Scalar GREEN = new Scalar(0, 255, 0);
-
-    /*
-     * The core values which define the location and size of the sample regions
-     */
-    final Point REGION1_TOPLEFT_ANCHOR_POINT = new Point(barcodeCoordinate[pos][0], barcodeCoordinate[pos][1]);
-    final Point REGION2_TOPLEFT_ANCHOR_POINT = new Point(barcodeCoordinate[pos][2], barcodeCoordinate[pos][3]);
-    final Point REGION3_TOPLEFT_ANCHOR_POINT = new Point(barcodeCoordinate[pos][4], barcodeCoordinate[pos][5]);
-    static final int REGION_WIDTH = 20;
-    static final int REGION_HEIGHT = 20;
-
-    /*
-     * Points which actually define the sample region rectangles, derived from above values
-     *
-     * Example of how points A and B work to define a rectangle
-     *
-     *   ------------------------------------
-     *   | (0,0) Point A                    |
-     *   |                                  |
-     *   |                                  |
-     *   |                                  |
-     *   |                                  |
-     *   |                                  |
-     *   |                                  |
-     *   |                  Point B (70,50) |
-     *   ------------------------------------
-     *
-     */
-    Point region1_pointA = new Point(
-            REGION1_TOPLEFT_ANCHOR_POINT.x,
-            REGION1_TOPLEFT_ANCHOR_POINT.y);
-    Point region1_pointB = new Point(
-            REGION1_TOPLEFT_ANCHOR_POINT.x + REGION_WIDTH,
-            REGION1_TOPLEFT_ANCHOR_POINT.y + REGION_HEIGHT);
-    Point region2_pointA = new Point(
-            REGION2_TOPLEFT_ANCHOR_POINT.x,
-            REGION2_TOPLEFT_ANCHOR_POINT.y);
-    Point region2_pointB = new Point(
-            REGION2_TOPLEFT_ANCHOR_POINT.x + REGION_WIDTH,
-            REGION2_TOPLEFT_ANCHOR_POINT.y + REGION_HEIGHT);
-    Point region3_pointA = new Point(
-            REGION3_TOPLEFT_ANCHOR_POINT.x,
-            REGION3_TOPLEFT_ANCHOR_POINT.y);
-    Point region3_pointB = new Point(
-            REGION3_TOPLEFT_ANCHOR_POINT.x + REGION_WIDTH,
-            REGION3_TOPLEFT_ANCHOR_POINT.y + REGION_HEIGHT);
 
     /*
      * Working variables
@@ -134,6 +103,50 @@ public class Barcode extends OpenCvPipeline implements Constants {
                 break;
         }
 
+        /*
+         * The core values which define the location and size of the sample regions
+         */
+        REGION1_TOPLEFT_ANCHOR_POINT = new Point(barcodeCoordinate[pos][0], barcodeCoordinate[pos][1]);
+        REGION2_TOPLEFT_ANCHOR_POINT = new Point(barcodeCoordinate[pos][2], barcodeCoordinate[pos][3]);
+        REGION3_TOPLEFT_ANCHOR_POINT = new Point(barcodeCoordinate[pos][4], barcodeCoordinate[pos][5]);
+        REGION_WIDTH = 20;
+        REGION_HEIGHT = 20;
+
+        /*
+         * Points which actually define the sample region rectangles, derived from above values
+         *
+         * Example of how points A and B work to define a rectangle
+         *
+         *   ------------------------------------
+         *   | (0,0) Point A                    |
+         *   |                                  |
+         *   |                                  |
+         *   |                                  |
+         *   |                                  |
+         *   |                                  |
+         *   |                                  |
+         *   |                  Point B (70,50) |
+         *   ------------------------------------
+         *
+         */
+        region1_pointA = new Point(
+                REGION1_TOPLEFT_ANCHOR_POINT.x,
+                REGION1_TOPLEFT_ANCHOR_POINT.y);
+        region1_pointB = new Point(
+                REGION1_TOPLEFT_ANCHOR_POINT.x + REGION_WIDTH,
+                REGION1_TOPLEFT_ANCHOR_POINT.y + REGION_HEIGHT);
+        region2_pointA = new Point(
+                REGION2_TOPLEFT_ANCHOR_POINT.x,
+                REGION2_TOPLEFT_ANCHOR_POINT.y);
+        region2_pointB = new Point(
+                REGION2_TOPLEFT_ANCHOR_POINT.x + REGION_WIDTH,
+                REGION2_TOPLEFT_ANCHOR_POINT.y + REGION_HEIGHT);
+        region3_pointA = new Point(
+                REGION3_TOPLEFT_ANCHOR_POINT.x,
+                REGION3_TOPLEFT_ANCHOR_POINT.y);
+        region3_pointB = new Point(
+                REGION3_TOPLEFT_ANCHOR_POINT.x + REGION_WIDTH,
+                REGION3_TOPLEFT_ANCHOR_POINT.y + REGION_HEIGHT);
 
     }
 

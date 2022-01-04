@@ -205,13 +205,13 @@ public class BlueLeftCV extends LinearOpMode {
                     prbot.drivetrain.backward(12);
                     sleep(wait);
                     //turn
-                    prbot.drivetrain.pointTurnLeft();
+                    prbot.drivetrain.pointTurnRight();
                     sleep(wait);
                     //backward
                     prbot.drivetrain.backward(20);
                     sleep(wait);
                     //turn
-                    prbot.drivetrain.pointTurnLeft();
+                    prbot.drivetrain.pointTurnRight();
                     sleep(wait);
                     // forward
                     prbot.drivetrain.forward(4);
@@ -233,7 +233,7 @@ public class BlueLeftCV extends LinearOpMode {
                     prbot.drivetrain.backward(4);
                     sleep(wait);
 
-                    prbot.drivetrain.pointTurnLeft();
+                    prbot.drivetrain.pointTurnRight();
                     sleep(wait);
 
                     prbot.drivetrain.setPower(.9);

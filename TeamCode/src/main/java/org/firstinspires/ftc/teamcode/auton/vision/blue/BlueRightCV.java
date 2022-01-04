@@ -121,14 +121,177 @@ public class BlueRightCV extends LinearOpMode {
 
             switch (pipeline.getAnalysis()) {
                 case LEFT:
+                    //forward
+                    prbot.drivetrain.backward(12);
+                    sleep(wait);
+                    //turn
+                    prbot.drivetrain.pointTurnLeft();
+                    sleep(wait);
+                    //backward
+                    prbot.drivetrain.forward(18.7);
+                    sleep(wait);
+                    //turn
+                    prbot.drivetrain.pointTurnLeft();
+                    sleep(wait);
+                    // forward
+                    prbot.drivetrain.forward(2.5);
+                    sleep(wait);
+
+                    //drop lift
+                    //prbot.lift.setLevel(0);
+                    //prbot.lift.updateLevel();
+                    //sleep(wait);
+
+                    prbot.outtake.backPosition();
+                    sleep(2000);
+
+                    prbot.outtake.neutralPosition();
+                    //prbot.lift.setLevel(0);
+                    //prbot.lift.updateLevel();
+                    sleep(wait);
+
+                    prbot.drivetrain.backward(10.5);
+                    sleep(wait);
+
+                    prbot.drivetrain.pointTurn(Constants.Status.RIGHT, 11.65);
+                    sleep(wait);
+
+                    prbot.drivetrain.backward(48);
+                    sleep(wait);
+
+                    prbot.drivetrain.setPower(.1);
+                    prbot.drivetrain.backward(1);
+                    prbot.drivetrain.setPower(.4);
+
+                    prbot.carousel.leftSpin(.5);
+                    sleep(3500);
+                    prbot.carousel.stopSpin();
+
+                    //forward
+                    prbot.drivetrain.forward(2);
+                    //turn right
+                    prbot.drivetrain.pointTurnLeft();
+                    sleep(wait);
+                    //forward
+                    prbot.drivetrain.forward(16);
+                    //stop
+                    prbot.drivetrain.stop();
 
                     break;
                 case CENTER:
+                    //forward
+                    prbot.drivetrain.backward(12);
+                    sleep(wait);
+                    //turn
+                    prbot.drivetrain.pointTurnLeft();
+                    sleep(wait);
+                    //backward
+                    prbot.drivetrain.forward(18.7);
+                    sleep(wait);
+                    //turn
+                    prbot.drivetrain.pointTurnLeft();
+                    sleep(wait);
+                    // forward
+                    prbot.drivetrain.forward(2);
+                    sleep(wait);
+
+                    //drop lift
+                    prbot.lift.setLevel(1);
+                    prbot.lift.updateLevel();
+                    sleep(wait);
+
+                    prbot.outtake.backPosition();
+                    sleep(2000);
+
+                    prbot.outtake.neutralPosition();
+                    prbot.lift.setLevel(0);
+                    prbot.lift.updateLevel();
+                    sleep(wait);
+
+                    prbot.drivetrain.backward(10.7);
+                    sleep(wait);
+
+                    prbot.drivetrain.pointTurn(Constants.Status.RIGHT, 11.6);
+                    sleep(wait);
+
+                    prbot.drivetrain.backward(48);
+                    sleep(wait);
+
+                    prbot.drivetrain.setPower(.1);
+                    prbot.drivetrain.backward(1);
+                    prbot.drivetrain.setPower(.4);
+
+                    prbot.carousel.leftSpin(.5);
+                    sleep(3500);
+                    prbot.carousel.stopSpin();
+
+                    //forward
+                    prbot.drivetrain.forward(2);
+                    //turn right
+                    prbot.drivetrain.pointTurnLeft();
+                    sleep(wait);
+                    //forward
+                    prbot.drivetrain.forward(16);
+                    //stop
+                    prbot.drivetrain.stop();
 
                     break;
                 case RIGHT:
+                    //forward
+                    prbot.drivetrain.backward(12);
+                    sleep(wait);
+                    //turn
+                    prbot.drivetrain.pointTurnLeft();
+                    sleep(wait);
+                    //backward
+                    prbot.drivetrain.forward(18.7);
+                    sleep(wait);
+                    //turn
+                    prbot.drivetrain.pointTurnLeft();
+                    sleep(wait);
+                    // forward
+                    prbot.drivetrain.forward(4);
+                    sleep(wait);
 
-                    break;
+                    //drop lift
+                    prbot.lift.setLevel(2);
+                    prbot.lift.updateLevel();
+                    sleep(wait);
+
+                    prbot.outtake.backPosition();
+                    sleep(2000);
+
+                    prbot.outtake.neutralPosition();
+                    prbot.lift.setLevel(0);
+                    prbot.lift.updateLevel();
+                    sleep(wait);
+
+                    prbot.drivetrain.backward(12);
+                    sleep(wait);
+
+                    prbot.drivetrain.pointTurn(Constants.Status.RIGHT, 11.65);
+                    sleep(wait);
+
+                    prbot.drivetrain.backward(48);
+                    sleep(wait);
+
+                    prbot.drivetrain.setPower(.1);
+                    prbot.drivetrain.backward(1);
+                    prbot.drivetrain.setPower(.4);
+
+                    prbot.carousel.leftSpin(.5);
+                    sleep(3500);
+                    prbot.carousel.stopSpin();
+
+                    //forward
+                    prbot.drivetrain.forward(2);
+                    //turn right
+                    prbot.drivetrain.pointTurnLeft();
+                    sleep(wait);
+                    //forward
+                    prbot.drivetrain.forward(16);
+                    //stop
+                    prbot.drivetrain.stop();
             }
 
             //reminder to use the KNO3 auto transitioner once this code is working
