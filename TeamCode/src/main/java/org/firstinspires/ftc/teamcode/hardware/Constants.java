@@ -8,10 +8,6 @@ public interface Constants {
     double neutralPos = 90 / 300.0;
     double backPos = 210 / 300.0;
 
-    double bowlOne = 10;
-    double bowlTwo = 20;
-    double bowlThree = 30;
-
     // 96 mm wheels = 537.6/((120 / 25.4)*Math.PI)
     // 120 mm wheels = (537.6/((120 / 25.4)*Math.PI)) * (5.0/6.0)
     //double TICKS_PER_IN = 537.6/((96 / 25.4)*Math.PI);
@@ -35,6 +31,41 @@ public interface Constants {
     int LEVEL_FOUR = 0;
     int LEVEL_FIVE = 0;
 
+    /*
+        barcode[0]: redLeft
+        barcode[1]: redRight
+        barcode[2]: blueLeft
+        barcode[3]: blueRight
+        barcode[i][0] / barcode[i][1]: BarcodePosition.LEFT coordinates x/y
+        barcode[i][2] / barcode[i][3]: BarcodePosition.CENTER coordinates x/y
+        barcode[i][4] / barcode[i][5]: BarcodePosition.RIGHT coordinates x/y
+    */
+
+    int[][] barcodeCoordinate = {
+            {
+               0, 140,
+               10, 140,
+               20, 140
+            }, {
+                92, 140,
+                195, 140,
+                290, 140
+            }, {
+                17, 140,
+                105, 140,
+                202, 140
+            }, {
+                0, 140,
+                10, 140,
+                20, 140
+            }
+    };
+
+    enum StartPos {
+        REDLEFT, REDRIGHT,
+        BLUELEFT, BLUERIGHT
+    }
+
     enum Status {
         FORWARDS, BACKWARDS,
         UP, DOWN,
@@ -44,6 +75,6 @@ public interface Constants {
         NORTH, SOUTH, EAST, WEST,
         RED, GREEN, BLUE,
         DARK, LIGHT,
-        NORMAL, AUTO;
+        NORMAL, AUTO, SLOW, FAST;
     }
 }

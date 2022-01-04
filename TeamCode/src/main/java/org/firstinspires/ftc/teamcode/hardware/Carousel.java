@@ -13,6 +13,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 public class Carousel {
 
    private DcMotor leftCarousel, rightCarousel;
+   double power;
 
    public Carousel(DcMotor Lc, DcMotor Rc) {
        this.leftCarousel = Lc ;

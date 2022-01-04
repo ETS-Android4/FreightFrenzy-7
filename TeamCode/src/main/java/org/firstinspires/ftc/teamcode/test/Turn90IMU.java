@@ -5,12 +5,11 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.hardware.Constants;
 import org.firstinspires.ftc.teamcode.hardware.Robot;
-import org.firstinspires.ftc.teamcode.hardware.Robot2;
 
 @Autonomous (name = "Turn90IMU", group = "PRTest")
 public class Turn90IMU extends LinearOpMode {
 
-    Robot2 prbot = new Robot2();
+    Robot prbot = new Robot();
 
     @Override
     public void runOpMode() throws InterruptedException {

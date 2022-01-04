@@ -3,12 +3,12 @@ package org.firstinspires.ftc.teamcode.test;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.hardware.Robot2;
+import org.firstinspires.ftc.teamcode.hardware.Robot;
 
 @Autonomous (name = "TestIMU", group = "PRTest")
 public class TestIMU extends LinearOpMode {
 
-    Robot2 prbot = new Robot2();
+    Robot prbot = new Robot();
     @Override
     public void runOpMode() throws InterruptedException {
         prbot.init(hardwareMap, telemetry);

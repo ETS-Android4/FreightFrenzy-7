@@ -4,12 +4,12 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.hardware.Constants;
-import org.firstinspires.ftc.teamcode.hardware.Robot2;
+import org.firstinspires.ftc.teamcode.hardware.Robot;
 
 @Autonomous(name = "BlueRight", group = "PRTest")
 public class BlueRight extends LinearOpMode {
 
-    Robot2 zoom = new Robot2();
+    Robot zoom = new Robot();
 
     @Override
     public void runOpMode() throws InterruptedException {

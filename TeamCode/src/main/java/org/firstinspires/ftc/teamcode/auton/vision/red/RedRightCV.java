@@ -22,30 +22,23 @@
 package org.firstinspires.ftc.teamcode.auton.vision.red;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 
-import org.firstinspires.ftc.teamcode.hardware.Robot2;
-import org.firstinspires.ftc.teamcode.test.barcode.TestBarcodeRedRightPipeline;
-import org.opencv.core.Mat;
-import org.opencv.core.Point;
-import org.opencv.core.Scalar;
-import org.opencv.imgproc.Imgproc;
+import org.firstinspires.ftc.teamcode.hardware.Barcode;
+import org.firstinspires.ftc.teamcode.hardware.Constants;
+import org.firstinspires.ftc.teamcode.hardware.Robot;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
-import org.openftc.easyopencv.OpenCvInternalCamera;
-import org.openftc.easyopencv.OpenCvPipeline;
 
 @Autonomous (name = "RedRightCV", group = "Barcode")
 public class RedRightCV extends LinearOpMode {
-    Robot2 prbot = new Robot2();
+    Robot prbot = new Robot();
     OpenCvCamera webcam;
 
-    TestBarcodeRedRightPipeline pipeline = new TestBarcodeRedRightPipeline(telemetry);
+    Barcode pipeline = new Barcode(telemetry, Constants.StartPos.REDRIGHT);
 
     int wait = 500;
 
@@ -53,17 +46,7 @@ public class RedRightCV extends LinearOpMode {
     public void runOpMode() {
         //initialize robot hardware
         prbot.init(hardwareMap, telemetry);
-
-        prbot.drivetrain.setPower(.4);
-        prbot.drivetrain.setTelemetry(telemetry);
-        prbot.drivetrain.useBrake(true);
-        prbot.outtake.neutralPosition();
-
-        prbot.lift.init();
-        prbot.lift.setTelemetry(telemetry);
-        prbot.lift.useEncoders(true);
-        prbot.lift.useBrake(true);
-        prbot.lift.setMaxPower(.3);
+        prbot.setMode(Constants.Status.AUTO);
 
         //FOR THE WEBCAM
         /*
@@ -130,19 +113,7 @@ public class RedRightCV extends LinearOpMode {
 
         //Manages Telemetry and stopping the stream
         while (opModeIsActive()) {
-            /*
-             * Send some stats to the telemetry
-//             */
-//            telemetry.addData("Frame Count", webcam.getFrameCount());
-//            telemetry.addData("FPS", String.format("%.2f", webcam.getFps()));
-//            telemetry.addData("Total frame time ms", webcam.getTotalFrameTimeMs());
-//            telemetry.addData("Pipeline time ms", webcam.getPipelineTimeMs());
-//            telemetry.addData("Overhead time ms", webcam.getOverheadTimeMs());
-//            telemetry.addData("Theoretical max FPS", webcam.getCurrentPipelineMaxFps());
 
-//            telemetry.addData("avg1", pipeline.getAvg1());
-//            telemetry.addData("avg2", pipeline.getAvg2());
-//            telemetry.addData("avg3", pipeline.getAvg3());
             sleep(2000);
             telemetry.addData("Analysis", pipeline.getAnalysis());
             telemetry.update();

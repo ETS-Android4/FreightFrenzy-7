@@ -1,16 +1,16 @@
-package org.firstinspires.ftc.teamcode.auton;
+package org.firstinspires.ftc.teamcode.auton.old;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.hardware.Robot2;
+import org.firstinspires.ftc.teamcode.hardware.Robot;
 
-@Autonomous(name = "BlueRightNaZyia", group = "PRTest")
+@Autonomous(name = "RedleftNaZyia", group = "PRTest")
 @Disabled
-public class BlueRightNaZyia extends LinearOpMode {
+public class RedleftNaZyia extends LinearOpMode {
 
-    Robot2 zoom = new Robot2();
+    Robot zoom = new Robot();
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -21,10 +21,10 @@ public class BlueRightNaZyia extends LinearOpMode {
         while (opModeIsActive()) {
             // forward
             zoom.drivetrain.forward(22.5);
-            //turn right
+            //turn left
             zoom.drivetrain.stop();
             sleep(500);
-            zoom.drivetrain.pointTurnRight();
+            zoom.drivetrain.pointTurnLeft();
            //stop
             zoom.drivetrain.stop();
             sleep(500);

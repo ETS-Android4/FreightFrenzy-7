@@ -4,20 +4,20 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.hardware.Lift;
-import org.firstinspires.ftc.teamcode.hardware.Outtake2;
+import org.firstinspires.ftc.teamcode.hardware.Outtake;
 
 @TeleOp(name = "TestLiftEnc", group = "PRTest")
 public class TestLift3 extends LinearOpMode {
 
     Lift lift;
-    Outtake2 outtake;
+    Outtake outtake;
 
     boolean lbState, lbCurr, lbPrev, rbState, rbCurr, rbPrev;
 
     @Override
     public void runOpMode() throws InterruptedException {
         lift = new Lift(hardwareMap.dcMotor.get("lift"));
-        outtake = new Outtake2(hardwareMap.servo.get("outtake"));
+        outtake = new Outtake(hardwareMap.servo.get("outtake"));
         lift.init();
         lift.setTelemetry(telemetry);
         lift.useEncoders(true);

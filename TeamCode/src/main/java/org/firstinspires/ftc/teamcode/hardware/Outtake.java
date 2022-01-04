@@ -1,22 +1,27 @@
 package org.firstinspires.ftc.teamcode.hardware;
 
-import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.Servo;
 
-/**
- * Date: 10/20/21
- * Author:Na Zyia Nelson
- * Subsystem: Outtake
- */
+public class Outtake implements Constants {
+    private Servo outtake2;
 
-public class Outtake {
-    private CRServo outtake;
+    public Outtake(Servo s) {this.outtake2 = s;}
 
-            public Outtake(CRServo o) {this.outtake = o;}
+    public void neutralPosition() {
+            outtake2.setPosition(neutralPos);
+    }
 
-            // Move up
-            public void moveForward(double power) {outtake.setPower(power);}
-            //Move down
-            public void  moveBack(double power)  {outtake.setPower(-power);}
-            //stop
-            public void  stop() {outtake.setPower(0);}
+    public void backPosition() {
+        outtake2.setPosition(backPos);
+    }
+
+    public void forwardPosition() {
+        outtake2.setPosition(forwardPos);
+    }
+
+    public void setPos(double pos) { outtake2.setPosition(pos); }
+
+    public Servo getOuttake2() {
+        return outtake2;
+    }
 }

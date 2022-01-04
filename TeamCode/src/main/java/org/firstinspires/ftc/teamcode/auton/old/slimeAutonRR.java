@@ -1,12 +1,14 @@
-package org.firstinspires.ftc.teamcode.auton;
+package org.firstinspires.ftc.teamcode.auton.old;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.hardware.Robot2;
+import org.firstinspires.ftc.teamcode.hardware.Robot;
 
+@Disabled
 public class slimeAutonRR extends LinearOpMode {
 
-Robot2 robot = new Robot2();
+Robot robot = new Robot();
 
     @Override
     public void runOpMode() throws InterruptedException {

@@ -3,12 +3,12 @@ package org.firstinspires.ftc.teamcode.auton.working.red;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.hardware.Robot2;
+import org.firstinspires.ftc.teamcode.hardware.Robot;
 
 @Autonomous(name = "RedRight", group = "PRTest")
 public class RedRight extends LinearOpMode {
 
-Robot2 robot = new Robot2();
+Robot robot = new Robot();
 
     @Override
     public void runOpMode() throws InterruptedException {

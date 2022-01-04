@@ -3,12 +3,12 @@ package org.firstinspires.ftc.teamcode.auton.working.red;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.hardware.Robot2;
+import org.firstinspires.ftc.teamcode.hardware.Robot;
 
 @Autonomous(name = "RedHubLeft", group = "PRTEST")
 public class RedHubLeft extends LinearOpMode {
 
-   Robot2 zoom = new Robot2();
+   Robot zoom = new Robot();
     @Override
 
 

@@ -1,16 +1,15 @@
-package org.firstinspires.ftc.teamcode.auton;
+package org.firstinspires.ftc.teamcode.test;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.hardware.Robot2;
+import org.firstinspires.ftc.teamcode.hardware.Robot;
 
 @Autonomous(name = "Turn90", group = "PRTest")
 //@Disabled
-public class Turn90 extends LinearOpMode {
+public class Turn90Enc extends LinearOpMode {
 
-    Robot2 zoom = new Robot2();
+    Robot zoom = new Robot();
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -18,11 +17,15 @@ public class Turn90 extends LinearOpMode {
         zoom.drivetrain.setPower(.5);
         zoom.drivetrain.setTelemetry(telemetry);
         zoom.drivetrain.useBrake(true);
+        telemetry.addData("Start Angle", zoom.imu.getFirstAngleNum());
+        telemetry.update();
         waitForStart();
         while (opModeIsActive()) {
             zoom.drivetrain.pointTurnLeft();
             sleep(100);
             zoom.drivetrain.stop();
+            telemetry.addData("End Angle", zoom.imu.getFirstAngleNum());
+            telemetry.update();
             break;
         }
     }
