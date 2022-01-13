@@ -38,4 +38,12 @@ public class Carousel {
        leftCarousel.setPower(c);
        rightCarousel.setPower(c);
    }
+
+   public DcMotor getLeftCarousel() {
+       return leftCarousel;
+   }
+
+   public DcMotor getRightCarousel() {
+       return rightCarousel;
+   }
 }

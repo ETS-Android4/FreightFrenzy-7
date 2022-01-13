@@ -109,8 +109,8 @@ public class Barcode extends OpenCvPipeline implements Constants {
         REGION1_TOPLEFT_ANCHOR_POINT = new Point(barcodeCoordinate[pos][0], barcodeCoordinate[pos][1]);
         REGION2_TOPLEFT_ANCHOR_POINT = new Point(barcodeCoordinate[pos][2], barcodeCoordinate[pos][3]);
         REGION3_TOPLEFT_ANCHOR_POINT = new Point(barcodeCoordinate[pos][4], barcodeCoordinate[pos][5]);
-        REGION_WIDTH = 20;
-        REGION_HEIGHT = 20;
+        REGION_WIDTH = 25;
+        REGION_HEIGHT = 15;
 
         /*
          * Points which actually define the sample region rectangles, derived from above values

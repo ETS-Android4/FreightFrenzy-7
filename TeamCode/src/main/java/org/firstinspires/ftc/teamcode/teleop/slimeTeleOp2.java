@@ -111,13 +111,13 @@ public class slimeTeleOp2 extends LinearOpMode {
 //        Carousel
 
             if (gamepad1.right_bumper) {
-                zoom.carousel.rightSpin(1);
+                zoom.carousel.rightSpin(0.9);
             } else {
                 zoom.carousel.stopSpin();
             }
 
             if (gamepad1.left_bumper) {
-                zoom.carousel.leftSpin(1);
+                zoom.carousel.leftSpin(0.9);
             } else {
                 zoom.carousel.stopSpin();   
             }
@@ -204,13 +204,15 @@ public class slimeTeleOp2 extends LinearOpMode {
             telemetry.addData("outtake forward", "b");
             telemetry.addData("servo pos", servoPos);
             telemetry.addData("manual servo", lBToggle);
-            telemetry.addData("lift 2", "dpad_up");
-            telemetry.addData("lift 1", "dpad_down");
-            telemetry.addData("lift 0", "neutral");
-            telemetry.addData("intake in", "left_trigger");
-            telemetry.addData("intake out", "right_trigger");
-            telemetry.addData("lift level", zoom.lift.getCurrentLevel());
+            //telemetry.addData("lift 2", "dpad_up");
+            //telemetry.addData("lift 1", "dpad_down");
+            //telemetry.addData("lift 0", "neutral");
+            //telemetry.addData("intake in", "left_trigger");
+            //telemetry.addData("intake out", "right_trigger");
+            //telemetry.addData("lift level", zoom.lift.getCurrentLevel());
             telemetry.addData("lift tick", zoom.lift.getCurrentTick());
+            telemetry.addData("left carousel", zoom.carousel.getLeftCarousel().getPower());
+            telemetry.addData("right carousel", zoom.carousel.getRightCarousel().getPower());
             telemetry.update();
         }
     }
