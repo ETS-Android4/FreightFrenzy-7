@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.teleop;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.hardware.Button;
 import org.firstinspires.ftc.teamcode.hardware.Constants;
@@ -13,11 +14,17 @@ public class slimeTeleOp2 extends LinearOpMode {
 
     Robot zoom = new Robot();
 
-    Button x, b, right_trigger, left_bumper;
+    Button x, b, right_trigger, left_bumper, left_bumper_2, right_bumper;
 
     boolean rTToggle, lBToggle;
     int liftEnc;
     double servoPos;
+
+    int encError = 0;
+
+    double startSpin;
+    ElapsedTime time;
+    double spinPower;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -45,10 +52,16 @@ public class slimeTeleOp2 extends LinearOpMode {
         b = new Button();
         right_trigger = new Button();
         left_bumper = new Button();
+        right_bumper = new Button();
+        left_bumper_2 = new Button();
+
+        time = new ElapsedTime();
 
         waitForStart();
 
         zoom.outtake.neutralPosition();
+        time.reset();
+
         while (opModeIsActive()) {
 
 //        Movement
@@ -75,9 +88,9 @@ public class slimeTeleOp2 extends LinearOpMode {
             if (!rTToggle) {
                 if (Math.abs(gamepad1.right_stick_y) > 0.1 || Math.abs(gamepad1.left_stick_y) > 0.1) {
                     zoom.drivetrain.setBase(gamepad1.right_stick_y, gamepad1.left_stick_y, gamepad1.right_stick_y, gamepad1.left_stick_y);
-                } else if (gamepad1.dpad_down) {
-                    zoom.drivetrain.setBase(-1, -1, -1, -1);
                 } else if (gamepad1.dpad_up) {
+                    zoom.drivetrain.setBase(-1, -1, -1, -1);
+                } else if (gamepad1.dpad_down) {
                     zoom.drivetrain.setBase(1, 1, 1, 1);
                 }
                 else {
@@ -110,24 +123,40 @@ public class slimeTeleOp2 extends LinearOpMode {
 
 //        Carousel
 
-            if (gamepad1.right_bumper) {
-                zoom.carousel.rightSpin(0.9);
-            } else {
-                zoom.carousel.stopSpin();
+            right_bumper.previous();
+            right_bumper.setState(gamepad1.right_bumper);
+
+            if (right_bumper.isPressed()) {
+                spinPower = 0.4;
+                startSpin = time.milliseconds();
+                while (time.milliseconds() < startSpin + 1400) {
+                    if (time.milliseconds() % 250 > 150) spinPower *= 1.04;
+                    if (spinPower > 1) spinPower = 1.0;
+                    zoom.carousel.rightSpin(spinPower);
+                }
+                zoom.carousel.rightSpin(0);
             }
 
-            if (gamepad1.left_bumper) {
-                zoom.carousel.leftSpin(0.9);
-            } else {
-                zoom.carousel.stopSpin();   
+            left_bumper.previous();
+            left_bumper.setState(gamepad1.left_bumper);
+
+            if (left_bumper.isPressed()) {
+                spinPower = 0.4;
+                startSpin = time.milliseconds();
+                while (time.milliseconds() < startSpin + 1400) {
+                    if (time.milliseconds() % 250 > 150) spinPower *= 1.04;
+                    if (spinPower > 1) spinPower = 1.0;
+                    zoom.carousel.leftSpin(spinPower);
+                }
+                zoom.carousel.leftSpin(0);
             }
 
 //         Outtake
 
-            left_bumper.previous();
-            left_bumper.setState(gamepad2.left_bumper);
+            left_bumper_2.previous();
+            left_bumper_2.setState(gamepad2.left_bumper);
 
-            if (left_bumper.isPressed()) lBToggle = !lBToggle;
+            if (left_bumper_2.isPressed()) lBToggle = !lBToggle;
 
 
             if (!lBToggle) {
@@ -178,12 +207,16 @@ public class slimeTeleOp2 extends LinearOpMode {
              */
 
             liftEnc = zoom.lift.getLift().getCurrentPosition();
-            if (gamepad2.dpad_up && liftEnc < 1300) {
-                zoom.lift.up(.5);
+            if (gamepad2.dpad_up && liftEnc < 1300 + encError) {
+                zoom.lift.up(.8);
             } else if (gamepad2.dpad_down && liftEnc > 0) {
                 zoom.lift.down(.5);
             } else {
                 zoom.lift.stopLift();
+            }
+
+            if (gamepad2.right_bumper) {
+                encError = liftEnc;
             }
 
             //zoom.lift.updateLevel();
@@ -213,6 +246,7 @@ public class slimeTeleOp2 extends LinearOpMode {
             telemetry.addData("lift tick", zoom.lift.getCurrentTick());
             telemetry.addData("left carousel", zoom.carousel.getLeftCarousel().getPower());
             telemetry.addData("right carousel", zoom.carousel.getRightCarousel().getPower());
+            telemetry.addData("encError", encError);
             telemetry.update();
         }
     }

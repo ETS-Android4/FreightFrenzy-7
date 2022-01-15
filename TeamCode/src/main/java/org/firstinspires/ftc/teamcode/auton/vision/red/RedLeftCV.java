@@ -111,7 +111,6 @@ public class RedLeftCV extends LinearOpMode {
 
         waitForStart();
 
-
         //Manages Telemetry and stopping the stream
         while (opModeIsActive()) {
 

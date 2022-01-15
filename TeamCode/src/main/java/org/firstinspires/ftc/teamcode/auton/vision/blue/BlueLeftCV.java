@@ -124,6 +124,17 @@ public class BlueLeftCV extends LinearOpMode {
                     //forward
                     prbot.drivetrain.backward(10);
                     sleep(wait);
+
+                    // Push shipping element for space
+                    prbot.drivetrain.setPower(.2);
+                    prbot.drivetrain.backward(10);
+                    sleep(wait);
+
+                    prbot.drivetrain.forward(10);
+                    sleep(wait);
+
+                    prbot.drivetrain.setPower(.4);
+
                     //turn
                     prbot.drivetrain.pointTurnRight();
                     sleep(wait);
@@ -168,6 +179,15 @@ public class BlueLeftCV extends LinearOpMode {
                     //forward
                     prbot.drivetrain.backward(10);
                     sleep(wait);
+
+                    // Push shipping element for space
+                    prbot.drivetrain.setPower(.2);
+                    prbot.drivetrain.backward(10);
+                    sleep(wait);
+
+                    prbot.drivetrain.forward(10);
+                    sleep(wait);
+                    prbot.drivetrain.setPower(.4);
                     //turn
                     prbot.drivetrain.pointTurnRight();
                     sleep(wait);

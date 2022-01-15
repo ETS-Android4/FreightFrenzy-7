@@ -111,7 +111,6 @@ public class BlueRightCV extends LinearOpMode {
 
         waitForStart();
 
-
         //Manages Telemetry and stopping the stream
         while (opModeIsActive()) {
 

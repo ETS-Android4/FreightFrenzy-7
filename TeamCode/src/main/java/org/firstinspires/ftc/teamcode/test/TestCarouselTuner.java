@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.test;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.hardware.Button;
 import org.firstinspires.ftc.teamcode.hardware.Carousel;
@@ -18,6 +19,9 @@ public class TestCarouselTuner extends LinearOpMode {
     boolean dpLeftToggle = false;
     boolean dpRightToggle = false;
 
+    ElapsedTime time;
+    double startSpin;
+
     @Override
     public void runOpMode() throws InterruptedException {
         carousel = new Carousel(hardwareMap.dcMotor.get("leftCarousel"), hardwareMap.dcMotor.get("rightCarousel"));
@@ -28,6 +32,8 @@ public class TestCarouselTuner extends LinearOpMode {
         dpad_left = new Button();
         dpad_right = new Button();
 
+        time = new ElapsedTime();
+
         telemetry.addData("Desc", "Carousel Tuner class");
         telemetry.addData("How to Use", "GP1 l/r bumper: decrease/increase power")
                 .addData("GP1 a", "Toggle carousel")
@@ -35,7 +41,7 @@ public class TestCarouselTuner extends LinearOpMode {
         telemetry.update();
         telemetry.setMsTransmissionInterval(20);
         waitForStart();
-
+        time.reset();
         while (opModeIsActive()) {
             left_bumper.previous();
             left_bumper.setState(gamepad1.left_bumper);
@@ -56,27 +62,45 @@ public class TestCarouselTuner extends LinearOpMode {
             dpad_right.previous();
             dpad_right.setState(gamepad1.dpad_right);
 
+            /*
             if (dpad_left.isPressed()) {
                 dpLeftToggle = !dpLeftToggle;
-                power = -0.1;
+                power = -0.4;
             }
 
             if (dpad_right.isPressed()) {
                 dpRightToggle = !dpRightToggle;
-                power = 0.1;
+                power = 0.4;
             }
 
             if (dpLeftToggle) {
-                power *= 1.05;
+                startSpin = time.milliseconds();
+                if (time.milliseconds() % 250 > 150) power *= 1.04;
             } else if (dpRightToggle) {
-                power *= 1.05;
+                if (time.milliseconds() % 250 > 150) power *= 1.04;
+            } else {
+                power = 0;
+            }
+             */
+
+            if (dpad_left.isPressed()) {
+                power = -0.4;
+                startSpin = time.milliseconds();
+                while (time.milliseconds() < startSpin + 1400) {
+                    if (time.milliseconds() % 250 > 150) power *= 1.04;
+                    if (power > 1) power = 1.0;
+                    carousel.spin(power);
+                }
+                carousel.spin(0);
             }
 
+            /*
             if (power > 1) {
                 power = 1.0;
             } else if (power < -1) {
                 power = -1.0;
             }
+
 
             if (a.isPressed()) aToggle = !aToggle;
 
@@ -85,6 +109,7 @@ public class TestCarouselTuner extends LinearOpMode {
             } else {
                 carousel.stopSpin();
             }
+             */
 
             telemetry.addData("power", power);
             telemetry.addData("a toggle", aToggle);

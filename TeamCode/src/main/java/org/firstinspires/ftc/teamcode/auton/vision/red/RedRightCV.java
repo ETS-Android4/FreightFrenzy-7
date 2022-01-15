@@ -122,7 +122,16 @@ public class RedRightCV extends LinearOpMode {
                 case LEFT:
                     //forward
                     prbot.drivetrain.backward(10);
+
+                    // Push shipping element for space
+                    prbot.drivetrain.setPower(.2);
+                    prbot.drivetrain.backward(10);
                     sleep(wait);
+
+                    prbot.drivetrain.forward(10);
+                    sleep(wait);
+                    prbot.drivetrain.setPower(.4);
+
                     //turn
                     prbot.drivetrain.pointTurnLeft();
                     sleep(wait);
@@ -133,7 +142,7 @@ public class RedRightCV extends LinearOpMode {
                     prbot.drivetrain.pointTurnLeft();
                     sleep(wait);
                     // forward
-                    prbot.drivetrain.forward(2);
+                    prbot.drivetrain.forward(4.5);
                     sleep(wait);
 
                     //drop lift
@@ -159,13 +168,24 @@ public class RedRightCV extends LinearOpMode {
                     prbot.drivetrain.forward(66);
                     sleep(wait);
 
-                    prbot.drivetrain.pointTurnRight();
-                    prbot.drivetrain.pointTurnRight();
+                    prbot.drivetrain.setPower(.3);
+                    prbot.drivetrain.pointTurnLeft();
+                    prbot.drivetrain.pointTurnLeft();
                     break;
                 case CENTER:
                     //forward
                     prbot.drivetrain.backward(10);
                     sleep(wait);
+
+                    // Push shipping element for space
+                    prbot.drivetrain.setPower(.2);
+                    prbot.drivetrain.backward(10);
+                    sleep(wait);
+
+                    prbot.drivetrain.forward(10);
+                    sleep(wait);
+                    prbot.drivetrain.setPower(.4);
+
                     //turn
                     prbot.drivetrain.pointTurnLeft();
                     sleep(wait);
@@ -202,13 +222,15 @@ public class RedRightCV extends LinearOpMode {
                     prbot.drivetrain.forward(66);
                     sleep(wait);
 
-                    prbot.drivetrain.pointTurnRight();
-                    prbot.drivetrain.pointTurnRight();
+                    prbot.drivetrain.setPower(.3);
+                    prbot.drivetrain.pointTurnLeft();
+                    prbot.drivetrain.pointTurnLeft();
                     break;
                 case RIGHT:
                     //forward
                     prbot.drivetrain.backward(8);
                     sleep(wait);
+
                     //turn
                     prbot.drivetrain.pointTurnLeft();
                     sleep(wait);
@@ -235,19 +257,27 @@ public class RedRightCV extends LinearOpMode {
                     prbot.lift.updateLevel();
                     sleep(wait);
 
-                    prbot.drivetrain.backward(3);
+                    prbot.drivetrain.backward(4);
                     sleep(wait);
 
-                    prbot.drivetrain.pointTurn(Constants.Status.RIGHT, 10.6);
+                    prbot.drivetrain.pointTurn(Constants.Status.RIGHT, 10.9);
                     sleep(wait);
 
-                    prbot.drivetrain.setPower(.9);
-                    prbot.drivetrain.forward(66);
+                    //prbot.drivetrain.setPower(.9);
+                    //prbot.drivetrain.forward(66);
+                    //sleep(wait);
+
+                    prbot.drivetrain.setPower(.2);
+                    prbot.drivetrain.forward(25);
                     sleep(wait);
 
-                    prbot.drivetrain.pointTurnRight();
-                    prbot.drivetrain.pointTurnRight();
+                    prbot.drivetrain.setPower(.4);
+                    prbot.drivetrain.forward(30);
+                    sleep(wait);
 
+                    prbot.drivetrain.setPower(.3);
+                    prbot.drivetrain.pointTurnLeft();
+                    prbot.drivetrain.pointTurnLeft();
                     break;
             }
 
