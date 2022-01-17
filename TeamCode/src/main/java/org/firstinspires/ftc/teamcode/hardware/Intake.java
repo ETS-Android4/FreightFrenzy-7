@@ -8,9 +8,15 @@ import com.qualcomm.robotcore.hardware.DcMotor;
  * Subsystem : intake
  */
 
-public class  Intake {
+public class Intake {
 
     private DcMotor intake;
+
+    public enum IntakeState {
+        IDLE, FORWARD, BACKWARD
+    }
+
+    private IntakeState intakeState = IntakeState.IDLE;
 
     public Intake(DcMotor i) {
         this.intake = i;
@@ -25,12 +31,20 @@ public class  Intake {
         intake. setPower(-power);
     }
     //stop
-    public void stopIT() {
+    public void stopIt() {
         intake. setPower(0);
+    }
+
+    public void setState(IntakeState state) {
+        intakeState = state;
     }
 
     public DcMotor getIntake() {
         return intake;
+    }
+
+    public IntakeState getState() {
+        return intakeState;
     }
 
 }

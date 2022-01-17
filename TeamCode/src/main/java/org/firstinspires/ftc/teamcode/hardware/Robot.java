@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.hardware;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
@@ -25,6 +26,8 @@ public class Robot implements Constants {
         lift.setTelemetry(telemetry);
         drivetrain.setTelemetry(telemetry);
         drivetrain.setIMU(imu);
+        lift.setTimer(new ElapsedTime());
+        carousel.setTimer(new ElapsedTime());
     }
 
     public void setMode(Status mode) {
@@ -63,6 +66,11 @@ public class Robot implements Constants {
                 lift.setMaxPower(.8);
                 break;
         }
+    }
+
+    public void resetTimers() {
+        lift.getTimer().reset();
+        carousel.getTimer().reset();
     }
 }
 

@@ -99,10 +99,10 @@ public class slimeTeleOp2 extends LinearOpMode {
             } else {
                 if (Math.abs(gamepad1.right_stick_y) > 0.1 || Math.abs(gamepad1.left_stick_y) > 0.1) {
                     zoom.drivetrain.setBase(-gamepad1.right_stick_y, gamepad1.left_stick_y, -gamepad1.right_stick_y, gamepad1.left_stick_y);
-                } else if (gamepad1.dpad_down) {
-                    zoom.drivetrain.backward(1);
                 } else if (gamepad1.dpad_up) {
-                    zoom.drivetrain.forward(1);
+                    zoom.drivetrain.setBase(-1, -1, -1, -1);
+                } else if (gamepad1.dpad_down) {
+                    zoom.drivetrain.setBase(1, 1, 1, 1);
                 }
                 else {
                     zoom.drivetrain.stop();
@@ -118,7 +118,7 @@ public class slimeTeleOp2 extends LinearOpMode {
                 zoom.intake.spinBackward(1);
                 zoom.outtake.forwardPosition();
             } else {
-                zoom.intake.stopIT();
+                zoom.intake.stopIt();
             }
 
 //        Carousel

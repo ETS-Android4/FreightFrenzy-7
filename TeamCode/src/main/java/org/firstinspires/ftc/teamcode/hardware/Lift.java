@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.hardware;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
@@ -18,6 +19,14 @@ public class Lift implements Constants{
    private double power;
    private int tickGoal, currentLevel, currentTick;
    private Telemetry telem;
+
+   public enum LiftState {
+       START, EXTEND, DUMP, RETRACT
+   }
+
+   private LiftState liftState = LiftState.START;
+
+   ElapsedTime liftTimer;
 
    public Lift(DcMotor l) {
         this.lift = l;
@@ -168,6 +177,14 @@ public class Lift implements Constants{
         this.power = power;
     }
 
+    public void setState(LiftState state) {
+        liftState = state;
+    }
+
+    public void setTimer(ElapsedTime time) {
+        liftTimer = time;
+    }
+
     /**
      * @return tickGoal of lift
      */
@@ -184,5 +201,13 @@ public class Lift implements Constants{
 
     public int getCurrentLevel() {
         return currentLevel;
+    }
+
+    public LiftState getState() {
+        return liftState;
+    }
+
+    public ElapsedTime getTimer() {
+        return liftTimer;
     }
 }
