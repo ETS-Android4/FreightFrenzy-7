@@ -31,7 +31,7 @@ public class Carousel implements Constants {
        this.leftCarousel = Lc ;
        this.rightCarousel = Rc ;
 
-       rightCarousel.setDirection(DcMotorSimple.Direction.REVERSE);
+       leftCarousel.setDirection(DcMotorSimple.Direction.REVERSE);
    }
 
    //Different spins depending on what side of the field we are on
@@ -66,10 +66,17 @@ public class Carousel implements Constants {
    public void increaseSpin() {
        if (carouselTimer.milliseconds() % Constants.SPIN_RATE_MS > Constants.SPIN_RATE_MS - 20) power *= Constants.SPIN_RATE_MULT;
        if (power > 1) power = 1;
+       if (power < -1) power = -1;
    }
 
    public void resetSpin() {
-       power = Constants.SPIN_RATE_START;
+       switch (carouselSide) {
+           case RIGHT:
+               power = Constants.SPIN_RATE_START;
+               break;
+           case LEFT:
+               power = -(Constants.SPIN_RATE_START);
+       }
    }
 
    public void setPower(double power) {
@@ -107,6 +114,8 @@ public class Carousel implements Constants {
    public double getPower() {
        return leftCarousel.getPower();
    }
+
+   public double getPowerVar() { return power; }
 
    public Status getSide() {
        return carouselSide;

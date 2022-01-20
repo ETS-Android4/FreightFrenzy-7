@@ -18,6 +18,7 @@ public class slimeTeleOp3 extends LinearOpMode {
     Controller c;
 
     boolean rTToggle = false;
+    boolean lbToggle = false;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -123,7 +124,7 @@ public class slimeTeleOp3 extends LinearOpMode {
                 case SPIN_INCREASE:
                     zoom.carousel.powerSpin();
                     zoom.carousel.increaseSpin();
-                    if (zoom.carousel.getPower() == 1) {
+                    if (Math.abs(zoom.carousel.getPowerVar()) == 1) {
                         zoom.carousel.setState(Carousel.CarouselState.SPIN_MAX);
                     }
                     break;
@@ -137,7 +138,7 @@ public class slimeTeleOp3 extends LinearOpMode {
                     zoom.carousel.setState(Carousel.CarouselState.IDLE);
             }
 
-            if ( (c.left_bumper.isPressed() || c.right_bumper.isPressed() ) && zoom.carousel.getState() != Carousel.CarouselState.IDLE) {
+            if (c.x.isPressed() && zoom.carousel.getState() != Carousel.CarouselState.IDLE) {
                 zoom.carousel.stopSpin();
                 zoom.carousel.setState(Carousel.CarouselState.IDLE);
             }
@@ -214,7 +215,10 @@ public class slimeTeleOp3 extends LinearOpMode {
                 zoom.lift.down(.3);
                 zoom.lift.setState(Lift.LiftState.START);
             }
-            
+
+            if (c.left_bumper.isPressed()) lbToggle = !lbToggle;
+
+
             telemetry.addData("Intake State", zoom.intake.getState().toString());
             telemetry.addData("Lift State", zoom.lift.getState().toString());
             telemetry.addData("Carousel State", zoom.carousel.getState().toString());

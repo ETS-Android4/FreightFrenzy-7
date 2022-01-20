@@ -32,11 +32,11 @@ public interface Constants {
     int LEVEL_FIVE = 0;
 
     int SPIN_TIME = 1400;
-    int DUMP_TIME = 1500;
+    int DUMP_TIME = 1000;
 
     double SPIN_RATE_MS = 250;
     double SPIN_RATE_MULT = 1.05;
-    double SPIN_RATE_START = 0.5;
+    double SPIN_RATE_START = -0.5;
 
     /*
         barcode[0]: redLeft

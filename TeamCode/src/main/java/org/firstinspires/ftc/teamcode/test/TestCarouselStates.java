@@ -33,6 +33,8 @@ public class TestCarouselStates extends LinearOpMode {
         // Gives additional information about inputs
         c = new Controller(gamepad1, gamepad2);
 
+        telemetry.setMsTransmissionInterval(20);
+
         carousel.setTimer(new ElapsedTime());
 
         waitForStart();
@@ -53,7 +55,6 @@ public class TestCarouselStates extends LinearOpMode {
                         carousel.resetSpin();
                         carousel.setState(Carousel.CarouselState.SPIN_INCREASE);
                     }
-
                     break;
                 case SPIN_INCREASE:
                     // Carousel motor setPower based on internal power variable
@@ -61,7 +62,7 @@ public class TestCarouselStates extends LinearOpMode {
                     // Increase internal power variable by multiplier at rate in Constants
                     carousel.increaseSpin();
                     // When max power is reached, carousel is at SPIN_MAX
-                    if (carousel.getPower() == 1) {
+                    if (Math.abs(carousel.getPowerVar()) == 1) {
                         carousel.powerSpin();
                         carousel.setState(Carousel.CarouselState.SPIN_MAX);
                     }
@@ -78,7 +79,7 @@ public class TestCarouselStates extends LinearOpMode {
             }
 
             // If gamepad1.left_bumper, interrupt and reset to IDLE
-            if ( (c.left_bumper.isPressed() || c.right_bumper.isPressed() ) && carousel.getState() != Carousel.CarouselState.IDLE) {
+            if (c.x.isPressed() && carousel.getState() != Carousel.CarouselState.IDLE) {
                 carousel.stopSpin();
                 carousel.setState(Carousel.CarouselState.IDLE);
             }
@@ -95,7 +96,9 @@ public class TestCarouselStates extends LinearOpMode {
                 drivetrain.stop();
             }
 
+            telemetry.addData("Carousel power var", carousel.getPower());
             telemetry.addData("Carousel State", carousel.getState());
+            telemetry.addData("Carousel Timer", carousel.getTimer().milliseconds());
             telemetry.update();
         }
     }

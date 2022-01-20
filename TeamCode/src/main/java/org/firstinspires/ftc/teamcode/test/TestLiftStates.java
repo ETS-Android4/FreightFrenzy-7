@@ -37,6 +37,8 @@ public class TestLiftStates extends LinearOpMode {
         // Gives additional information about inputs
         c = new Controller(gamepad1, gamepad2);
 
+        telemetry.setMsTransmissionInterval(20);
+
         lift.init();
         lift.useEncoders(true);
         lift.useBrake(true);
@@ -143,6 +145,7 @@ public class TestLiftStates extends LinearOpMode {
             }
 
             telemetry.addData("Lift State", lift.getState());
+            telemetry.addData("Outtake Timer", lift.getTimer().milliseconds());
             telemetry.update();
         }
     }
