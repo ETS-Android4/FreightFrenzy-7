@@ -23,6 +23,7 @@ package org.firstinspires.ftc.teamcode.auton.vision.red;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.sun.tools.javac.code.Attribute;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.hardware.Barcode;
@@ -32,7 +33,7 @@ import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 
-@Autonomous (name = "RedLeftCV", group = "Barcode")
+@Autonomous (name = "RedLeftCVFIX", group = "Barcode")
 public class RedLeftCVFix extends LinearOpMode {
 
     Robot prbot = new Robot();
@@ -120,40 +121,62 @@ public class RedLeftCVFix extends LinearOpMode {
             switch (pipeline.getAnalysis()) {
                 case LEFT:
                    //backward
-                    prbot.drivetrain.backward(8);
+                    prbot.drivetrain.backward(6);
+                    sleep(500);
                     //left
-                    prbot.drivetrain.pointTurnLeft();
+                    //prbot.drivetrain.pointTurnLeft();
+                    prbot.drivetrain.pointTurn(Constants.Status.LEFT, 11.9);
+                    sleep(500);
                     // move to carousel
-                    prbot.drivetrain.backward(16);
+                    prbot.drivetrain.backward(26.25);
+                    //prbot.drivetrain.backward(27);
+                    sleep(500);
+                    //
+                    prbot.drivetrain.setPower(.15);
+                    prbot.drivetrain.pointTurn(Constants.Status.RIGHT, 0.5);
+                    sleep(200);
+
                     //spin
-                    prbot.carousel.rightSpin();
+                    prbot.carousel.leftSpin(.5);
+                    sleep(3500);
+                    prbot.carousel.stopSpin();
+                    //back up a bit
+                    prbot.drivetrain.setPower(.4);
+                    prbot.drivetrain.forward(4);
                     //right
-                    prbot.drivetrain.pointTurnRight();
+                    prbot.drivetrain.pointTurn(Constants.Status.RIGHT, 11.8);
+                    sleep(500);
                     //forward (to warehouse)
-                    prbot.drivetrain.backward(20);
+                    prbot.drivetrain.backward(27.2);
+                    sleep(500);
                     //right
-                    prbot.drivetrain.pointTurnRight();
+                    prbot.drivetrain.pointTurnLeft();
+                    sleep(500);
                     //forward
-                    prbot.drivetrain.backward(24);
-                    //liftup
-                    prbot.lift.
-
-                    //drop lift
-                    //prbot.lift.setLevel(0);
-                    //prbot.lift.updateLevel();
-                    //sleep(wait);
-
+                    prbot.drivetrain.forward(22);
+                    sleep(500);
+                    //drop
                     prbot.outtake.backPosition();
-                    sleep(2000);
-
+                    sleep(1000);
+                    //reset
                     prbot.outtake.neutralPosition();
-                    //prbot.lift.setLevel(0);
-                    //prbot.lift.updateLevel();
                     sleep(wait);
-
                     //180 turn
+                    prbot.drivetrain.backward(4);
+                    sleep(200);
+                    prbot.drivetrain.pointTurnRight();
+                    sleep(500);
+                    prbot.drivetrain.pointTurnRight();
+                    sleep(500);
                     //forward (to wall)
+                    prbot.drivetrain.forward(26.5);
+                    sleep(200);
                     //park (?)
+                    prbot.drivetrain.backward(3.25);
+                    prbot.drivetrain.pointTurnRight();
+                    sleep(200);
+                    prbot.drivetrain.backward(9);
+
 
                     break;
                 case CENTER:
