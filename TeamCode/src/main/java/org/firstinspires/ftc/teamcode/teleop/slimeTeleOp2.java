@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.teleop;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -9,10 +10,12 @@ import org.firstinspires.ftc.teamcode.hardware.Constants;
 import org.firstinspires.ftc.teamcode.hardware.Robot;
 import org.firstinspires.ftc.teamcode.hardware.old.RobotOld;
 
+@Disabled
 @TeleOp(name = "PRTELEOP", group = "PRTeleop")
 public class slimeTeleOp2 extends LinearOpMode {
 
     Robot zoom = new Robot();
+    //Jacob is a sussy baka uwu
 
     Button x, b, right_trigger, left_bumper, left_bumper_2, right_bumper;
 

@@ -114,7 +114,7 @@ public class RedRightCV extends LinearOpMode {
         //Manages Telemetry and stopping the stream
         while (opModeIsActive()) {
 
-            sleep(2000);
+            //sleep(2000);
             telemetry.addData("Analysis", pipeline.getAnalysis());
             telemetry.update();
 
@@ -136,13 +136,13 @@ public class RedRightCV extends LinearOpMode {
                     prbot.drivetrain.pointTurnLeft();
                     sleep(wait);
                     //backward
-                    prbot.drivetrain.backward(18);
+                    prbot.drivetrain.backward(17);
                     sleep(wait);
                     //turn
                     prbot.drivetrain.pointTurnLeft();
                     sleep(wait);
                     // forward
-                    prbot.drivetrain.forward(4.5);
+                    prbot.drivetrain.forward(4);
                     sleep(wait);
 
                     //drop lift
@@ -161,15 +161,21 @@ public class RedRightCV extends LinearOpMode {
                     //prbot.drivetrain.backward(2);
                     sleep(wait);
 
-                    prbot.drivetrain.pointTurn(Constants.Status.RIGHT, 10.6);
+                    prbot.drivetrain.pointTurn(Constants.Status.RIGHT, 11);
                     sleep(wait);
 
-                    prbot.drivetrain.setPower(.9);
-                    prbot.drivetrain.forward(66);
+                    prbot.drivetrain.setPower(.2);
+                    prbot.drivetrain.forward(30);
+                    sleep(wait);
+
+                    prbot.drivetrain.setPower(.5);
+                    prbot.drivetrain.forward(30);
                     sleep(wait);
 
                     prbot.drivetrain.setPower(.3);
                     prbot.drivetrain.pointTurnLeft();
+                    sleep(wait);
+
                     prbot.drivetrain.pointTurnLeft();
                     break;
                 case CENTER:
@@ -190,13 +196,13 @@ public class RedRightCV extends LinearOpMode {
                     prbot.drivetrain.pointTurnLeft();
                     sleep(wait);
                     //backward
-                    prbot.drivetrain.backward(18);
+                    prbot.drivetrain.backward(17);
                     sleep(wait);
                     //turn
                     prbot.drivetrain.pointTurnLeft();
                     sleep(wait);
                     // forward
-                    prbot.drivetrain.forward(5);
+                    prbot.drivetrain.forward(3.5);
                     sleep(wait);
 
                     //drop lift
@@ -218,12 +224,18 @@ public class RedRightCV extends LinearOpMode {
                     prbot.drivetrain.pointTurn(Constants.Status.RIGHT, 10.6);
                     sleep(wait);
 
-                    prbot.drivetrain.setPower(.9);
-                    prbot.drivetrain.forward(66);
+                    prbot.drivetrain.setPower(.2);
+                    prbot.drivetrain.forward(30);
+                    sleep(wait);
+
+                    prbot.drivetrain.setPower(.5);
+                    prbot.drivetrain.forward(30);
                     sleep(wait);
 
                     prbot.drivetrain.setPower(.3);
                     prbot.drivetrain.pointTurnLeft();
+                    sleep(wait);
+
                     prbot.drivetrain.pointTurnLeft();
                     break;
                 case RIGHT:
@@ -257,26 +269,24 @@ public class RedRightCV extends LinearOpMode {
                     prbot.lift.updateLevel();
                     sleep(wait);
 
-                    prbot.drivetrain.backward(4);
+                    prbot.drivetrain.backward(5);
                     sleep(wait);
 
-                    prbot.drivetrain.pointTurn(Constants.Status.RIGHT, 10.9);
+                    prbot.drivetrain.pointTurn(Constants.Status.RIGHT, 10.6);
                     sleep(wait);
-
-                    //prbot.drivetrain.setPower(.9);
-                    //prbot.drivetrain.forward(66);
-                    //sleep(wait);
 
                     prbot.drivetrain.setPower(.2);
-                    prbot.drivetrain.forward(25);
+                    prbot.drivetrain.forward(30);
                     sleep(wait);
 
-                    prbot.drivetrain.setPower(.4);
+                    prbot.drivetrain.setPower(.5);
                     prbot.drivetrain.forward(30);
                     sleep(wait);
 
                     prbot.drivetrain.setPower(.3);
                     prbot.drivetrain.pointTurnLeft();
+                    sleep(wait);
+
                     prbot.drivetrain.pointTurnLeft();
                     break;
             }

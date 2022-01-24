@@ -284,7 +284,7 @@ public class BlueRightCV extends LinearOpMode {
                     prbot.drivetrain.backward(1);
                     prbot.drivetrain.setPower(.4);
 
-                    prbot.carousel.leftSpin(.5);
+                    prbot.carousel.rightSpin(.5);
                     sleep(3500);
                     prbot.carousel.stopSpin();
 

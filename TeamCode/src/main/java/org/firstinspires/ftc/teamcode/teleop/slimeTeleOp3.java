@@ -76,59 +76,43 @@ public class slimeTeleOp3 extends LinearOpMode {
 
 //        Intake
 
-            switch (zoom.intake.getState()) {
-                case IDLE:
-                    if (c.left_trigger_2.isPressed() && zoom.lift.getState() == Lift.LiftState.START) {
-                        zoom.intake.spinForward(1);
-                        zoom.intake.setState(Intake.IntakeState.FORWARD);
-                    } else if (c.right_trigger_2.isPressed()) {
-                        zoom.intake.spinBackward(1);
-                        zoom.intake.setState(Intake.IntakeState.BACKWARD);
-                    }
-                    break;
-                case FORWARD:
-                    if (c.left_trigger_2.isPressed()) {
-                        zoom.intake.stopIt();
-                        zoom.intake.setState(Intake.IntakeState.IDLE);
-                    }
-                    if (c.right_trigger_2.isPressed()) {
-                        zoom.intake.spinBackward(1);
-                        zoom.intake.setState(Intake.IntakeState.BACKWARD);
-                    }
-                    break;
-                case BACKWARD:
-                    if (c.right_trigger_2.isPressed()) {
-                        zoom.intake.stopIt();
-                        zoom.intake.setState(Intake.IntakeState.IDLE);
-                    }
-                    if (c.left_trigger_2.isPressed() && zoom.lift.getState() == Lift.LiftState.START) {
-                        zoom.intake.spinForward(1);
-                        zoom.intake.setState(Intake.IntakeState.FORWARD);
-                    }
-                    break;
-                default:
-                    zoom.intake.setState(Intake.IntakeState.IDLE);
+            if (gamepad2.left_trigger > 0.1) {
+                zoom.intake.spinForward(1);
+                //zoom.outtake.backPosition();
+            } else if (gamepad2.right_trigger > 0.1) {
+                zoom.intake.spinBackward(1);
+                //zoom.outtake.forwardPosition();
+            } else {
+                zoom.intake.stopIt();
             }
 
             //        Carousel
 
             switch (zoom.carousel.getState()) {
                 case IDLE:
+                    // If gamepad1.left_bumper pressed, start SPIN_INCREASE and timer
                     if (c.left_bumper.isPressed() || c.right_bumper.isPressed()) {
+                        // Which motor to turn on
                         zoom.carousel.setSide(c.left_bumper.isPressed() ? Constants.Status.LEFT : Constants.Status.RIGHT);
                         zoom.carousel.getTimer().reset();
+                        // Reset spin power to starting spin power
                         zoom.carousel.resetSpin();
                         zoom.carousel.setState(Carousel.CarouselState.SPIN_INCREASE);
                     }
                     break;
                 case SPIN_INCREASE:
+                    // Carousel motor setPower based on internal power variable
                     zoom.carousel.powerSpin();
+                    // Increase internal power variable by multiplier at rate in Constants
                     zoom.carousel.increaseSpin();
+                    // When max power is reached, carousel is at SPIN_MAX
                     if (Math.abs(zoom.carousel.getPowerVar()) == 1) {
+                        zoom.carousel.powerSpin();
                         zoom.carousel.setState(Carousel.CarouselState.SPIN_MAX);
                     }
                     break;
                 case SPIN_MAX:
+                    // When SPIN_TIME has elapsed, carousel becomes IDLE
                     if (zoom.carousel.getTimer().milliseconds() >= Constants.SPIN_TIME) {
                         zoom.carousel.stopSpin();
                         zoom.carousel.setState(Carousel.CarouselState.IDLE);
@@ -138,6 +122,7 @@ public class slimeTeleOp3 extends LinearOpMode {
                     zoom.carousel.setState(Carousel.CarouselState.IDLE);
             }
 
+            // If gamepad1.left_bumper, interrupt and reset to IDLE
             if (c.x.isPressed() && zoom.carousel.getState() != Carousel.CarouselState.IDLE) {
                 zoom.carousel.stopSpin();
                 zoom.carousel.setState(Carousel.CarouselState.IDLE);
@@ -153,6 +138,7 @@ public class slimeTeleOp3 extends LinearOpMode {
                         zoom.outtake.forwardPosition();
                     }
                     if (c.dpad_up_2.isPressed()) {
+                        zoom.intake.setState(Intake.IntakeState.IDLE);
                         zoom.lift.getLift().setTargetPosition(Constants.LEVEL_TWO);
                         zoom.lift.getLift().setMode(DcMotor.RunMode.RUN_TO_POSITION);
                         zoom.lift.up(.8);
@@ -167,22 +153,23 @@ public class slimeTeleOp3 extends LinearOpMode {
                         zoom.lift.getLift().setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                         zoom.lift.stopLift();
 
-                        zoom.outtake.backPosition();
+                        if (!gamepad2.dpad_left) {
+                            zoom.outtake.backPosition();
+                            zoom.lift.getTimer().reset();
 
-                        zoom.lift.getTimer().reset();
-
-                        zoom.lift.setState(Lift.LiftState.DUMP);
+                            zoom.lift.setState(Lift.LiftState.DUMP);
+                        }
                     }
                     break;
                 case DUMP:
-                    if (zoom.lift.getTimer().milliseconds() >= Constants.DUMP_TIME) {
-                        zoom.outtake.neutralPosition();
-                        zoom.lift.getLift().setTargetPosition(Constants.LEVEL_ZERO);
-                        zoom.lift.getLift().setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                        zoom.lift.down(.5);
+                        if (zoom.lift.getTimer().milliseconds() >= Constants.DUMP_TIME) {
+                            zoom.outtake.neutralPosition();
+                            zoom.lift.getLift().setTargetPosition(Constants.LEVEL_ZERO);
+                            zoom.lift.getLift().setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                            zoom.lift.down(.5);
 
-                        zoom.lift.setState(Lift.LiftState.RETRACT);
-                    }
+                            zoom.lift.setState(Lift.LiftState.RETRACT);
+                        }
                     break;
                 case RETRACT:
                     if (!zoom.lift.getLift().isBusy()) {
@@ -218,7 +205,8 @@ public class slimeTeleOp3 extends LinearOpMode {
 
             if (c.left_bumper.isPressed()) lbToggle = !lbToggle;
 
-
+            telemetry.addData("dpad_left 2 held", c.dpad_down_2.isHeld());
+            telemetry.addData("carousel power", zoom.carousel.getPower());
             telemetry.addData("Intake State", zoom.intake.getState().toString());
             telemetry.addData("Lift State", zoom.lift.getState().toString());
             telemetry.addData("Carousel State", zoom.carousel.getState().toString());

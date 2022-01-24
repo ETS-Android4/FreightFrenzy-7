@@ -123,7 +123,6 @@ public class BlueLeftCV extends LinearOpMode {
                 case LEFT:
                     //forward
                     prbot.drivetrain.backward(10);
-                    sleep(wait);
 
                     // Push shipping element for space
                     prbot.drivetrain.setPower(.2);
@@ -132,20 +131,19 @@ public class BlueLeftCV extends LinearOpMode {
 
                     prbot.drivetrain.forward(10);
                     sleep(wait);
-
                     prbot.drivetrain.setPower(.4);
 
                     //turn
                     prbot.drivetrain.pointTurnRight();
                     sleep(wait);
                     //backward
-                    prbot.drivetrain.backward(18);
+                    prbot.drivetrain.backward(17);
                     sleep(wait);
                     //turn
                     prbot.drivetrain.pointTurnRight();
                     sleep(wait);
                     // forward
-                    prbot.drivetrain.forward(2);
+                    prbot.drivetrain.forward(4);
                     sleep(wait);
 
                     //drop lift
@@ -164,16 +162,22 @@ public class BlueLeftCV extends LinearOpMode {
                     //prbot.drivetrain.backward(2);
                     sleep(wait);
 
-                    prbot.drivetrain.pointTurn(Constants.Status.LEFT, 10.6);
+                    prbot.drivetrain.pointTurn(Constants.Status.LEFT, 12);
                     sleep(wait);
 
-                    prbot.drivetrain.setPower(.9);
-                    prbot.drivetrain.forward(66);
-
-                    prbot.drivetrain.pointTurnLeft();
-                    prbot.drivetrain.pointTurnLeft();
-
+                    prbot.drivetrain.setPower(.2);
+                    prbot.drivetrain.forward(30);
                     sleep(wait);
+
+                    prbot.drivetrain.setPower(.5);
+                    prbot.drivetrain.forward(30);
+                    sleep(wait);
+
+                    prbot.drivetrain.setPower(.3);
+                    prbot.drivetrain.pointTurnRight();
+                    sleep(wait);
+
+                    prbot.drivetrain.pointTurnRight();
                     break;
                 case CENTER:
                     //forward
@@ -188,17 +192,18 @@ public class BlueLeftCV extends LinearOpMode {
                     prbot.drivetrain.forward(10);
                     sleep(wait);
                     prbot.drivetrain.setPower(.4);
+
                     //turn
                     prbot.drivetrain.pointTurnRight();
                     sleep(wait);
                     //backward
-                    prbot.drivetrain.backward(18);
+                    prbot.drivetrain.backward(17);
                     sleep(wait);
                     //turn
                     prbot.drivetrain.pointTurnRight();
                     sleep(wait);
                     // forward
-                    prbot.drivetrain.forward(5);
+                    prbot.drivetrain.forward(3.5);
                     sleep(wait);
 
                     //drop lift
@@ -217,21 +222,28 @@ public class BlueLeftCV extends LinearOpMode {
                     //prbot.drivetrain.backward(3);
                     sleep(wait);
 
-                    prbot.drivetrain.pointTurn(Constants.Status.LEFT, 10.6);
+                    prbot.drivetrain.pointTurn(Constants.Status.LEFT, 12);
                     sleep(wait);
 
-                    prbot.drivetrain.setPower(.9);
-                    prbot.drivetrain.forward(66);
+                    prbot.drivetrain.setPower(.2);
+                    prbot.drivetrain.forward(30);
                     sleep(wait);
 
-                    prbot.drivetrain.pointTurnLeft();
-                    prbot.drivetrain.pointTurnLeft();
+                    prbot.drivetrain.setPower(.5);
+                    prbot.drivetrain.forward(30);
+                    sleep(wait);
 
+                    prbot.drivetrain.setPower(.3);
+                    prbot.drivetrain.pointTurnRight();
+                    sleep(wait);
+
+                    prbot.drivetrain.pointTurnRight();
                     break;
                 case RIGHT:
                     //forward
                     prbot.drivetrain.backward(8);
                     sleep(wait);
+
                     //turn
                     prbot.drivetrain.pointTurnRight();
                     sleep(wait);
@@ -258,19 +270,25 @@ public class BlueLeftCV extends LinearOpMode {
                     prbot.lift.updateLevel();
                     sleep(wait);
 
-                    prbot.drivetrain.backward(3);
+                    prbot.drivetrain.backward(5);
                     sleep(wait);
 
-                    prbot.drivetrain.pointTurn(Constants.Status.LEFT, 10.6);
+                    prbot.drivetrain.pointTurn(Constants.Status.LEFT, 12);
                     sleep(wait);
 
-                    prbot.drivetrain.setPower(.9);
-                    prbot.drivetrain.forward(66);
+                    prbot.drivetrain.setPower(.2);
+                    prbot.drivetrain.forward(30);
                     sleep(wait);
 
-                    prbot.drivetrain.pointTurnLeft();
-                    prbot.drivetrain.pointTurnLeft();
+                    prbot.drivetrain.setPower(.5);
+                    prbot.drivetrain.forward(30);
+                    sleep(wait);
 
+                    prbot.drivetrain.setPower(.3);
+                    prbot.drivetrain.pointTurnRight();
+                    sleep(wait);
+
+                    prbot.drivetrain.pointTurnRight();
                     break;
             }
 

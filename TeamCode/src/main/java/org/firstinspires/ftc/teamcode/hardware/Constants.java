@@ -34,8 +34,11 @@ public interface Constants {
     int SPIN_TIME = 1400;
     int DUMP_TIME = 1000;
 
-    double SPIN_RATE_MS = 250;
-    double SPIN_RATE_MULT = 1.05;
+    // 250
+    // 1.05
+    // -0.5
+    double SPIN_RATE_MS = 125;
+    double SPIN_RATE_MULT = 1.15;
     double SPIN_RATE_START = -0.5;
 
     /*

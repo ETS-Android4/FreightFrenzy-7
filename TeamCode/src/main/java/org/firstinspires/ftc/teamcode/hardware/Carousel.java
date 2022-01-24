@@ -32,12 +32,13 @@ public class Carousel implements Constants {
        this.rightCarousel = Rc ;
 
        leftCarousel.setDirection(DcMotorSimple.Direction.REVERSE);
+       rightCarousel.setDirection(DcMotorSimple.Direction.REVERSE);
    }
 
    //Different spins depending on what side of the field we are on
 
    public void rightSpin(double rotation) {
-       rightCarousel.setPower(rotation);
+       rightCarousel.setPower(-rotation);
    }
 
    public void leftSpin(double rotation) {

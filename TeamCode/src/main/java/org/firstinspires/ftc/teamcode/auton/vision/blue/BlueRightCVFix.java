@@ -19,13 +19,12 @@
  * SOFTWARE.
  */
 
-package org.firstinspires.ftc.teamcode.auton.vision.red;
+package org.firstinspires.ftc.teamcode.auton.vision.blue;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-
 import org.firstinspires.ftc.teamcode.hardware.Barcode;
 import org.firstinspires.ftc.teamcode.hardware.Constants;
 import org.firstinspires.ftc.teamcode.hardware.Robot;
@@ -33,15 +32,15 @@ import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 
-@Autonomous (name = "RedLeftCV", group = "Barcode")
-public class RedLeftCV extends LinearOpMode {
+@Autonomous (name = "BlueRightCVSide", group = "Barcode")
+public class BlueRightCVFix extends LinearOpMode {
 
     Robot prbot = new Robot();
     OpenCvCamera webcam;
 
-    Barcode pipeline = new Barcode(telemetry, Constants.StartPos.REDLEFT);
+    Barcode pipeline = new Barcode(telemetry, Constants.StartPos.BLUERIGHT);
 
-    int wait = 500;
+    int wait = 400;
 
     @Override
     public void runOpMode() {
@@ -114,183 +113,199 @@ public class RedLeftCV extends LinearOpMode {
         //Manages Telemetry and stopping the stream
         while (opModeIsActive()) {
 
-            //sleep(2000);
+            sleep(2000);
             telemetry.addData("Analysis", pipeline.getAnalysis());
             telemetry.update();
 
             switch (pipeline.getAnalysis()) {
                 case LEFT:
-                    //forward
-                    prbot.drivetrain.backward(10);
+                   //backward
+                    prbot.drivetrain.backward(5.1);
                     sleep(wait);
-                    //turn
-                    prbot.drivetrain.pointTurnLeft();
+                    //left
+                    //prbot.drivetrain.pointTurnLeft();
+                    prbot.drivetrain.pointTurn(Constants.Status.RIGHT, 12.25);
                     sleep(wait);
-                    //backward
-                    prbot.drivetrain.forward(18.7);
+                    // move to carousel
+                    prbot.drivetrain.backward(26.25);
+                    //prbot.drivetrain.backward(27);
                     sleep(wait);
-                    //turn
-                    prbot.drivetrain.pointTurnLeft();
-                    sleep(wait);
-                    // forward
-                    prbot.drivetrain.forward(4.1);
-                    sleep(wait);
+                    //
+                    prbot.drivetrain.setPower(.15);
+                    prbot.drivetrain.pointTurn(Constants.Status.LEFT, 0.5);
+                    sleep(200);
 
-                    //drop lift
-                    //prbot.lift.setLevel(0);
-                    //prbot.lift.updateLevel();
-                    //sleep(wait);
-
-                    prbot.outtake.backPosition();
-                    sleep(2000);
-
-                    prbot.outtake.neutralPosition();
-                    //prbot.lift.setLevel(0);
-                    //prbot.lift.updateLevel();
-                    sleep(wait);
-
-                    prbot.drivetrain.backward(10.5);
-                    sleep(wait);
-
-                    prbot.drivetrain.pointTurn(Constants.Status.RIGHT, 11.7);
-                    sleep(wait);
-
-                    prbot.drivetrain.backward(48);
-                    sleep(wait);
-
-                    prbot.drivetrain.setPower(.1);
-                    prbot.drivetrain.backward(1);
-                    prbot.drivetrain.setPower(.4);
-
-                    prbot.carousel.leftSpin(.5);
+                    //spin
+                    prbot.carousel.rightSpin(.5);
                     sleep(3500);
                     prbot.carousel.stopSpin();
-
-                    //forward
-                    prbot.drivetrain.forward(2);
-                    //turn right
-                    prbot.drivetrain.pointTurnLeft();
+                    //back up a bit
+                    prbot.drivetrain.setPower(.4);
+                    prbot.drivetrain.forward(4);
+                    //right
+                    prbot.drivetrain.pointTurn(Constants.Status.LEFT, 11.8);
+                    sleep(wait);
+                    //forward (to warehouse)
+                    prbot.drivetrain.backward(27.2);
+                    sleep(wait);
+                    //right
+                    prbot.drivetrain.pointTurnRight();
                     sleep(wait);
                     //forward
-                    prbot.drivetrain.forward(17.5);
-                    //stop
-                    prbot.drivetrain.stop();
+                    prbot.drivetrain.forward(19);
+                    sleep(wait);
+                    //drop
+                    prbot.outtake.backPosition();
+                    sleep(1000);
+                    //reset
+                    prbot.outtake.neutralPosition();
+                    sleep(wait);
+                    //180 turn
+                    prbot.drivetrain.backward(4);
+                    sleep(200);
+                    prbot.drivetrain.pointTurnLeft();
+                    sleep(500);
+                    prbot.drivetrain.pointTurnLeft();
+                    sleep(500);
+                    //forward (to wall)
+                    prbot.drivetrain.forward(23);
+                    sleep(200);
+                    //park (?)
+                    prbot.drivetrain.backward(3.25);
+                    prbot.drivetrain.pointTurnLeft();
+                    sleep(200);
+                    prbot.drivetrain.backward(7);
+
 
                     break;
                 case CENTER:
-                    //forward
-                    prbot.drivetrain.backward(10);
-                    sleep(wait);
-                    //turn
-                    prbot.drivetrain.pointTurnLeft();
-                    sleep(wait);
                     //backward
-                    prbot.drivetrain.forward(18.7);
+                    prbot.drivetrain.backward(5.1);
                     sleep(wait);
-                    //turn
-                    prbot.drivetrain.pointTurnLeft();
+                    //left
+                    //prbot.drivetrain.pointTurnLeft();
+                    prbot.drivetrain.pointTurn(Constants.Status.RIGHT, 12.25);
                     sleep(wait);
-                    // forward
-                    prbot.drivetrain.forward(3.9);
-                    //sleep(wait);
+                    // move to carousel
+                    prbot.drivetrain.backward(26.15);
+                    //prbot.drivetrain.backward(27);
+                    sleep(wait);
+                    //
+                    prbot.drivetrain.setPower(.15);
+                    prbot.drivetrain.pointTurn(Constants.Status.LEFT, 0.5);
+                    sleep(200);
 
-                    //drop lift
+                    //spin
+                    prbot.carousel.rightSpin(.5);
+                    sleep(3500);
+                    prbot.carousel.stopSpin();
+                    //back up a bit
+                    prbot.drivetrain.setPower(.4);
+                    prbot.drivetrain.forward(4);
+                    //right
+                    prbot.drivetrain.pointTurn(Constants.Status.LEFT, 11.8);
+                    sleep(wait);
+                    //forward (to warehouse)
+                    prbot.drivetrain.backward(27.2);
+                    sleep(wait);
+                    //right
+                    prbot.drivetrain.pointTurnRight();
+                    sleep(wait);
+                    //forward
+                    prbot.drivetrain.forward(19);
+                    sleep(wait);
+                    //drop
                     prbot.lift.setLevel(1);
                     prbot.lift.updateLevel();
                     sleep(wait);
-
                     prbot.outtake.backPosition();
-                    sleep(2000);
-
+                    sleep(1000);
+                    //reset
                     prbot.outtake.neutralPosition();
                     prbot.lift.setLevel(0);
                     prbot.lift.updateLevel();
                     sleep(wait);
-
-                    prbot.drivetrain.backward(10.7);
-                    sleep(wait);
-
-                    prbot.drivetrain.pointTurn(Constants.Status.RIGHT, 11.7);
-                    sleep(wait);
-
-                    prbot.drivetrain.backward(48);
-                    sleep(wait);
-
-                    prbot.drivetrain.setPower(.1);
-                    prbot.drivetrain.backward(1);
-                    prbot.drivetrain.setPower(.4);
-
-                    prbot.carousel.leftSpin(.5);
-                    sleep(3500);
-                    prbot.carousel.stopSpin();
-
-                    //forward
-                    prbot.drivetrain.forward(2);
-                    //turn right
+                    //180 turn
+                    prbot.drivetrain.backward(4);
+                    sleep(200);
                     prbot.drivetrain.pointTurnLeft();
-                    sleep(wait);
-                    //forward
-                    prbot.drivetrain.forward(17.5);
-                    //stop
-                    prbot.drivetrain.stop();
+                    sleep(500);
+                    prbot.drivetrain.pointTurnLeft();
+                    sleep(500);
+                    //forward (to wall)
+                    prbot.drivetrain.forward(22.5);
+                    sleep(200);
+                    //park (?)
+                    prbot.drivetrain.backward(3.25);
+                    prbot.drivetrain.pointTurnLeft();
+                    sleep(200);
+                    prbot.drivetrain.backward(7);
+
 
                     break;
                 case RIGHT:
-                    //forward
-                    prbot.drivetrain.backward(10);
+                    prbot.drivetrain.backward(5.1);
                     sleep(wait);
-                    //turn
-                    prbot.drivetrain.pointTurnLeft();
+                    //left
+                    //prbot.drivetrain.pointTurnLeft();
+                    prbot.drivetrain.pointTurn(Constants.Status.RIGHT, 12.25);
                     sleep(wait);
-                    //backward
-                    prbot.drivetrain.forward(18.7);
+                    // move to carousel
+                    prbot.drivetrain.backward(26.15);
+                    //prbot.drivetrain.backward(27);
                     sleep(wait);
-                    //turn
-                    prbot.drivetrain.pointTurnLeft();
-                    sleep(wait);
-                    // forward
-                    prbot.drivetrain.forward(6);
-                    sleep(wait);
+                    //
+                    prbot.drivetrain.setPower(.15);
+                    prbot.drivetrain.pointTurn(Constants.Status.LEFT, 0.5);
+                    sleep(200);
 
-                    //drop lift
+                    //spin
+                    prbot.carousel.rightSpin(.5);
+                    sleep(3500);
+                    prbot.carousel.stopSpin();
+                    //back up a bit
+                    prbot.drivetrain.setPower(.4);
+                    prbot.drivetrain.forward(4);
+                    //right
+                    prbot.drivetrain.pointTurn(Constants.Status.LEFT, 11.8);
+                    sleep(wait);
+                    //forward (to warehouse)
+                    prbot.drivetrain.backward(27.2);
+                    sleep(wait);
+                    //right
+                    prbot.drivetrain.pointTurnRight();
+                    sleep(wait);
+                    //forward
+                    prbot.drivetrain.forward(19);
+                    sleep(wait);
+                    //drop
                     prbot.lift.setLevel(2);
                     prbot.lift.updateLevel();
                     sleep(wait);
-
                     prbot.outtake.backPosition();
-                    sleep(2000);
-
+                    sleep(1000);
+                    //reset
                     prbot.outtake.neutralPosition();
                     prbot.lift.setLevel(0);
                     prbot.lift.updateLevel();
                     sleep(wait);
-
-                    prbot.drivetrain.backward(12);
-                    sleep(wait);
-
-                    prbot.drivetrain.pointTurn(Constants.Status.RIGHT, 11.7);
-                    sleep(wait);
-
-                    prbot.drivetrain.backward(48);
-                    sleep(wait);
-
-                    prbot.drivetrain.setPower(.1);
-                    prbot.drivetrain.backward(1);
-                    prbot.drivetrain.setPower(.4);
-
-                    prbot.carousel.leftSpin(.5);
-                    sleep(3500);
-                    prbot.carousel.stopSpin();
-
-                    //forward
-                    prbot.drivetrain.forward(2);
-                    //turn right
+                    //180 turn
+                    prbot.drivetrain.backward(4);
+                    sleep(200);
                     prbot.drivetrain.pointTurnLeft();
-                    sleep(wait);
-                    //forward
-                    prbot.drivetrain.forward(17.5);
-                    //stop
-                    prbot.drivetrain.stop();
+                    sleep(500);
+                    prbot.drivetrain.pointTurnLeft();
+                    sleep(500);
+                    //forward (to wall)
+                    prbot.drivetrain.forward(22.5);
+                    sleep(200);
+                    //park (?)
+                    prbot.drivetrain.backward(3.25);
+                    prbot.drivetrain.pointTurnLeft();
+                    sleep(200);
+                    prbot.drivetrain.backward(7);
+
+
             }
 
             //reminder to use the KNO3 auto transitioner once this code is working
