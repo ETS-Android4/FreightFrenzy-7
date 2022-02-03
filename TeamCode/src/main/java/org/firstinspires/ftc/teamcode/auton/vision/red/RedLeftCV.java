@@ -42,6 +42,7 @@ public class RedLeftCV extends LinearOpMode {
     Barcode pipeline = new Barcode(telemetry, Constants.StartPos.REDLEFT);
 
     int wait = 500;
+    int waitTime = 1000;
 
     @Override
     public void runOpMode() {
@@ -127,7 +128,7 @@ public class RedLeftCV extends LinearOpMode {
                     prbot.drivetrain.pointTurnLeft();
                     sleep(wait);
                     //backward
-                    prbot.drivetrain.forward(18.7);
+                    prbot.drivetrain.forward(23.2);
                     sleep(wait);
                     //turn
                     prbot.drivetrain.pointTurnLeft();
@@ -185,7 +186,7 @@ public class RedLeftCV extends LinearOpMode {
                     prbot.drivetrain.pointTurnLeft();
                     sleep(wait);
                     //backward
-                    prbot.drivetrain.forward(18.7);
+                    prbot.drivetrain.forward(23.2);
                     sleep(wait);
                     //turn
                     prbot.drivetrain.pointTurnLeft();
@@ -243,7 +244,7 @@ public class RedLeftCV extends LinearOpMode {
                     prbot.drivetrain.pointTurnLeft();
                     sleep(wait);
                     //backward
-                    prbot.drivetrain.forward(18.7);
+                    prbot.drivetrain.forward(23.2);
                     sleep(wait);
                     //turn
                     prbot.drivetrain.pointTurnLeft();

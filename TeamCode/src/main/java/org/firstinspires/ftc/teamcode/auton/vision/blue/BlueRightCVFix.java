@@ -41,6 +41,7 @@ public class BlueRightCVFix extends LinearOpMode {
     Barcode pipeline = new Barcode(telemetry, Constants.StartPos.BLUERIGHT);
 
     int wait = 400;
+    int waitTime = 1000;
 
     @Override
     public void runOpMode() {
@@ -120,14 +121,14 @@ public class BlueRightCVFix extends LinearOpMode {
             switch (pipeline.getAnalysis()) {
                 case LEFT:
                    //backward
-                    prbot.drivetrain.backward(5.1);
+                    prbot.drivetrain.backward(6);
                     sleep(wait);
                     //left
                     //prbot.drivetrain.pointTurnLeft();
-                    prbot.drivetrain.pointTurn(Constants.Status.RIGHT, 12.25);
+                    prbot.drivetrain.pointTurn(Constants.Status.RIGHT, 11.8);
                     sleep(wait);
                     // move to carousel
-                    prbot.drivetrain.backward(26.25);
+                    prbot.drivetrain.backward(21.5);
                     //prbot.drivetrain.backward(27);
                     sleep(wait);
                     //
@@ -143,7 +144,7 @@ public class BlueRightCVFix extends LinearOpMode {
                     prbot.drivetrain.setPower(.4);
                     prbot.drivetrain.forward(4);
                     //right
-                    prbot.drivetrain.pointTurn(Constants.Status.LEFT, 11.8);
+                    prbot.drivetrain.pointTurn(Constants.Status.LEFT, 12.5);
                     sleep(wait);
                     //forward (to warehouse)
                     prbot.drivetrain.backward(27.2);
@@ -184,10 +185,10 @@ public class BlueRightCVFix extends LinearOpMode {
                     sleep(wait);
                     //left
                     //prbot.drivetrain.pointTurnLeft();
-                    prbot.drivetrain.pointTurn(Constants.Status.RIGHT, 12.25);
+                    prbot.drivetrain.pointTurn(Constants.Status.RIGHT, 11.8);
                     sleep(wait);
                     // move to carousel
-                    prbot.drivetrain.backward(26.15);
+                    prbot.drivetrain.backward(19);
                     //prbot.drivetrain.backward(27);
                     sleep(wait);
                     //
@@ -206,13 +207,13 @@ public class BlueRightCVFix extends LinearOpMode {
                     prbot.drivetrain.pointTurn(Constants.Status.LEFT, 11.8);
                     sleep(wait);
                     //forward (to warehouse)
-                    prbot.drivetrain.backward(27.2);
+                    prbot.drivetrain.backward(25);
                     sleep(wait);
                     //right
                     prbot.drivetrain.pointTurnRight();
                     sleep(wait);
                     //forward
-                    prbot.drivetrain.forward(19);
+                    prbot.drivetrain.forward(20.5);
                     sleep(wait);
                     //drop
                     prbot.lift.setLevel(1);
@@ -233,13 +234,13 @@ public class BlueRightCVFix extends LinearOpMode {
                     prbot.drivetrain.pointTurnLeft();
                     sleep(500);
                     //forward (to wall)
-                    prbot.drivetrain.forward(22.5);
+                    prbot.drivetrain.forward(25);
                     sleep(200);
                     //park (?)
-                    prbot.drivetrain.backward(3.25);
+                    prbot.drivetrain.backward(3);
                     prbot.drivetrain.pointTurnLeft();
                     sleep(200);
-                    prbot.drivetrain.backward(7);
+                    prbot.drivetrain.backward(6.5);
 
 
                     break;
@@ -251,7 +252,7 @@ public class BlueRightCVFix extends LinearOpMode {
                     prbot.drivetrain.pointTurn(Constants.Status.RIGHT, 12.25);
                     sleep(wait);
                     // move to carousel
-                    prbot.drivetrain.backward(26.15);
+                    prbot.drivetrain.backward(21.15);
                     //prbot.drivetrain.backward(27);
                     sleep(wait);
                     //

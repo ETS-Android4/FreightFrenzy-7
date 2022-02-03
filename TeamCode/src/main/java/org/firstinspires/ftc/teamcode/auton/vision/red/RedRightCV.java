@@ -27,6 +27,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 
 import org.firstinspires.ftc.teamcode.hardware.Barcode;
+import org.firstinspires.ftc.teamcode.hardware.Button;
 import org.firstinspires.ftc.teamcode.hardware.Constants;
 import org.firstinspires.ftc.teamcode.hardware.Robot;
 import org.openftc.easyopencv.OpenCvCamera;
@@ -40,7 +41,9 @@ public class RedRightCV extends LinearOpMode {
 
     Barcode pipeline = new Barcode(telemetry, Constants.StartPos.REDRIGHT);
 
+    Button dpad_left;
     int wait = 500;
+    int waitTime = 1000;
 
     @Override
     public void runOpMode() {
@@ -114,7 +117,7 @@ public class RedRightCV extends LinearOpMode {
         //Manages Telemetry and stopping the stream
         while (opModeIsActive()) {
 
-            //sleep(2000);
+            sleep(waitTime);
             telemetry.addData("Analysis", pipeline.getAnalysis());
             telemetry.update();
 

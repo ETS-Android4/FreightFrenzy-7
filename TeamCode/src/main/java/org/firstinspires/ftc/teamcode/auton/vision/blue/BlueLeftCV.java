@@ -42,6 +42,7 @@ public class BlueLeftCV extends LinearOpMode {
     Barcode pipeline = new Barcode(telemetry, Constants.StartPos.BLUELEFT);
 
     int wait = 500;
+    int waitTime = 1000;
 
     @Override
     public void runOpMode() {

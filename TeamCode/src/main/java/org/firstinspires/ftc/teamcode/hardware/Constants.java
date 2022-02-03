@@ -6,7 +6,7 @@ public interface Constants {
 
     double forwardPos = 0 / 300.0;
     double neutralPos = 90 / 300.0;
-    double backPos = 210 / 300.0;
+    double backPos = 225 / 300.0;
 
     // 96 mm wheels = 537.6/((120 / 25.4)*Math.PI)
     // 120 mm wheels = (537.6/((120 / 25.4)*Math.PI)) * (5.0/6.0)
@@ -25,14 +25,14 @@ public interface Constants {
     int LEVEL_ZERO = 50;
 
     int LEVEL_ONE = 700;
-    int LEVEL_TWO = 1400;
+    int LEVEL_TWO = 1300;
     int LEVEL_THREE = 0;
 
     int LEVEL_FOUR = 0;
     int LEVEL_FIVE = 0;
 
     int SPIN_TIME = 1400;
-    int DUMP_TIME = 1000;
+    int DUMP_TIME = 500;
 
     // 250
     // 1.05
@@ -53,9 +53,9 @@ public interface Constants {
 
     int[][] barcodeCoordinate = {
             {
-               12, 140,
-               110, 140,
-               215, 140
+               12 + 80, 140,
+               110 + 80, 140,
+               215 + 80, 140
             }, {
                 90, 140,
                 195, 140,
@@ -65,9 +65,9 @@ public interface Constants {
                 115, 140,
                 215, 140
             }, {
-                85, 140,
-                190, 140,
-                290, 140
+                12, 140,
+                110, 140,
+                215, 140
             }
     };
 

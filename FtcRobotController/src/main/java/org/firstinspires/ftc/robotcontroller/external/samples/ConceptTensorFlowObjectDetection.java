@@ -52,6 +52,8 @@ import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 @TeleOp(name = "Concept: TensorFlow Object Detection", group = "Concept")
 @Disabled
 public class ConceptTensorFlowObjectDetection extends LinearOpMode {
+
+
   /* Note: This sample uses the all-objects Tensor Flow model (FreightFrenzy_BCDM.tflite), which contains
    * the following 4 detectable objects
    *  0: Ball,
@@ -70,6 +72,8 @@ public class ConceptTensorFlowObjectDetection extends LinearOpMode {
       "Duck",
       "Marker"
     };
+
+    int level = 0;
 
     /*
      * IMPORTANT: You need to obtain your own license key to use Vuforia. The string below with which
@@ -97,6 +101,8 @@ public class ConceptTensorFlowObjectDetection extends LinearOpMode {
      * Detection engine.
      */
     private TFObjectDetector tfod;
+
+    //
 
     @Override
     public void runOpMode() {
@@ -144,6 +150,47 @@ public class ConceptTensorFlowObjectDetection extends LinearOpMode {
                         telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
                                 recognition.getRight(), recognition.getBottom());
                         i++;
+
+                        /*
+                        // Left pos of barcode
+                          if (recognition.getLabel().equals("Duck")) {            //  ** ADDED **
+                              level = 1;                          //  ** ADDED **
+                              telemetry.addData("Object Detected", "Duck");      //  ** ADDED **
+                          }
+
+                          // Keep moving right
+
+                          robot.move.right();
+
+                          if (recognition.getLabel().equals("Duck")) {            //  ** ADDED **
+                              level = 2;                          //  ** ADDED **
+                              telemetry.addData("Object Detected", "Duck");      //  ** ADDED **
+                          }
+
+                          // Keep moving right
+
+                          robot.move.right();
+
+                          if (recognition.getLabel().equals("Duck")) {            //  ** ADDED **
+                              level = 3;                          //  ** ADDED **
+                              telemetry.addData("Object Detected", "Duck");      //  ** ADDED **
+                          }
+
+                          switch (level) {
+                              case 1:
+                                // autonomous for level 1
+
+                                  break;
+                              case 2:
+
+                                  break;
+                              case 3:
+                                  break;
+                              case 0:
+                                  // Assume this autonomous
+                          }
+
+                         */
                       }
                       telemetry.update();
                     }
@@ -183,4 +230,6 @@ public class ConceptTensorFlowObjectDetection extends LinearOpMode {
         tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
         tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABELS);
     }
+
+
 }
