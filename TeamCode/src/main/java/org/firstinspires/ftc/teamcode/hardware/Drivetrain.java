@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.hardware;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -272,13 +273,19 @@ public class Drivetrain implements Constants {
 
         imu.resetAngle();
 
-        double error = degrees;
+        double startAngle = imu.getStartAngle().firstAngle;
 
-        while (Math.abs(error) > 2) {
-            double motorPower = (error > 0 ? -0.4 : 0.4 );
+        double goalAngle = degrees + startAngle;
+
+        double error = goalAngle - startAngle;
+
+        while (Math.abs(error) > 1) {
+            double motorPower = (error > 0 ? -0.3 : 0.3 );
             setBase(motorPower, -motorPower, motorPower, -motorPower);
-            error = degrees - imu.getAngle();
+            error = goalAngle - imu.getAngle();
+            telem.addData("startAngle", startAngle);
             telem.addData("error", error);
+            telem.addData("currAngle", imu.getAngle());
             telem.update();
         }
 
@@ -290,9 +297,9 @@ public class Drivetrain implements Constants {
      */
     public void turnToIMU(double degrees) {
 
-        Orientation orientation = imu.getIMU().getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+        //Orientation orientation = imu.getIMU().getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
 
-        double error = degrees - orientation.firstAngle;
+        double error = degrees - imu.getAngle();
 
         if (error > 180) {
             error -= 360;
@@ -308,14 +315,26 @@ public class Drivetrain implements Constants {
      */
     public void PIDTurn(double targetAngle) {
 
-        PIDController turnPID = new PIDController(targetAngle, 0.01, 0, 20);
+        PIDController pid = new PIDController(0.01, 0.0001, 0.001, 20);
+        imu.resetAngle();
 
-        double correction = turnPID.output(targetAngle, imu.getFirstAngleNum());
+        double startAngle = imu.getAngle();
 
+        double goalAngle = targetAngle + startAngle;
+
+        double correction = pid.output(goalAngle, imu.getAngle());
+
+        ElapsedTime time = new ElapsedTime();
+        time.reset();
         // May need to calculate slope, rise over run to stop it from oscillating
-        while (Math.abs(targetAngle - imu.getFirstAngleNum()) > 0.5) {
-            setBase(correction, -correction, correction, -correction);
-            correction = turnPID.output(targetAngle, imu.getFirstAngleNum());
+        while (time.milliseconds() < 1500) {
+            correction = Math.max(Math.min(correction, 1), -1);
+            setBase(-correction, correction, -correction, correction);
+            correction = pid.output(goalAngle, imu.getAngle());
+            telem.addData("targetAngle", goalAngle);
+            telem.addData("goalAngle", imu.getAngle());
+            telem.addData("correction", correction);
+            telem.update();
         }
 
         stop();
@@ -323,17 +342,34 @@ public class Drivetrain implements Constants {
 
     public void PIDTurn(double targetAngle, PIDController pid) {
 
-        double correction = pid.output(targetAngle, imu.getFirstAngleNum());
+        imu.resetAngle();
 
+        double startAngle = imu.getAngle();
+
+        double goalAngle = targetAngle + startAngle;
+
+        double correction = pid.output(goalAngle, imu.getAngle());
+
+        ElapsedTime time = new ElapsedTime();
+        time.reset();
         // May need to calculate slope, rise over run to stop it from oscillating
-//        while (Math.abs(targetAngle - imu.getFirstAngleNum()) > 0.5) {
-//            setBase(correction, -correction, correction, -correction);
-//            correction = pid.output(targetAngle, imu.getFirstAngleNum());
-//            telem.addData("y", correction);
-//            telem.update();
-//        }
+        while (time.milliseconds() < 1200) {
+            correction = Math.max(Math.min(correction, 1), -1);
+            setBase(-correction, correction, -correction, correction);
+            correction = pid.output(goalAngle, imu.getAngle());
+            telem.addData("targetAngle", goalAngle);
+            telem.addData("goalAngle", imu.getAngle());
+            telem.addData("correction", correction);
+            telem.update();
+        }
 
         stop();
+        telem.addData("targetAngle", goalAngle);
+        telem.addData("goalAngle", imu.getAngle());
+        telem.addData("correction", correction);
+        telem.update();
+
+
     }
 
     /**

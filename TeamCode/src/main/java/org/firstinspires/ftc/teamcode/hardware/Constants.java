@@ -25,14 +25,15 @@ public interface Constants {
     int LEVEL_ZERO = 50;
 
     int LEVEL_ONE = 700;
-    int LEVEL_TWO = 1300;
-    int LEVEL_THREE = 0;
+    int LEVEL_TWO = 1600;
+    int LEVEL_THREE = 1100;
 
     int LEVEL_FOUR = 0;
     int LEVEL_FIVE = 0;
 
     int SPIN_TIME = 1400;
     int DUMP_TIME = 500;
+    int RETRACT_TIMEOUT = 3000;
 
     // 250
     // 1.05

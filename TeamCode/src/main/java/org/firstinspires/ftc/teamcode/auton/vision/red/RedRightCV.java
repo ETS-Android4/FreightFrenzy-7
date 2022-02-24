@@ -145,7 +145,7 @@ public class RedRightCV extends LinearOpMode {
                     prbot.drivetrain.pointTurnLeft();
                     sleep(wait);
                     // forward
-                    prbot.drivetrain.forward(4);
+                    prbot.drivetrain.forward(3);
                     sleep(wait);
 
                     //drop lift
@@ -153,8 +153,11 @@ public class RedRightCV extends LinearOpMode {
                     //prbot.lift.updateLevel();
                     //sleep(wait);
 
+                    prbot.drivetrain.backward();
                     prbot.outtake.backPosition();
-                    sleep(2000);
+                    sleep(100);
+                    prbot.drivetrain.stop();
+                    sleep(900);
 
                     prbot.outtake.neutralPosition();
                     //prbot.lift.setLevel(0);
@@ -205,7 +208,7 @@ public class RedRightCV extends LinearOpMode {
                     prbot.drivetrain.pointTurnLeft();
                     sleep(wait);
                     // forward
-                    prbot.drivetrain.forward(3.5);
+                    prbot.drivetrain.forward(2);
                     sleep(wait);
 
                     //drop lift
@@ -213,8 +216,11 @@ public class RedRightCV extends LinearOpMode {
                     prbot.lift.updateLevel();
                     sleep(wait);
 
+                    prbot.drivetrain.backward();
                     prbot.outtake.backPosition();
-                    sleep(2000);
+                    sleep(100);
+                    prbot.drivetrain.stop();
+                    sleep(900);
 
                     prbot.outtake.neutralPosition();
                     prbot.lift.setLevel(0);
@@ -256,7 +262,7 @@ public class RedRightCV extends LinearOpMode {
                     prbot.drivetrain.pointTurnLeft();
                     sleep(wait);
                     // forward
-                    prbot.drivetrain.forward(6);
+                    prbot.drivetrain.forward(5.5);
                     sleep(wait);
 
                     //drop lift
@@ -264,8 +270,11 @@ public class RedRightCV extends LinearOpMode {
                     prbot.lift.updateLevel();
                     sleep(wait);
 
+                    prbot.drivetrain.backward();
                     prbot.outtake.backPosition();
-                    sleep(2000);
+                    sleep(100);
+                    prbot.drivetrain.stop();
+                    sleep(900);
 
                     prbot.outtake.neutralPosition();
                     prbot.lift.setLevel(0);

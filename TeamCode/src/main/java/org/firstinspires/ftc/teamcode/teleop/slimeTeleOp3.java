@@ -20,6 +20,8 @@ public class slimeTeleOp3 extends LinearOpMode {
     boolean rTToggle = false;
     boolean lbToggle = false;
 
+    //int offset = 10;
+
     @Override
     public void runOpMode() throws InterruptedException {
         zoom.init(hardwareMap, telemetry);
@@ -141,7 +143,7 @@ public class slimeTeleOp3 extends LinearOpMode {
                         zoom.intake.setState(Intake.IntakeState.IDLE);
                         zoom.lift.getLift().setTargetPosition(Constants.LEVEL_TWO);
                         zoom.lift.getLift().setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                        zoom.lift.up(.8);
+                        zoom.lift.up(1);
 
                         zoom.outtake.neutralPosition();
 
@@ -168,11 +170,13 @@ public class slimeTeleOp3 extends LinearOpMode {
                             zoom.lift.getLift().setMode(DcMotor.RunMode.RUN_TO_POSITION);
                             zoom.lift.down(.5);
 
+                            zoom.lift.getLiftTimeout().reset();
                             zoom.lift.setState(Lift.LiftState.RETRACT);
                         }
                     break;
                 case RETRACT:
-                    if (!zoom.lift.getLift().isBusy()) {
+                    if (!zoom.lift.getLift().isBusy() || zoom.lift.getLiftTimeout().milliseconds() >= Constants.RETRACT_TIMEOUT) {
+                        //offset += 10;
                         zoom.lift.getLift().setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                         zoom.lift.stopLift();
 
@@ -180,6 +184,13 @@ public class slimeTeleOp3 extends LinearOpMode {
 
                         zoom.lift.setState(Lift.LiftState.START);
                     }
+//                    if (zoom.lift.getLiftTimeout().milliseconds() >= 2000) {
+//                        zoom.lift.getLift().setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//                        zoom.lift.stopLift();
+//
+//                        zoom.outtake.forwardPosition();
+//                        zoom.lift.setState(Lift.LiftState.START);
+//                    }
                     break;
                 default:
                     zoom.lift.setState(Lift.LiftState.START);
@@ -197,16 +208,20 @@ public class slimeTeleOp3 extends LinearOpMode {
             if (c.dpad_right_2.isPressed() && zoom.lift.getState() != Lift.LiftState.START) {
                 zoom.lift.getLift().setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 zoom.outtake.backPosition();
+
                 zoom.lift.getLift().setTargetPosition(Constants.LEVEL_ZERO);
                 zoom.lift.getLift().setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 zoom.lift.down(.3);
                 zoom.lift.setState(Lift.LiftState.START);
             }
 
+
+
             if (c.left_bumper.isPressed()) lbToggle = !lbToggle;
 
-            telemetry.addData("dpad_left 2 held", c.dpad_down_2.isHeld());
+            //telemetry.addData("dpad_left 2 held", c.dpad_down_2.isHeld());
             telemetry.addData("carousel power", zoom.carousel.getPower());
+            telemetry.addData("lift enc", zoom.lift.getLift().getCurrentPosition());
             telemetry.addData("Intake State", zoom.intake.getState().toString());
             telemetry.addData("Lift State", zoom.lift.getState().toString());
             telemetry.addData("Carousel State", zoom.carousel.getState().toString());

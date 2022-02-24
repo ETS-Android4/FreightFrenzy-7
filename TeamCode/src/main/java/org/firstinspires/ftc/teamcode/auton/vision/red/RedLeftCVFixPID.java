@@ -23,19 +23,19 @@ package org.firstinspires.ftc.teamcode.auton.vision.red;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.sun.tools.javac.code.Attribute;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.hardware.Barcode;
 import org.firstinspires.ftc.teamcode.hardware.Button;
 import org.firstinspires.ftc.teamcode.hardware.Constants;
+import org.firstinspires.ftc.teamcode.hardware.PIDController;
 import org.firstinspires.ftc.teamcode.hardware.Robot;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 
-@Autonomous (name = "RedLeftCVSide", group = "Barcode")
-public class RedLeftCVFix extends LinearOpMode {
+@Autonomous (name = "RedLeftCVSidePID", group = "Barcode")
+public class RedLeftCVFixPID extends LinearOpMode {
 
     Robot prbot = new Robot();
     OpenCvCamera webcam;
@@ -143,14 +143,14 @@ public class RedLeftCVFix extends LinearOpMode {
             switch (pipeline.getAnalysis()) {
                 case LEFT:
                    //backward
-                    prbot.drivetrain.backward(6);
+                    prbot.drivetrain.backward(5);
                     sleep(wait);
                     //left
                     //prbot.drivetrain.pointTurnLeft();
-                    prbot.drivetrain.pointTurn(Constants.Status.LEFT, 11.9);
+                    prbot.drivetrain.PIDTurn(90);
                     sleep(wait);
                     // move to carousel
-                    prbot.drivetrain.backward(21.25);
+                    prbot.drivetrain.backward(20.75);
                     //prbot.drivetrain.backward(27);
                     sleep(wait);
                     //
@@ -166,16 +166,16 @@ public class RedLeftCVFix extends LinearOpMode {
                     prbot.drivetrain.setPower(.4);
                     prbot.drivetrain.forward(6);
                     //right
-                    prbot.drivetrain.pointTurn(Constants.Status.RIGHT, 11.9);
+                    prbot.drivetrain.PIDTurn(-90);
                     sleep(wait);
                     //forward (to warehouse)
                     prbot.drivetrain.backward(27.2);
                     sleep(wait);
                     //right
-                    prbot.drivetrain.pointTurnLeft();
+                    prbot.drivetrain.PIDTurn(90);
                     sleep(wait);
                     //forward
-                    prbot.drivetrain.forward(19);
+                    prbot.drivetrain.forward(19.5);
                     sleep(wait);
                     //drop
                     prbot.drivetrain.backward();
@@ -192,16 +192,16 @@ public class RedLeftCVFix extends LinearOpMode {
                     //180 turn
                     prbot.drivetrain.backward(4);
                     sleep(200);
-                    prbot.drivetrain.pointTurnRight();
-                    sleep(500);
-                    prbot.drivetrain.pointTurnRight();
+                    prbot.drivetrain.PIDTurn(-180);
+                    //sleep(500);
+                    //prbot.drivetrain.PIDTurn(-90);
                     sleep(500);
                     //forward (to wall)
                     prbot.drivetrain.forward(26.5);
                     sleep(200);
                     //park (?)
                     prbot.drivetrain.backward(3.25);
-                    prbot.drivetrain.pointTurnRight();
+                    prbot.drivetrain.PIDTurn(-90);
                     sleep(200);
                     prbot.drivetrain.backward(8.5);
 
@@ -209,14 +209,15 @@ public class RedLeftCVFix extends LinearOpMode {
                     break;
                 case CENTER:
                     //backward
-                    prbot.drivetrain.backward(6);
+                    prbot.drivetrain.backward(5);
                     sleep(wait);
                     //left
                     //prbot.drivetrain.pointTurnLeft();
-                    prbot.drivetrain.pointTurn(Constants.Status.LEFT, 11.9);
+                    //prbot.drivetrain.pointTurn(Constants.Status.LEFT, 11.9);
+                    prbot.drivetrain.PIDTurn(90);
                     sleep(wait);
                     // move to carousel
-                    prbot.drivetrain.backward(21.25);
+                    prbot.drivetrain.backward(20.75);
                     //prbot.drivetrain.backward(27);
                     sleep(wait);
                     //
@@ -232,16 +233,18 @@ public class RedLeftCVFix extends LinearOpMode {
                     prbot.drivetrain.setPower(.4);
                     prbot.drivetrain.forward(6);
                     //right
-                    prbot.drivetrain.pointTurn(Constants.Status.RIGHT, 12);
+                    //prbot.drivetrain.pointTurn(Constants.Status.RIGHT, 12);
+                    prbot.drivetrain.PIDTurn(-90);
                     sleep(wait);
                     //forward (to warehouse)
-                    prbot.drivetrain.backward(27.5);
+                    prbot.drivetrain.backward(28.5);
                     sleep(wait);
                     //right
-                    prbot.drivetrain.pointTurnLeft();
+                    //prbot.drivetrain.pointTurnLeft();
+                    prbot.drivetrain.PIDTurn(90);
                     sleep(wait);
                     //forward
-                    prbot.drivetrain.forward(20);
+                    prbot.drivetrain.forward(17.75);
                     sleep(wait);
                     prbot.lift.setLevel(1);
                     prbot.lift.updateLevel();
@@ -262,16 +265,19 @@ public class RedLeftCVFix extends LinearOpMode {
                     //180 turn
                     prbot.drivetrain.backward(4);
                     sleep(200);
-                    prbot.drivetrain.pointTurnRight();
-                    sleep(wait);
-                    prbot.drivetrain.pointTurnRight();
+                    //prbot.drivetrain.pointTurnRight();
+                    prbot.drivetrain.PIDTurn(-180);
+                    //sleep(wait);
+                    //prbot.drivetrain.pointTurnRight();
+                    //prbot.drivetrain.PIDTurn(-90);
                     sleep(wait);
                     //forward (to wall)
                     prbot.drivetrain.forward(24.5);
                     sleep(200);
                     //park (?)
                     prbot.drivetrain.backward(3.25);
-                    prbot.drivetrain.pointTurnRight();
+                    //prbot.drivetrain.pointTurnRight();
+                    prbot.drivetrain.PIDTurn(-90);
                     sleep(200);
                     prbot.drivetrain.backward(8.5);
 
@@ -279,14 +285,15 @@ public class RedLeftCVFix extends LinearOpMode {
                     break;
                 case RIGHT:
                     //backward
-                    prbot.drivetrain.backward(6);
+                    prbot.drivetrain.backward(5);
                     sleep(wait);
                     //left
                     //prbot.drivetrain.pointTurnLeft();
-                    prbot.drivetrain.pointTurn(Constants.Status.LEFT, 11.9);
+                    //prbot.drivetrain.pointTurn(Constants.Status.LEFT, 11.9);
+                    prbot.drivetrain.PIDTurn(90);
                     sleep(wait);
                     // move to carousel
-                    prbot.drivetrain.backward(21.25);
+                    prbot.drivetrain.backward(20.75);
                     //prbot.drivetrain.backward(27);
                     sleep(wait);
                     //
@@ -302,13 +309,15 @@ public class RedLeftCVFix extends LinearOpMode {
                     prbot.drivetrain.setPower(.4);
                     prbot.drivetrain.forward(6);
                     //right
-                    prbot.drivetrain.pointTurn(Constants.Status.RIGHT, 11.8);
+                    //prbot.drivetrain.pointTurn(Constants.Status.RIGHT, 11.8);
+                    prbot.drivetrain.PIDTurn(-90);
                     sleep(wait);
                     //forward (to warehouse)
                     prbot.drivetrain.backward(26.6);
                     sleep(wait);
                     //right
-                    prbot.drivetrain.pointTurnLeft();
+                    //prbot.drivetrain.pointTurnLeft();
+                    prbot.drivetrain.PIDTurn(90);
                     sleep(wait);
                     //forward
                     prbot.drivetrain.forward(22);
@@ -333,16 +342,19 @@ public class RedLeftCVFix extends LinearOpMode {
                     //180 turn
                     prbot.drivetrain.backward(4);
                     sleep(200);
-                    prbot.drivetrain.pointTurnRight();
+                    //prbot.drivetrain.pointTurnRight();
+                    prbot.drivetrain.PIDTurn(-90);
                     sleep(wait);
-                    prbot.drivetrain.pointTurnRight();
+                    //prbot.drivetrain.pointTurnRight();
+                    prbot.drivetrain.PIDTurn(-90);
                     sleep(wait);
                     //forward (to wall)
                     prbot.drivetrain.forward(28);
                     sleep(200);
                     //park (?)
                     prbot.drivetrain.backward(3.25);
-                    prbot.drivetrain.pointTurnRight();
+                    //prbot.drivetrain.pointTurnRight();
+                    prbot.drivetrain.PIDTurn(-90);
                     sleep(200);
                     prbot.drivetrain.backward(7.5);
 

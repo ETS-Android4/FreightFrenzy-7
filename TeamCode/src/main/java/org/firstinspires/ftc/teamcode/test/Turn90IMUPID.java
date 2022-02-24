@@ -17,16 +17,22 @@ public class Turn90IMUPID extends LinearOpMode {
 
     Robot prbot = new Robot();
 
+
     PIDController turnPID;
 
     Button a;
 
     boolean toggle = false;
 
-    public static double P = 0.1;
-    public static double I = 0.01;
-    public static double D = 0;
+    // 0.02
+    // 0.0001
+    // 0.001
 
+    public static double P = 0.0105;
+    public static double I = 0.0002;
+    public static double D = 0.0011;
+
+    // positive number = turn left
     public static double targetAngle = 90;
 
     @Override
@@ -36,13 +42,18 @@ public class Turn90IMUPID extends LinearOpMode {
 
         a = new Button();
 
-        FtcDashboard dashboard = FtcDashboard.getInstance();
+        //FtcDashboard dashboard = FtcDashboard.getInstance();
 
-        Telemetry telem = dashboard.getTelemetry();
+        //Telemetry telem = dashboard.getTelemetry();
 
-        prbot.drivetrain.setTelemetry(telem);
+        telemetry.setMsTransmissionInterval(20);
+        prbot.drivetrain.setTelemetry(telemetry);
 
         waitForStart();
+
+        prbot.imu.resetAngle();
+        telemetry.addData("startAngle", prbot.imu.getAngle());
+        telemetry.update();
 
         while (opModeIsActive()) {
             a.previous();
@@ -51,9 +62,16 @@ public class Turn90IMUPID extends LinearOpMode {
             if (a.isPressed()) toggle = !toggle;
 
             if (toggle) {
+                prbot.imu.resetAngle();
+                telemetry.addData("startAngle", prbot.imu.getAngle());
+                telemetry.addData("goalAngle", prbot.imu.getAngle() + targetAngle);
                 prbot.drivetrain.PIDTurn(targetAngle, new PIDController(P, I, D, 20));
-                sleep(2000);
+                sleep(500);
+                //telemetry.addData("PIDTurn", "finished");
+                //telemetry.update();
+                toggle = false;
             }
+
         }
     }
 }

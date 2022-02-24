@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 @TeleOp(name = "slimeTeleOpInitial", group = "PRTest")
-@Disabled
+//@Disabled
 public class slimeTeleOpInitial extends OpMode {
 
     //Drivetrain

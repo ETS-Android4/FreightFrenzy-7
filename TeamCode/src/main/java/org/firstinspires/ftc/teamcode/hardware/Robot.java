@@ -23,10 +23,12 @@ public class Robot implements Constants {
         lift = new Lift(hwMap.dcMotor.get("lift"));
         carousel = new Carousel(hwMap.dcMotor.get("leftCarousel"), hwMap.dcMotor.get("rightCarousel"));
         imu = new IMU(hwMap.get(BNO055IMU.class, "imu 1"));
+        //imu.getIMU();
         lift.setTelemetry(telemetry);
         drivetrain.setTelemetry(telemetry);
         drivetrain.setIMU(imu);
         lift.setTimer(new ElapsedTime());
+        lift.setLiftTimeout(new ElapsedTime());
         carousel.setTimer(new ElapsedTime());
     }
 

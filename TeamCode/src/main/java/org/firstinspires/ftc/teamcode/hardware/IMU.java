@@ -21,6 +21,8 @@ public class IMU {
     private Orientation lastAngles;
     private double currAngle;
 
+    private Orientation startAngle;
+
     public IMU(BNO055IMU imu) {
         this.imu = imu;
         BNO055IMU.Parameters param = new BNO055IMU.Parameters();
@@ -106,7 +108,8 @@ public class IMU {
     }
 
     public void resetAngle() {
-        lastAngles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+        startAngle = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+        lastAngles = startAngle;
     }
 
     public double getAngle() {
@@ -125,6 +128,10 @@ public class IMU {
         lastAngles = orientation;
 
         return currAngle;
+    }
+
+    public Orientation getStartAngle() {
+        return startAngle;
     }
 
     /**

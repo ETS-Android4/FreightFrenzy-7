@@ -10,7 +10,6 @@ import org.firstinspires.ftc.teamcode.hardware.Constants;
 import org.firstinspires.ftc.teamcode.hardware.Robot;
 import org.firstinspires.ftc.teamcode.hardware.old.RobotOld;
 
-@Disabled
 @TeleOp(name = "PRTELEOP", group = "PRTeleop")
 public class slimeTeleOp2 extends LinearOpMode {
 
@@ -132,8 +131,8 @@ public class slimeTeleOp2 extends LinearOpMode {
             if (right_bumper.isPressed()) {
                 spinPower = 0.4;
                 startSpin = time.milliseconds();
-                while (time.milliseconds() < startSpin + 1400) {
-                    if (time.milliseconds() % 250 > 150) spinPower *= 1.04;
+                while (time.milliseconds() < startSpin + 1400) {    // 1400 is the offset; after 1400 ms, it exits the while loop
+                    if (time.milliseconds() % 250 > 150) spinPower *= 1.04; // Increment by 4% every 250 ms
                     if (spinPower > 1) spinPower = 1.0;
                     zoom.carousel.rightSpin(spinPower);
                 }

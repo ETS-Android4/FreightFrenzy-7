@@ -121,19 +121,20 @@ public class BlueRightCVFix extends LinearOpMode {
             switch (pipeline.getAnalysis()) {
                 case LEFT:
                    //backward
-                    prbot.drivetrain.backward(6);
+                    prbot.drivetrain.backward(5.0);
                     sleep(wait);
                     //left
                     //prbot.drivetrain.pointTurnLeft();
-                    prbot.drivetrain.pointTurn(Constants.Status.RIGHT, 11.8);
+                    prbot.drivetrain.pointTurn(Constants.Status.RIGHT, 11.9);
                     sleep(wait);
                     // move to carousel
-                    prbot.drivetrain.backward(21.5);
+                    prbot.drivetrain.backward(18.2);
                     //prbot.drivetrain.backward(27);
                     sleep(wait);
                     //
-                    prbot.drivetrain.setPower(.15);
-                    prbot.drivetrain.pointTurn(Constants.Status.LEFT, 0.5);
+                    prbot.drivetrain.setPower(.10);
+                    prbot.drivetrain.backward(0.5);
+                    prbot.drivetrain.pointTurn(Constants.Status.LEFT, 1.0);
                     sleep(200);
 
                     //spin
@@ -142,9 +143,9 @@ public class BlueRightCVFix extends LinearOpMode {
                     prbot.carousel.stopSpin();
                     //back up a bit
                     prbot.drivetrain.setPower(.4);
-                    prbot.drivetrain.forward(4);
+                    prbot.drivetrain.forward(6);
                     //right
-                    prbot.drivetrain.pointTurn(Constants.Status.LEFT, 12.5);
+                    prbot.drivetrain.pointTurn(Constants.Status.LEFT, 11.6);
                     sleep(wait);
                     //forward (to warehouse)
                     prbot.drivetrain.backward(27.2);
@@ -153,11 +154,14 @@ public class BlueRightCVFix extends LinearOpMode {
                     prbot.drivetrain.pointTurnRight();
                     sleep(wait);
                     //forward
-                    prbot.drivetrain.forward(19);
+                    prbot.drivetrain.forward(18.1);
                     sleep(wait);
                     //drop
+                    prbot.drivetrain.backward();
                     prbot.outtake.backPosition();
-                    sleep(1000);
+                    sleep(100);
+                    prbot.drivetrain.stop();
+                    sleep(900);
                     //reset
                     prbot.outtake.neutralPosition();
                     sleep(wait);
@@ -175,25 +179,26 @@ public class BlueRightCVFix extends LinearOpMode {
                     prbot.drivetrain.backward(3.25);
                     prbot.drivetrain.pointTurnLeft();
                     sleep(200);
-                    prbot.drivetrain.backward(7);
+                    prbot.drivetrain.backward(5.5);
 
 
                     break;
                 case CENTER:
                     //backward
-                    prbot.drivetrain.backward(5.1);
+                    prbot.drivetrain.backward(5.0);
                     sleep(wait);
                     //left
                     //prbot.drivetrain.pointTurnLeft();
-                    prbot.drivetrain.pointTurn(Constants.Status.RIGHT, 11.8);
+                    prbot.drivetrain.pointTurn(Constants.Status.RIGHT, 11.9);
                     sleep(wait);
                     // move to carousel
-                    prbot.drivetrain.backward(19);
+                    prbot.drivetrain.backward(18.2);
                     //prbot.drivetrain.backward(27);
                     sleep(wait);
                     //
-                    prbot.drivetrain.setPower(.15);
-                    prbot.drivetrain.pointTurn(Constants.Status.LEFT, 0.5);
+                    prbot.drivetrain.setPower(.10);
+                    prbot.drivetrain.backward(1.0);
+                    prbot.drivetrain.pointTurn(Constants.Status.LEFT, 1.0);
                     sleep(200);
 
                     //spin
@@ -202,25 +207,28 @@ public class BlueRightCVFix extends LinearOpMode {
                     prbot.carousel.stopSpin();
                     //back up a bit
                     prbot.drivetrain.setPower(.4);
-                    prbot.drivetrain.forward(4);
+                    prbot.drivetrain.forward(6);
                     //right
-                    prbot.drivetrain.pointTurn(Constants.Status.LEFT, 11.8);
+                    prbot.drivetrain.pointTurn(Constants.Status.LEFT, 11.6);
                     sleep(wait);
                     //forward (to warehouse)
-                    prbot.drivetrain.backward(25);
+                    prbot.drivetrain.backward(24.3);
                     sleep(wait);
                     //right
                     prbot.drivetrain.pointTurnRight();
                     sleep(wait);
                     //forward
-                    prbot.drivetrain.forward(20.5);
+                    prbot.drivetrain.forward(19.2);
                     sleep(wait);
                     //drop
                     prbot.lift.setLevel(1);
                     prbot.lift.updateLevel();
                     sleep(wait);
+                    prbot.drivetrain.backward();
                     prbot.outtake.backPosition();
-                    sleep(1000);
+                    sleep(100);
+                    prbot.drivetrain.stop();
+                    sleep(900);
                     //reset
                     prbot.outtake.neutralPosition();
                     prbot.lift.setLevel(0);
@@ -240,24 +248,26 @@ public class BlueRightCVFix extends LinearOpMode {
                     prbot.drivetrain.backward(3);
                     prbot.drivetrain.pointTurnLeft();
                     sleep(200);
-                    prbot.drivetrain.backward(6.5);
+                    prbot.drivetrain.backward(5.5);
 
 
                     break;
                 case RIGHT:
-                    prbot.drivetrain.backward(5.1);
+                    //backward
+                    prbot.drivetrain.backward(5.0);
                     sleep(wait);
                     //left
                     //prbot.drivetrain.pointTurnLeft();
-                    prbot.drivetrain.pointTurn(Constants.Status.RIGHT, 12.25);
+                    prbot.drivetrain.pointTurn(Constants.Status.RIGHT, 11.9);
                     sleep(wait);
                     // move to carousel
-                    prbot.drivetrain.backward(21.15);
+                    prbot.drivetrain.backward(18.2);
                     //prbot.drivetrain.backward(27);
                     sleep(wait);
                     //
-                    prbot.drivetrain.setPower(.15);
-                    prbot.drivetrain.pointTurn(Constants.Status.LEFT, 0.5);
+                    prbot.drivetrain.setPower(.10);
+                    prbot.drivetrain.backward(1.0);
+                    prbot.drivetrain.pointTurn(Constants.Status.LEFT, 1.0);
                     sleep(200);
 
                     //spin
@@ -266,25 +276,28 @@ public class BlueRightCVFix extends LinearOpMode {
                     prbot.carousel.stopSpin();
                     //back up a bit
                     prbot.drivetrain.setPower(.4);
-                    prbot.drivetrain.forward(4);
+                    prbot.drivetrain.forward(6);
                     //right
-                    prbot.drivetrain.pointTurn(Constants.Status.LEFT, 11.8);
+                    prbot.drivetrain.pointTurn(Constants.Status.LEFT, 11.6);
                     sleep(wait);
                     //forward (to warehouse)
-                    prbot.drivetrain.backward(27.2);
+                    prbot.drivetrain.backward(26.2);
                     sleep(wait);
                     //right
                     prbot.drivetrain.pointTurnRight();
                     sleep(wait);
                     //forward
-                    prbot.drivetrain.forward(19);
+                    prbot.drivetrain.forward(21.4);
                     sleep(wait);
                     //drop
                     prbot.lift.setLevel(2);
                     prbot.lift.updateLevel();
                     sleep(wait);
+                    //prbot.drivetrain.backward();
                     prbot.outtake.backPosition();
-                    sleep(1000);
+                    sleep(100);
+                    //prbot.drivetrain.stop();
+                    sleep(900);
                     //reset
                     prbot.outtake.neutralPosition();
                     prbot.lift.setLevel(0);
@@ -298,13 +311,14 @@ public class BlueRightCVFix extends LinearOpMode {
                     prbot.drivetrain.pointTurnLeft();
                     sleep(500);
                     //forward (to wall)
-                    prbot.drivetrain.forward(22.5);
+                    prbot.drivetrain.forward(25);
                     sleep(200);
                     //park (?)
-                    prbot.drivetrain.backward(3.25);
+                    prbot.drivetrain.backward(3);
                     prbot.drivetrain.pointTurnLeft();
                     sleep(200);
-                    prbot.drivetrain.backward(7);
+                    prbot.drivetrain.backward(5.5);
+
 
 
             }

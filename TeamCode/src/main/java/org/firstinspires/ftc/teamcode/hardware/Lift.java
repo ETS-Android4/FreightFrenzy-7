@@ -27,6 +27,7 @@ public class Lift implements Constants{
    private LiftState liftState = LiftState.START;
 
    ElapsedTime liftTimer;
+   ElapsedTime liftTimeout;
 
    public Lift(DcMotor l) {
         this.lift = l;
@@ -183,6 +184,12 @@ public class Lift implements Constants{
 
     public void setTimer(ElapsedTime time) {
         liftTimer = time;
+    }
+
+    public void setLiftTimeout(ElapsedTime time) { liftTimeout = time; }
+
+    public ElapsedTime getLiftTimeout() {
+        return liftTimeout;
     }
 
     /**

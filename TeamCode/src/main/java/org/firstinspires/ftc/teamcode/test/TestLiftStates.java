@@ -66,7 +66,7 @@ public class TestLiftStates extends LinearOpMode {
                     if (c.dpad_up_2.isPressed()) {
                         lift.getLift().setTargetPosition(Constants.LEVEL_TWO);
                         lift.getLift().setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                        lift.up(.3);
+                        lift.up(.5);
 
                         outtake.neutralPosition();
 
