@@ -42,6 +42,11 @@ public interface Constants {
     double SPIN_RATE_MULT = 1.15;
     double SPIN_RATE_START = -0.5;
 
+    int BARRIER_FORWARD = (int) (-3 * 537.6);
+    int TURN_ONE = (int) (-4 * 537.6);
+    int TURN_TWO = (int) (-7 * 537.6);
+    int HUB_FORWARD = (int) (-2 * 537.6);
+
     /*
         barcode[0]: redLeft
         barcode[1]: redRight

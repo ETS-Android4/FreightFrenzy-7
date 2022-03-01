@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class Controller implements Constants {
 
     private ArrayList<Button> inputs = new ArrayList<Button>();
-    public Button left_bumper, right_bumper, right_trigger, dpad_up_2, dpad_down_2, dpad_right_2, dpad_left_2, left_trigger_2, right_trigger_2, x;
+    public Button left_bumper, right_bumper, right_trigger, dpad_up_2, dpad_down_2, dpad_right_2, dpad_left_2, left_trigger_2, right_trigger_2, x, a;
     private Gamepad gp1, gp2;
 
     /*
@@ -36,6 +36,7 @@ public class Controller implements Constants {
         left_trigger_2 = new Button();
         right_trigger_2 = new Button();
         x = new Button();
+        a = new Button();
         inputs.add(left_bumper);
         inputs.add(right_bumper);
         inputs.add(right_trigger);
@@ -46,6 +47,7 @@ public class Controller implements Constants {
         inputs.add(left_trigger_2);
         inputs.add(right_trigger_2);
         inputs.add(x);
+        inputs.add(a);
     }
 
     public void addInput(Button input) {
@@ -75,5 +77,6 @@ public class Controller implements Constants {
         left_trigger_2.setState(gp2.left_trigger > .1);
         right_trigger_2.setState(gp2.right_trigger > .1);
         x.setState(gp1.x);
+        a.setState(gp1.a);
     }
 }

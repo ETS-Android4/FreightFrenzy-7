@@ -23,6 +23,12 @@ public class Drivetrain implements Constants {
     public Telemetry telem;
     public IMU imu;
 
+    public enum DrivetrainState {
+        NEUTRAL, START, TURN_ONE, TURN_TWO, END
+    }
+
+    private DrivetrainState drivetrainState = DrivetrainState.NEUTRAL;
+
     /**
      * Defines the parts needed for the subsystem
      * @param fL
@@ -93,7 +99,7 @@ public class Drivetrain implements Constants {
     /**
      * @param runMode for all motors
      */
-    private void setRunMode(DcMotor.RunMode runMode) {
+    public void setRunMode(DcMotor.RunMode runMode) {
         frontLeft.setMode(runMode);
         frontRight.setMode(runMode);
         backLeft.setMode(runMode);
@@ -106,7 +112,7 @@ public class Drivetrain implements Constants {
      * @param bL target pos
      * @param bR target pos
      */
-    private void setTargetPos(int fL, int fR, int bL, int bR) {
+    public void setTargetPos(int fL, int fR, int bL, int bR) {
         frontLeft.setTargetPosition(fL);
         frontRight.setTargetPosition(fR);
         backLeft.setTargetPosition(bL);
@@ -411,12 +417,12 @@ public class Drivetrain implements Constants {
     /**
      * @return true if all motors are busy, false otherwise
      */
-    private boolean allBusy() { return frontLeft.isBusy() && frontRight.isBusy() && backLeft.isBusy() && backRight.isBusy(); }
+    public boolean allBusy() { return frontLeft.isBusy() && frontRight.isBusy() && backLeft.isBusy() && backRight.isBusy(); }
 
     /**
      * @return true if any motor is busy, false otherwise
      */
-    private boolean anyBusy() { return frontLeft.isBusy() || frontRight.isBusy() || backLeft.isBusy() || backRight.isBusy();}
+    public boolean anyBusy() { return frontLeft.isBusy() || frontRight.isBusy() || backLeft.isBusy() || backRight.isBusy();}
 
     /**
      * @return power variable that drivetrain moves by
@@ -430,4 +436,10 @@ public class Drivetrain implements Constants {
     public DcMotor getBackLeft() { return backLeft; }
 
     public DcMotor getBackRight() { return backRight; }
+
+    public void setState(DrivetrainState state) { drivetrainState = state; }
+
+    public DrivetrainState getState() {
+        return drivetrainState;
+    }
 }
