@@ -27,25 +27,29 @@ public interface Constants {
     int LEVEL_ONE = 700;
     int LEVEL_TWO = 1600;
     int LEVEL_THREE = 1100;
+    int LEVEL_FOUR = 1900;
 
-    int LEVEL_FOUR = 0;
+    //int LEVEL_FOUR = 0;
     int LEVEL_FIVE = 0;
 
     int SPIN_TIME = 1400;
     int DUMP_TIME = 500;
     int RETRACT_TIMEOUT = 3000;
 
-    // 250
-    // 1.05
+    // 250 | 125
+    // 1.05 | 1.13
     // -0.5
     double SPIN_RATE_MS = 125;
-    double SPIN_RATE_MULT = 1.15;
+    double SPIN_RATE_MULT = 1.13;
     double SPIN_RATE_START = -0.5;
 
-    int BARRIER_FORWARD = (int) (-3 * 537.6);
-    int TURN_ONE = (int) (-4 * 537.6);
-    int TURN_TWO = (int) (-7 * 537.6);
-    int HUB_FORWARD = (int) (-2 * 537.6);
+    int BARRIER_FORWARD = (int) (1.4 * 537.6);
+    int TURN_ONE = (int) (1.3 * 537.6);
+    int TURN_TWO = (int) (2.8 * 537.6);
+    int HUB_FORWARD = (int) (0.3 * 537.6);
+    int BARRIER_SHARED = (int) (-0.8 * 537.6);
+    int TURN_SHARED = (int) (-0.3 * 537.6);
+    int SHARED_BARRIER = (int) (0);
 
     /*
         barcode[0]: redLeft
@@ -59,9 +63,9 @@ public interface Constants {
 
     int[][] barcodeCoordinate = {
             {
-               12 + 80, 140,
-               110 + 80, 140,
-               215 + 80, 140
+                    (12 + 74), 140,
+                    ( 110 + 80), 140,
+                    (215 + 80), 140
             }, {
                 90, 140,
                 195, 140,
@@ -71,15 +75,21 @@ public interface Constants {
                 115, 140,
                 215, 140
             }, {
-                12, 140,
+                //9, 135 | 110, 140 | 220, 140
+                // 6, 130 | 105, 130 | 213, 135
+                10, 140,
                 110, 140,
-                215, 140
+                205, 140
             }
     };
 
     enum StartPos {
         REDLEFT, REDRIGHT,
         BLUELEFT, BLUERIGHT
+    }
+
+    enum Side {
+        RED, BLUE
     }
 
     enum Status {

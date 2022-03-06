@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.hardware;
 
+import com.acmerobotics.dashboard.FtcDashboard;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -22,9 +23,11 @@ public class Drivetrain implements Constants {
     public int fLTickGoal, fRTickGoal, bLTickGoal, bRTickGoal;
     public Telemetry telem;
     public IMU imu;
+    private FtcDashboard dashboard;
 
     public enum DrivetrainState {
-        NEUTRAL, START, TURN_ONE, TURN_TWO, END
+        NEUTRAL, START_HUB, TURN_ONE, TURN_TWO, END_HUB,
+        START_SHARED, TURN_SHARED, END_SHARED
     }
 
     private DrivetrainState drivetrainState = DrivetrainState.NEUTRAL;
@@ -321,6 +324,8 @@ public class Drivetrain implements Constants {
      */
     public void PIDTurn(double targetAngle) {
 
+        Telemetry dTelem = dashboard.getTelemetry();
+
         PIDController pid = new PIDController(0.01, 0.0001, 0.001, 20);
         imu.resetAngle();
 
@@ -348,6 +353,9 @@ public class Drivetrain implements Constants {
 
     public void PIDTurn(double targetAngle, PIDController pid) {
 
+        //Telemetry dTelem = dashboard.getTelemetry();
+        telem = dashboard.getTelemetry();
+
         imu.resetAngle();
 
         double startAngle = imu.getAngle();
@@ -366,6 +374,8 @@ public class Drivetrain implements Constants {
             telem.addData("targetAngle", goalAngle);
             telem.addData("goalAngle", imu.getAngle());
             telem.addData("correction", correction);
+            //telem.addData("targetAngle", goalAngle);
+            //telem.addData("goalAngle", imu.getAngle());
             telem.update();
         }
 
@@ -441,5 +451,9 @@ public class Drivetrain implements Constants {
 
     public DrivetrainState getState() {
         return drivetrainState;
+    }
+
+    public void setDashboard(FtcDashboard dash) {
+        this.dashboard = dash;
     }
 }

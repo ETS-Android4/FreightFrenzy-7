@@ -106,11 +106,11 @@ public class Barcode extends OpenCvPipeline implements Constants {
         /*
          * The core values which define the location and size of the sample regions
          */
-        REGION1_TOPLEFT_ANCHOR_POINT = new Point(barcodeCoordinate[pos][0], barcodeCoordinate[pos][1]);
-        REGION2_TOPLEFT_ANCHOR_POINT = new Point(barcodeCoordinate[pos][2], barcodeCoordinate[pos][3]);
-        REGION3_TOPLEFT_ANCHOR_POINT = new Point(barcodeCoordinate[pos][4], barcodeCoordinate[pos][5]);
-        REGION_WIDTH = 25;
-        REGION_HEIGHT = 15;
+        REGION1_TOPLEFT_ANCHOR_POINT = new Point(barcodeCoordinate[pos][0] * 2, barcodeCoordinate[pos][1] * 2);
+        REGION2_TOPLEFT_ANCHOR_POINT = new Point(barcodeCoordinate[pos][2] * 2, barcodeCoordinate[pos][3] * 2);
+        REGION3_TOPLEFT_ANCHOR_POINT = new Point(barcodeCoordinate[pos][4] * 2, barcodeCoordinate[pos][5] * 2);
+        REGION_WIDTH = 25 * 2;
+        REGION_HEIGHT = 15 * 2;
 
         /*
          * Points which actually define the sample region rectangles, derived from above values
@@ -307,7 +307,7 @@ public class Barcode extends OpenCvPipeline implements Constants {
                     region1_pointA, // First point which defines the rectangle
                     region1_pointB, // Second point which defines the rectangle
                     GREEN, // The color the rectangle is drawn in
-                    -1); // Negative thickness means solid fill
+                    3); // Negative thickness means solid fill
         }
         else if(result == avg2) // Was it from region 2?
         {
@@ -322,7 +322,7 @@ public class Barcode extends OpenCvPipeline implements Constants {
                     region2_pointA, // First point which defines the rectangle
                     region2_pointB, // Second point which defines the rectangle
                     GREEN, // The color the rectangle is drawn in
-                    -1); // Negative thickness means solid fill
+                    3); // Negative thickness means solid fill
         }
         else if(result == avg3) // Was it from region 3?
         {
@@ -337,11 +337,11 @@ public class Barcode extends OpenCvPipeline implements Constants {
                     region3_pointA, // First point which defines the rectangle
                     region3_pointB, // Second point which defines the rectangle
                     GREEN, // The color the rectangle is drawn in
-                    -1); // Negative thickness means solid fill
+                    3); // Negative thickness means solid fill
         }
 
-        telemetry.addData("[Pattern]", barcode);
-        telemetry.update();
+        //telemetry.addData("[Pattern]", barcode);
+        //telemetry.update();
 
         /*
          * Render the 'input' buffer to the viewport. But note this is not

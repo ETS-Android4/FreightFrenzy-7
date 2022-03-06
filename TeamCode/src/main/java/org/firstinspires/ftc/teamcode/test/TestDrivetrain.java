@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.hardware.old.DrivetrainOld;
 
 @Autonomous(name = "Drivetrain Test", group = "PRTest")
-@Disabled
+//@Disabled
 public class TestDrivetrain extends LinearOpMode {
 
     DrivetrainOld move;
@@ -21,10 +21,13 @@ public class TestDrivetrain extends LinearOpMode {
 
         waitForStart();
 
-        move.forward(.3);
+        while (opModeIsActive()) {
+
+        }
+        //move.forward(.3);
         sleep(1000);
 
-        move.backward(.3);
+        //move.backward(.3);
         sleep(1000);
 
     }

@@ -21,6 +21,7 @@
 
 package org.firstinspires.ftc.teamcode.auton.vision.blue;
 
+import com.acmerobotics.dashboard.FtcDashboard;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
@@ -48,6 +49,10 @@ public class BlueRightCVFixPID extends LinearOpMode {
         //initialize robot hardware
         prbot.init(hardwareMap, telemetry);
         prbot.setMode(Constants.Status.AUTO);
+
+        FtcDashboard dashboard = FtcDashboard.getInstance();
+
+        prbot.drivetrain.setDashboard(dashboard);
 
         //FOR THE WEBCAM
         /*
@@ -85,7 +90,7 @@ public class BlueRightCVFixPID extends LinearOpMode {
                  * away from the user.
                  */
                 //320px x 340px
-                webcam.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT);
+                webcam.startStreaming(320 * 2, 240 * 2, OpenCvCameraRotation.UPRIGHT);
 
                 /*
                  * Specify the image processing pipeline we wish to invoke upon receipt
@@ -101,6 +106,9 @@ public class BlueRightCVFixPID extends LinearOpMode {
                 telemetry.addData("errorCode", errorCode);
             }
         });
+
+        dashboard.startCameraStream(webcam, 0);
+
         // Tell telemetry to update faster than the default 250ms period :)
         telemetry.setMsTransmissionInterval(20);
 

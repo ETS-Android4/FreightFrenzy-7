@@ -1,15 +1,22 @@
 package org.firstinspires.ftc.teamcode.teleop;
 
+import com.acmerobotics.dashboard.FtcDashboard;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.teamcode.hardware.Barcode;
 import org.firstinspires.ftc.teamcode.hardware.Carousel;
 import org.firstinspires.ftc.teamcode.hardware.Constants;
 import org.firstinspires.ftc.teamcode.hardware.Controller;
+import org.firstinspires.ftc.teamcode.hardware.Drivetrain;
 import org.firstinspires.ftc.teamcode.hardware.Intake;
 import org.firstinspires.ftc.teamcode.hardware.Lift;
 import org.firstinspires.ftc.teamcode.hardware.Robot;
+import org.openftc.easyopencv.OpenCvCamera;
+import org.openftc.easyopencv.OpenCvCameraFactory;
+import org.openftc.easyopencv.OpenCvCameraRotation;
 
 @TeleOp (name = "PRTELEOPv2", group = "PRTeleOp")
 public class slimeTeleOp3 extends LinearOpMode {
@@ -17,9 +24,15 @@ public class slimeTeleOp3 extends LinearOpMode {
     Robot zoom = new Robot();
     Controller c;
 
+    OpenCvCamera webcam;
+
+    Barcode pipeline = new Barcode(telemetry, Constants.StartPos.REDLEFT);
+
     boolean rTToggle = false;
     boolean lbToggle = false;
 
+    boolean isRed = false;
+    //boolean holdingFreight = false;
     //int offset = 10;
 
     @Override
@@ -29,7 +42,7 @@ public class slimeTeleOp3 extends LinearOpMode {
 
         c = new Controller(gamepad1, gamepad2);
 
-        telemetry.setMsTransmissionInterval(20);
+        telemetry.setMsTransmissionInterval(100);
         telemetry.addData("Desc", "");
         telemetry.addData("How to Use", "GP1 | Left Stick: Moves Left Side of Drivetrain\n" +
                 "GP2 | Right Stick: Moves Ride Side of Drivetrain\n" +
@@ -43,50 +56,183 @@ public class slimeTeleOp3 extends LinearOpMode {
                 "GP2 | DPad Down: Moves Lift Down");
         telemetry.update();
 
+        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+        webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "webcam 1"), cameraMonitorViewId);
+
+        webcam.setPipeline(pipeline);
+
         waitForStart();
+
+        FtcDashboard.getInstance().startCameraStream(webcam, 0);
+
+        webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
+            @Override
+            public void onOpened() {
+                /*
+                 * Tell the webcam to start streaming images to us! Note that you must make sure
+                 * the resolution you specify is supported by the camera. If it is not, an exception
+                 * will be thrown.
+                 *
+                 * Keep in mind that the SDK's UVC driver (what OpenCvWebcam uses under the hood) only
+                 * supports streaming from the webcam in the uncompressed YUV image format. This means
+                 * that the maximum resolution you can stream at and still get up to 30FPS is 480p (640x480).
+                 * Streaming at e.g. 720p will limit you to up to 10FPS and so on and so forth.
+                 *
+                 * Also, we specify the rotation that the webcam is used in. This is so that the image
+                 * from the camera sensor can be rotated such that it is always displayed with the image upright.
+                 * For a front facing camera, rotation is defined assuming the user is looking at the screen.
+                 * For a rear facing camera or a webcam, rotation is defined assuming the camera is facing
+                 * away from the user.
+                 */
+                //320px x 340px
+                webcam.startStreaming(320 * 2, 240 * 2 , OpenCvCameraRotation.UPRIGHT);
+
+                /*
+                 * Specify the image processing pipeline we wish to invoke upon receipt
+                 * of a frame from the camera. Note that switching pipelines on-the-fly
+                 * (while a streaming session is in flight) *IS* supported.
+                 */
+
+                webcam.setPipeline(pipeline);
+            }
+
+            @Override
+            public void onError(int errorCode) {
+                telemetry.addData("errorCode", errorCode);
+            }
+        });
 
         zoom.resetTimers();
 
         while (opModeIsActive()) {
+
+            //holdingFreight = zoom.colorSensor.getHue() > 0.3;
+
             c.updateInputs();
 
 //          Movement
 
             if (c.right_trigger.isPressed()) rTToggle = !rTToggle;
 
-            if (!rTToggle) {
-                if (Math.abs(gamepad1.right_stick_y) > 0.1 || Math.abs(gamepad1.left_stick_y) > 0.1) {
-                    zoom.drivetrain.setBase(gamepad1.right_stick_y - gamepad1.left_trigger, gamepad1.left_stick_y - gamepad1.left_trigger, gamepad1.right_stick_y - gamepad1.left_trigger, gamepad1.left_stick_y - gamepad1.left_trigger);
-                } else if (gamepad1.dpad_up) {
-                    zoom.drivetrain.setBase(-1 + gamepad1.left_trigger, -1 + gamepad1.left_trigger, -1 + gamepad1.left_trigger, -1 + gamepad1.left_trigger);
-                } else if (gamepad1.dpad_down) {
-                    zoom.drivetrain.setBase(1 - gamepad1.left_trigger, 1 - gamepad1.left_trigger, 1 - gamepad1.left_trigger, 1 - gamepad1.left_trigger);
+            if (zoom.drivetrain.getState() == Drivetrain.DrivetrainState.NEUTRAL) {
+                if (!rTToggle) {
+                    if (Math.abs(gamepad1.right_stick_y) > 0.1 || Math.abs(gamepad1.left_stick_y) > 0.1) {
+                        zoom.drivetrain.setBase(gamepad1.right_stick_y - gamepad1.left_trigger, gamepad1.left_stick_y - gamepad1.left_trigger, gamepad1.right_stick_y - gamepad1.left_trigger, gamepad1.left_stick_y - gamepad1.left_trigger);
+                    } else if (gamepad1.dpad_up) {
+                        zoom.drivetrain.setBase(-1 + gamepad1.left_trigger, -1 + gamepad1.left_trigger, -1 + gamepad1.left_trigger, -1 + gamepad1.left_trigger);
+                    } else if (gamepad1.dpad_down) {
+                        zoom.drivetrain.setBase(1 - gamepad1.left_trigger, 1 - gamepad1.left_trigger, 1 - gamepad1.left_trigger, 1 - gamepad1.left_trigger);
+                    } else {
+                        zoom.drivetrain.stop();
+                    }
                 } else {
-                    zoom.drivetrain.stop();
+                    if (Math.abs(gamepad1.right_stick_y) > 0.1 || Math.abs(gamepad1.left_stick_y) > 0.1) {
+                        zoom.drivetrain.setBase(-gamepad1.right_stick_y + gamepad1.left_trigger, -gamepad1.left_stick_y + gamepad1.left_trigger, -gamepad1.right_stick_y + gamepad1.left_trigger, -gamepad1.left_stick_y + gamepad1.left_trigger);
+                    } else if (gamepad1.dpad_down) {
+                        zoom.drivetrain.setBase(-1 + gamepad1.left_trigger, -1 + gamepad1.left_trigger, -1 + gamepad1.left_trigger, -1 + gamepad1.left_trigger);
+                    } else if (gamepad1.dpad_up) {
+                        zoom.drivetrain.setBase(1 - gamepad1.left_trigger, 1 - gamepad1.left_trigger, 1 - gamepad1.left_trigger, 1 - gamepad1.left_trigger);
+                    } else {
+                        zoom.drivetrain.stop();
+                    }
                 }
-            } else {
-                if (Math.abs(gamepad1.right_stick_y) > 0.1 || Math.abs(gamepad1.left_stick_y) > 0.1) {
-                    zoom.drivetrain.setBase(-gamepad1.right_stick_y + gamepad1.left_trigger, -gamepad1.left_stick_y + gamepad1.left_trigger, -gamepad1.right_stick_y + gamepad1.left_trigger, -gamepad1.left_stick_y + gamepad1.left_trigger);
-                } else if (gamepad1.dpad_down) {
-                    zoom.drivetrain.setBase(-1 + gamepad1.left_trigger, -1 + gamepad1.left_trigger, -1 + gamepad1.left_trigger, -1 + gamepad1.left_trigger);
-                } else if (gamepad1.dpad_up) {
-                    zoom.drivetrain.setBase(1 - gamepad1.left_trigger, 1 - gamepad1.left_trigger, 1 - gamepad1.left_trigger, 1 - gamepad1.left_trigger);
-                } else {
-                    zoom.drivetrain.stop();
-                }
+            }
+
+            /*
+            switch (zoom.drivetrain.getState()) {
+                case NEUTRAL:
+                    // shouldn't do anything
+                    if (c.y.isPressed()) {
+                        // Goes forward, out of the barrier
+                        zoom.drivetrain.setRunMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                        zoom.drivetrain.setRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                        zoom.drivetrain.setTargetPos(Constants.BARRIER_FORWARD, Constants.BARRIER_FORWARD, Constants.BARRIER_FORWARD, Constants.BARRIER_FORWARD);
+                        zoom.drivetrain.setRunMode(DcMotor.RunMode.RUN_TO_POSITION);
+                        zoom.drivetrain.setBase(.5);
+                        zoom.drivetrain.setState(Drivetrain.DrivetrainState.START_HUB);
+                        //toggle = !toggle;
+                    }
+                    break;
+                case START_HUB:
+                    // The first turn, away from the hub
+                    if (!zoom.drivetrain.allBusy()) {
+                        zoom.drivetrain.setRunMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                        zoom.drivetrain.setRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                        //prbot.drivetrain.setRunMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                        zoom.drivetrain.stop();
+                        zoom.drivetrain.setTargetPos(Constants.TURN_ONE, Constants.TURN_ONE, Constants.TURN_ONE, Constants.TURN_ONE);
+                        zoom.drivetrain.setRunMode(DcMotor.RunMode.RUN_TO_POSITION);
+                        if (isRed) {
+                            zoom.drivetrain.setRightSide(1, 1);
+                        } else {
+                            zoom.drivetrain.setLeftSide(1, 1);
+                        }
+                        zoom.drivetrain.setState(Drivetrain.DrivetrainState.TURN_ONE);
+
+                    }
+                    break;
+                case TURN_ONE:
+                    // The second turn, towards the hub
+                    if (!zoom.drivetrain.allBusy()) {
+                        zoom.drivetrain.setRunMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                        zoom.drivetrain.setRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                        zoom.drivetrain.stop();
+                        zoom.drivetrain.setTargetPos(Constants.TURN_TWO, Constants.TURN_TWO, Constants.TURN_TWO, Constants.TURN_TWO);
+                        zoom.drivetrain.setRunMode(DcMotor.RunMode.RUN_TO_POSITION);
+                        if (isRed) {
+                            zoom.drivetrain.setLeftSide(1, 1);
+                        } else {
+                            zoom.drivetrain.setRightSide(1, 1);
+                        }
+                        zoom.drivetrain.setState(Drivetrain.DrivetrainState.TURN_TWO);
+                    }
+                    break;
+                case TURN_TWO:
+                    // Needs to go forward a little bit to reach the hub
+                    if (!zoom.drivetrain.allBusy()) {
+                        zoom.drivetrain.setRunMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                        zoom.drivetrain.setRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                        zoom.drivetrain.stop();
+                        zoom.drivetrain.setTargetPos(Constants.HUB_FORWARD, Constants.HUB_FORWARD, Constants.HUB_FORWARD, Constants.HUB_FORWARD);
+                        zoom.drivetrain.setRunMode(DcMotor.RunMode.RUN_TO_POSITION);
+                        zoom.drivetrain.setBase(-.5);
+                        zoom.drivetrain.setRunMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                        zoom.drivetrain.setState(Drivetrain.DrivetrainState.END_HUB);
+                    }
+                    break;
+                case END_HUB:
+                    if (!zoom.drivetrain.allBusy()) {
+                        zoom.drivetrain.setRunMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                        zoom.drivetrain.setRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                        zoom.drivetrain.stop();
+                        zoom.drivetrain.setState(Drivetrain.DrivetrainState.NEUTRAL);
+                    }
+                    break;
+                default:
+                    zoom.drivetrain.setState(Drivetrain.DrivetrainState.NEUTRAL);
+            }
+             */
+
+            if (c.b.isPressed() && zoom.drivetrain.getState() != Drivetrain.DrivetrainState.NEUTRAL) {
+                zoom.drivetrain.setRunMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                zoom.drivetrain.setRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                zoom.drivetrain.stop();
+                zoom.drivetrain.setState(Drivetrain.DrivetrainState.NEUTRAL);
             }
 
 //        Intake
 
-            if (gamepad2.left_trigger > 0.1) {
-                zoom.intake.spinForward(1);
-                //zoom.outtake.backPosition();
-            } else if (gamepad2.right_trigger > 0.1) {
-                zoom.intake.spinBackward(1);
-                //zoom.outtake.forwardPosition();
-            } else {
-                zoom.intake.stopIt();
-            }
+            //if (!holdingFreight) {
+                if (gamepad2.left_trigger > 0.1) {
+                    zoom.intake.spinForward(1);
+                    //zoom.outtake.backPosition();
+                } else if (gamepad2.right_trigger > 0.1) {
+                    zoom.intake.spinBackward(1);
+                    //zoom.outtake.forwardPosition();
+                } else {
+                    zoom.intake.stopIt();
+                }
+            //}
 
             //        Carousel
 
@@ -149,9 +295,20 @@ public class slimeTeleOp3 extends LinearOpMode {
 
                         zoom.lift.setState(Lift.LiftState.EXTEND);
                     }
+                    if (c.dpad_right_2.isPressed()) {
+                        zoom.intake.setState(Intake.IntakeState.IDLE);
+                        zoom.lift.getLift().setTargetPosition(Constants.LEVEL_FOUR);
+                        zoom.lift.getLift().setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                        zoom.lift.up(1);
+
+                        zoom.outtake.neutralPosition();
+
+                        zoom.lift.setState(Lift.LiftState.EXTEND);
+                    }
                     break;
                 case EXTEND:
                     if (!zoom.lift.getLift().isBusy()) {
+
                         zoom.lift.getLift().setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                         zoom.lift.stopLift();
 
@@ -225,6 +382,9 @@ public class slimeTeleOp3 extends LinearOpMode {
             telemetry.addData("Intake State", zoom.intake.getState().toString());
             telemetry.addData("Lift State", zoom.lift.getState().toString());
             telemetry.addData("Carousel State", zoom.carousel.getState().toString());
+            telemetry.addData("Drivetrain State", zoom.drivetrain.getState().toString());
+            telemetry.addData("gp1 right stick y", gamepad1.right_stick_y);
+            telemetry.addData("gp1 left stick y", gamepad1.left_stick_y);
             telemetry.update();
         }
     }

@@ -15,6 +15,7 @@ public class Robot implements Constants {
     public Lift lift;
     public Carousel carousel;
     public IMU imu;
+    //public SensorColor colorSensor;
 
     public void init(HardwareMap hwMap, Telemetry telemetry) {
         drivetrain = new Drivetrain(hwMap.dcMotor.get("frontLeft"), hwMap.dcMotor.get("frontRight"), hwMap.dcMotor.get("backLeft"), hwMap.dcMotor.get("backRight"));
@@ -23,6 +24,7 @@ public class Robot implements Constants {
         lift = new Lift(hwMap.dcMotor.get("lift"));
         carousel = new Carousel(hwMap.dcMotor.get("leftCarousel"), hwMap.dcMotor.get("rightCarousel"));
         imu = new IMU(hwMap.get(BNO055IMU.class, "imu 1"));
+        //colorSensor = new SensorColor((hwMap.colorSensor.get("freightSensor")));
         //imu.getIMU();
         lift.setTelemetry(telemetry);
         drivetrain.setTelemetry(telemetry);
@@ -49,7 +51,7 @@ public class Robot implements Constants {
                 lift.init();
                 lift.useEncoders(true);
                 lift.useBrake(true);
-                lift.setMaxPower(.3);
+                lift.setMaxPower(.6);
                 break;
             case SLOW:
                 drivetrain.useBrake(true);

@@ -1,11 +1,12 @@
 package org.firstinspires.ftc.teamcode.auton.working.red;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.hardware.Robot;
 
-
+@Disabled
 @Autonomous(name = "RedWarehouseLeft", group = "PRTest")
 public class RedWarehouseLeft extends LinearOpMode {
 

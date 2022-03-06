@@ -21,6 +21,7 @@
 
 package org.firstinspires.ftc.teamcode.auton.vision.red;
 
+import com.acmerobotics.dashboard.FtcDashboard;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
@@ -44,7 +45,7 @@ public class RedLeftCVFixPID extends LinearOpMode {
 
     Button dpad_up, dpad_down;
 
-    int wait = 400;
+    int wait = 200;
     int waitTime = 1000;
 
     @Override
@@ -52,6 +53,10 @@ public class RedLeftCVFixPID extends LinearOpMode {
         //initialize robot hardware
         prbot.init(hardwareMap, telemetry);
         prbot.setMode(Constants.Status.AUTO);
+
+        FtcDashboard dashboard = FtcDashboard.getInstance();
+
+        prbot.drivetrain.setDashboard(dashboard);
 
         //FOR THE WEBCAM
         /*
@@ -89,7 +94,7 @@ public class RedLeftCVFixPID extends LinearOpMode {
                  * away from the user.
                  */
                 //320px x 340px
-                webcam.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT);
+                webcam.startStreaming(320 * 2, 240 * 2, OpenCvCameraRotation.UPRIGHT);
 
                 /*
                  * Specify the image processing pipeline we wish to invoke upon receipt
@@ -105,6 +110,9 @@ public class RedLeftCVFixPID extends LinearOpMode {
                 telemetry.addData("errorCode", errorCode);
             }
         });
+
+        dashboard.startCameraStream(webcam, 0);
+
         // Tell telemetry to update faster than the default 250ms period :)
         telemetry.setMsTransmissionInterval(20);
 
@@ -169,20 +177,23 @@ public class RedLeftCVFixPID extends LinearOpMode {
                     prbot.drivetrain.PIDTurn(-90);
                     sleep(wait);
                     //forward (to warehouse)
-                    prbot.drivetrain.backward(27.2);
+                    prbot.drivetrain.backward(26.5);
                     sleep(wait);
                     //right
                     prbot.drivetrain.PIDTurn(90);
                     sleep(wait);
                     //forward
-                    prbot.drivetrain.forward(19.5);
+                    prbot.drivetrain.forward(16.5);
                     sleep(wait);
                     //drop
+                    prbot.lift.move(400);
                     prbot.drivetrain.backward();
                     prbot.outtake.backPosition();
                     sleep(100);
                     prbot.drivetrain.stop();
                     sleep(900);
+                    prbot.lift.setLevel(0);
+                    prbot.lift.updateLevel();
                     //reset
                     prbot.drivetrain.setPower(0.4);
                     prbot.outtake.neutralPosition();
@@ -203,7 +214,7 @@ public class RedLeftCVFixPID extends LinearOpMode {
                     prbot.drivetrain.backward(3.25);
                     prbot.drivetrain.PIDTurn(-90);
                     sleep(200);
-                    prbot.drivetrain.backward(8.5);
+                    prbot.drivetrain.backward(9);
 
 
                     break;
@@ -279,7 +290,7 @@ public class RedLeftCVFixPID extends LinearOpMode {
                     //prbot.drivetrain.pointTurnRight();
                     prbot.drivetrain.PIDTurn(-90);
                     sleep(200);
-                    prbot.drivetrain.backward(8.5);
+                    prbot.drivetrain.backward(9);
 
 
                     break;
@@ -307,7 +318,7 @@ public class RedLeftCVFixPID extends LinearOpMode {
                     prbot.carousel.stopSpin();
                     //back up a bit
                     prbot.drivetrain.setPower(.4);
-                    prbot.drivetrain.forward(6);
+                    prbot.drivetrain.forward(8);
                     //right
                     //prbot.drivetrain.pointTurn(Constants.Status.RIGHT, 11.8);
                     prbot.drivetrain.PIDTurn(-90);
@@ -320,17 +331,17 @@ public class RedLeftCVFixPID extends LinearOpMode {
                     prbot.drivetrain.PIDTurn(90);
                     sleep(wait);
                     //forward
-                    prbot.drivetrain.forward(22);
+                    prbot.drivetrain.forward(19.5);
                     sleep(wait);
 
-                    prbot.lift.setLevel(2);
-                    prbot.lift.updateLevel();
+                    //drop
+                    prbot.lift.move(1800);
                     sleep(wait);
                     //drop
-                    prbot.drivetrain.backward();
+                    //prbot.drivetrain.backward();
                     prbot.outtake.backPosition();
                     sleep(100);
-                    prbot.drivetrain.stop();
+                    //prbot.drivetrain.stop();
                     sleep(900);
                     //reset
                     prbot.outtake.neutralPosition();
@@ -343,11 +354,11 @@ public class RedLeftCVFixPID extends LinearOpMode {
                     prbot.drivetrain.backward(4);
                     sleep(200);
                     //prbot.drivetrain.pointTurnRight();
-                    prbot.drivetrain.PIDTurn(-90);
+                    prbot.drivetrain.PIDTurn(-180);
                     sleep(wait);
                     //prbot.drivetrain.pointTurnRight();
-                    prbot.drivetrain.PIDTurn(-90);
-                    sleep(wait);
+                    //prbot.drivetrain.PIDTurn(-90);
+                    //sleep(wait);
                     //forward (to wall)
                     prbot.drivetrain.forward(28);
                     sleep(200);
@@ -356,7 +367,7 @@ public class RedLeftCVFixPID extends LinearOpMode {
                     //prbot.drivetrain.pointTurnRight();
                     prbot.drivetrain.PIDTurn(-90);
                     sleep(200);
-                    prbot.drivetrain.backward(7.5);
+                    prbot.drivetrain.backward(9);
 
 
             }
