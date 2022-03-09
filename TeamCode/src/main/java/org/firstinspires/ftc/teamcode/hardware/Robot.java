@@ -15,6 +15,7 @@ public class Robot implements Constants {
     public Lift lift;
     public Carousel carousel;
     public IMU imu;
+    public Arm arm;
     //public SensorColor colorSensor;
 
     public void init(HardwareMap hwMap, Telemetry telemetry) {
@@ -26,6 +27,7 @@ public class Robot implements Constants {
         imu = new IMU(hwMap.get(BNO055IMU.class, "imu 1"));
         //colorSensor = new SensorColor((hwMap.colorSensor.get("freightSensor")));
         //imu.getIMU();
+        arm = new Arm(hwMap.servo.get("capper"));
         lift.setTelemetry(telemetry);
         drivetrain.setTelemetry(telemetry);
         drivetrain.setIMU(imu);

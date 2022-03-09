@@ -8,6 +8,9 @@ public interface Constants {
     double neutralPos = 90 / 300.0;
     double backPos = 225 / 300.0;
 
+    double armStartPos = 300.0 / 300.0;
+    double armExtendPos = 174 / 300.0;
+
     // 96 mm wheels = 537.6/((120 / 25.4)*Math.PI)
     // 120 mm wheels = (537.6/((120 / 25.4)*Math.PI)) * (5.0/6.0)
     //double TICKS_PER_IN = 537.6/((96 / 25.4)*Math.PI);
