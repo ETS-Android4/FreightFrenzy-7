@@ -7,19 +7,18 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.hardware.Arm;
 import org.firstinspires.ftc.teamcode.hardware.Controller;
 
-@TeleOp (name = "TestArmState", group = "Test")
-public class TestArmState extends LinearOpMode {
-
+@TeleOp (name = "TestArmStick", group = "Test")
+public class TestArmStick extends LinearOpMode {
     Arm a;
     Controller c;
+    double radians, angle, servoAngle;
     boolean toggle = false;
-
     @Override
     public void runOpMode() throws InterruptedException {
         a = new Arm(hardwareMap.servo.get("capper"));
+
         c = new Controller(gamepad1, gamepad2);
 
-        telemetry.setMsTransmissionInterval(20);
         a.setExtendTime(new ElapsedTime());
 
         ElapsedTime matchTime = new ElapsedTime();
@@ -30,14 +29,15 @@ public class TestArmState extends LinearOpMode {
         matchTime.reset();
 
         while (opModeIsActive()) {
-
-            //a.getExtendTime().reset();
             c.updateInputs();
+            radians = Math.atan2(-gamepad2.left_stick_y, -gamepad2.left_stick_x);
+            angle = (radians / Math.PI * 180) + 180.0;
+            servoAngle = Math.max(Math.min(angle, 300), 170);
 
             switch (a.getArmstate()) {
                 case START:
                     a.start();
-                    if (c.x.isPressed()/* && matchTime.seconds() > 115*/) {
+                    if (c.left_stick_button_2.isPressed()/* && matchTime.seconds() > 115*/) {
                         a.extend();
                         a.getExtendTime().reset();
                         a.setArmstate(Arm.ArmState.EXTEND);
@@ -54,21 +54,18 @@ public class TestArmState extends LinearOpMode {
                         a.setArmstate(Arm.ArmState.MANUAL);
                     }
                 case MANUAL:
-                    if (c.y.isPressed()) {
-                        a.increase();
+                    if (Math.abs(gamepad2.left_stick_y) > .1 && Math.abs(gamepad2.left_stick_x) > .1) {
+                        a.getArm().setPosition(servoAngle / 300.0);
                     }
-
-                    if (c.b.isPressed()) {
-                        a.decrease();
-                    }
-                    a.updatePos();
                     break;
             }
 
-            telemetry.addData("arm pos", a.getArm().getPosition());
-            telemetry.addData("pos var", a.getPos());
-            telemetry.addData("toggle", toggle);
-            telemetry.addData("time", a.getExtendTime().seconds());
+            telemetry.addData("gamepad1.left_stick_x", gamepad1.left_stick_x)
+                    .addData("gamepad1.left_stick_y", gamepad1.left_stick_y)
+                    .addData("Radians", radians)
+                    .addData("Angle", angle)
+                    .addData("servoAngle", servoAngle)
+                    .addData("toggle", toggle);
             telemetry.update();
         }
     }

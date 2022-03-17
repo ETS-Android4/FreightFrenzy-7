@@ -324,7 +324,7 @@ public class Drivetrain implements Constants {
      */
     public void PIDTurn(double targetAngle) {
 
-        Telemetry dTelem = dashboard.getTelemetry();
+        //Telemetry dTelem = dashboard.getTelemetry();
 
         PIDController pid = new PIDController(0.01, 0.0001, 0.001, 20);
         imu.resetAngle();
@@ -354,7 +354,7 @@ public class Drivetrain implements Constants {
     public void PIDTurn(double targetAngle, PIDController pid) {
 
         //Telemetry dTelem = dashboard.getTelemetry();
-        telem = dashboard.getTelemetry();
+        //telem = dashboard.getTelemetry();
 
         imu.resetAngle();
 

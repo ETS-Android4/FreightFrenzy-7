@@ -4,8 +4,10 @@ import com.acmerobotics.dashboard.FtcDashboard;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.teamcode.hardware.Arm;
 import org.firstinspires.ftc.teamcode.hardware.Barcode;
 import org.firstinspires.ftc.teamcode.hardware.Carousel;
 import org.firstinspires.ftc.teamcode.hardware.Constants;
@@ -28,12 +30,19 @@ public class slimeTeleOp3 extends LinearOpMode {
 
     Barcode pipeline = new Barcode(telemetry, Constants.StartPos.REDLEFT);
 
+    ElapsedTime matchTime = new ElapsedTime();
+
     boolean rTToggle = false;
     boolean lbToggle = false;
+    boolean armToggle = false;
+    boolean lStickButtonToggle = true;
+
+    double dtSpeed = 1;
 
     boolean isRed = false;
     //boolean holdingFreight = false;
     //int offset = 10;
+    double radians, angle, servoAngle;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -103,6 +112,7 @@ public class slimeTeleOp3 extends LinearOpMode {
         });
 
         zoom.resetTimers();
+        matchTime.reset();
 
         while (opModeIsActive()) {
 
@@ -113,11 +123,12 @@ public class slimeTeleOp3 extends LinearOpMode {
 //          Movement
 
             if (c.right_trigger.isPressed()) rTToggle = !rTToggle;
-
+            if (c.left_stick_button.isPressed()) lStickButtonToggle = !lStickButtonToggle;
+            dtSpeed = lStickButtonToggle ? 1 : 0.3;
             if (zoom.drivetrain.getState() == Drivetrain.DrivetrainState.NEUTRAL) {
                 if (!rTToggle) {
                     if (Math.abs(gamepad1.right_stick_y) > 0.1 || Math.abs(gamepad1.left_stick_y) > 0.1) {
-                        zoom.drivetrain.setBase(gamepad1.right_stick_y - gamepad1.left_trigger, gamepad1.left_stick_y - gamepad1.left_trigger, gamepad1.right_stick_y - gamepad1.left_trigger, gamepad1.left_stick_y - gamepad1.left_trigger);
+                        zoom.drivetrain.setBase((gamepad1.right_stick_y - gamepad1.left_trigger) * dtSpeed, (gamepad1.left_stick_y - gamepad1.left_trigger) * dtSpeed, (gamepad1.right_stick_y - gamepad1.left_trigger) * dtSpeed, (gamepad1.left_stick_y - gamepad1.left_trigger) * dtSpeed);
                     } else if (gamepad1.dpad_up) {
                         zoom.drivetrain.setBase(-1 + gamepad1.left_trigger, -1 + gamepad1.left_trigger, -1 + gamepad1.left_trigger, -1 + gamepad1.left_trigger);
                     } else if (gamepad1.dpad_down) {
@@ -127,7 +138,7 @@ public class slimeTeleOp3 extends LinearOpMode {
                     }
                 } else {
                     if (Math.abs(gamepad1.right_stick_y) > 0.1 || Math.abs(gamepad1.left_stick_y) > 0.1) {
-                        zoom.drivetrain.setBase(-gamepad1.right_stick_y + gamepad1.left_trigger, -gamepad1.left_stick_y + gamepad1.left_trigger, -gamepad1.right_stick_y + gamepad1.left_trigger, -gamepad1.left_stick_y + gamepad1.left_trigger);
+                        zoom.drivetrain.setBase((-gamepad1.right_stick_y + gamepad1.left_trigger) * dtSpeed, (-gamepad1.left_stick_y + gamepad1.left_trigger) * dtSpeed, (-gamepad1.right_stick_y + gamepad1.left_trigger) * dtSpeed, (-gamepad1.left_stick_y + gamepad1.left_trigger) * dtSpeed);
                     } else if (gamepad1.dpad_down) {
                         zoom.drivetrain.setBase(-1 + gamepad1.left_trigger, -1 + gamepad1.left_trigger, -1 + gamepad1.left_trigger, -1 + gamepad1.left_trigger);
                     } else if (gamepad1.dpad_up) {
@@ -372,7 +383,47 @@ public class slimeTeleOp3 extends LinearOpMode {
                 zoom.lift.setState(Lift.LiftState.START);
             }
 
+            if (armToggle) {
+                radians = Math.atan2(gamepad2.left_stick_y, gamepad2.left_stick_x);
+            } else {
+                radians = Math.atan2(-gamepad2.left_stick_y, -gamepad2.left_stick_x);
+            }
+            //angle = ((radians / Math.PI * 180) + 180.0) / 360 * 130;
+            angle = ((radians / Math.PI * 180) + 180.0);
+            servoAngle = Math.max(Math.min(angle, 300), 170);
+            //servoAngle = angle + 170;
 
+            switch (zoom.arm.getArmstate()) {
+                case START:
+                    zoom.arm.start();
+                    if (c.left_stick_button_2.isPressed()/* && matchTime.seconds() > 115*/) {
+                        zoom.arm.extend();
+                        zoom.arm.getExtendTime().reset();
+                        zoom.arm.setArmstate(Arm.ArmState.EXTEND);
+                    }
+                    break;
+                case EXTEND:
+                    if (zoom.arm.getExtendTime().milliseconds() > 800) {
+                        zoom.arm.start();
+                        zoom.arm.setArmstate(Arm.ArmState.END);
+                    }
+                    break;
+                case END:
+                    if (zoom.arm.getExtendTime().milliseconds() > 1600) {
+                        zoom.arm.setArmstate(Arm.ArmState.MANUAL);
+                    }
+                case MANUAL:
+                    if (c.left_stick_button_2.isPressed()) armToggle = !armToggle;
+                    if (Math.abs(gamepad2.left_stick_y) > .1 || Math.abs(gamepad2.left_stick_x) > .1) {
+                        zoom.arm.setPos(servoAngle / 300.0);
+                    } else if (armToggle){
+                        zoom.arm.start();
+                    } else {
+                        zoom.arm.rest();
+                    }
+                    zoom.arm.updatePos();
+                    break;
+            }
 
             if (c.left_bumper.isPressed()) lbToggle = !lbToggle;
 
@@ -383,8 +434,9 @@ public class slimeTeleOp3 extends LinearOpMode {
             telemetry.addData("Lift State", zoom.lift.getState().toString());
             telemetry.addData("Carousel State", zoom.carousel.getState().toString());
             telemetry.addData("Drivetrain State", zoom.drivetrain.getState().toString());
-            telemetry.addData("gp1 right stick y", gamepad1.right_stick_y);
-            telemetry.addData("gp1 left stick y", gamepad1.left_stick_y);
+            telemetry.addData("Arm State", zoom.arm.getArmstate().toString());
+            //telemetry.addData("gp1 right stick y", gamepad1.right_stick_y);
+            //telemetry.addData("gp1 left stick y", gamepad1.left_stick_y);
             telemetry.update();
         }
     }

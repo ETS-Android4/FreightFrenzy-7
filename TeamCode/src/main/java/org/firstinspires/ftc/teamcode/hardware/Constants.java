@@ -10,6 +10,7 @@ public interface Constants {
 
     double armStartPos = 300.0 / 300.0;
     double armExtendPos = 174 / 300.0;
+    double armRestPos = 198 / 300.0;
 
     // 96 mm wheels = 537.6/((120 / 25.4)*Math.PI)
     // 120 mm wheels = (537.6/((120 / 25.4)*Math.PI)) * (5.0/6.0)
@@ -28,7 +29,7 @@ public interface Constants {
     int LEVEL_ZERO = 50;
 
     int LEVEL_ONE = 700;
-    int LEVEL_TWO = 1600;
+    int LEVEL_TWO = 1700;
     int LEVEL_THREE = 1100;
     int LEVEL_FOUR = 1900;
 
@@ -66,23 +67,23 @@ public interface Constants {
 
     int[][] barcodeCoordinate = {
             {
-                    (12 + 74), 140,
-                    ( 110 + 80), 140,
-                    (215 + 80), 140
+                    (12 + 74), 128,
+                    ( 110 + 80), 128,
+                    (215 + 80), 128
             }, {
-                90, 140,
-                195, 140,
-                290, 140
+                90, 128,
+                195, 128,
+                290, 128
             }, {
-                25, 140,
-                115, 140,
-                215, 140
+                25, 128,
+                115, 128,
+                215, 128
             }, {
                 //9, 135 | 110, 140 | 220, 140
                 // 6, 130 | 105, 130 | 213, 135
-                10, 140,
-                110, 140,
-                205, 140
+                10, 128,
+                110, 128,
+                205, 128
             }
     };
 

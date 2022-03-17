@@ -111,7 +111,7 @@ public class RedLeftCVFixPID extends LinearOpMode {
             }
         });
 
-        dashboard.startCameraStream(webcam, 0);
+        //dashboard.startCameraStream(webcam, 0);
 
         // Tell telemetry to update faster than the default 250ms period :)
         telemetry.setMsTransmissionInterval(20);
@@ -183,7 +183,7 @@ public class RedLeftCVFixPID extends LinearOpMode {
                     prbot.drivetrain.PIDTurn(90);
                     sleep(wait);
                     //forward
-                    prbot.drivetrain.forward(16.5);
+                    prbot.drivetrain.forward(16);
                     sleep(wait);
                     //drop
                     prbot.lift.move(400);
@@ -214,7 +214,7 @@ public class RedLeftCVFixPID extends LinearOpMode {
                     prbot.drivetrain.backward(3.25);
                     prbot.drivetrain.PIDTurn(-90);
                     sleep(200);
-                    prbot.drivetrain.backward(9);
+                    prbot.drivetrain.backward(7.5);
 
 
                     break;
@@ -290,7 +290,7 @@ public class RedLeftCVFixPID extends LinearOpMode {
                     //prbot.drivetrain.pointTurnRight();
                     prbot.drivetrain.PIDTurn(-90);
                     sleep(200);
-                    prbot.drivetrain.backward(9);
+                    prbot.drivetrain.backward(7.5);
 
 
                     break;
@@ -367,7 +367,7 @@ public class RedLeftCVFixPID extends LinearOpMode {
                     //prbot.drivetrain.pointTurnRight();
                     prbot.drivetrain.PIDTurn(-90);
                     sleep(200);
-                    prbot.drivetrain.backward(9);
+                    prbot.drivetrain.backward(7.5);
 
 
             }

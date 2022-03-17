@@ -23,6 +23,7 @@ package org.firstinspires.ftc.teamcode.auton.vision.red;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -33,6 +34,7 @@ import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 
+@Disabled
 @Autonomous (name = "RedRightSideCVPID", group = "Barcode")
 public class RedRightCVSIdePID extends LinearOpMode {
 
@@ -107,7 +109,7 @@ public class RedRightCVSIdePID extends LinearOpMode {
             }
         });
 
-        dashboard.startCameraStream(webcam, 0);
+        //dashboard.startCameraStream(webcam, 0);
 
         // Tell telemetry to update faster than the default 250ms period :)
         telemetry.setMsTransmissionInterval(20);

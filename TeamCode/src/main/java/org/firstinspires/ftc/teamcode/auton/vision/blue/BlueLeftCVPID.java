@@ -41,7 +41,7 @@ public class BlueLeftCVPID extends LinearOpMode {
 
     Barcode pipeline = new Barcode(telemetry, Constants.StartPos.BLUELEFT);
 
-    int wait = 500;
+    int wait = 200;
     int waitTime = 1000;
 
     @Override
@@ -86,7 +86,7 @@ public class BlueLeftCVPID extends LinearOpMode {
                  * away from the user.
                  */
                 //320px x 340px
-                webcam.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT);
+                webcam.startStreaming(320 * 2, 240 * 2, OpenCvCameraRotation.UPRIGHT);
 
                 /*
                  * Specify the image processing pipeline we wish to invoke upon receipt
@@ -159,7 +159,7 @@ public class BlueLeftCVPID extends LinearOpMode {
                     sleep(wait);
 
                      */
-                    prbot.drivetrain.backward(10.5);
+                    prbot.drivetrain.backward(13.5);
 
                     // Push shipping element for space
                     //prbot.drivetrain.setPower(.2);
@@ -193,7 +193,7 @@ public class BlueLeftCVPID extends LinearOpMode {
                     prbot.drivetrain.stop();
                     sleep(900);
 
-                    prbot.outtake.neutralPosition();
+                    prbot.outtake.forwardPosition();
                     //prbot.lift.setLevel(0);
                     //prbot.lift.updateLevel();
                     sleep(wait);
@@ -213,14 +213,28 @@ public class BlueLeftCVPID extends LinearOpMode {
                     sleep(wait);
 
                     prbot.drivetrain.setPower(.3);
-                    prbot.drivetrain.PIDTurn(180);
+                    prbot.drivetrain.PIDTurn(-150);
                     sleep(wait);
+
+                    prbot.intake.spinForward(1);
+                    prbot.drivetrain.backward(8);
+                    sleep(500);
+
+                    prbot.intake.spinBackward(1);
+                    prbot.drivetrain.backward(5);
+
+                    prbot.drivetrain.forward(14);
+
+                    prbot.drivetrain.PIDTurn(-30);
+                    prbot.drivetrain.forward(2);
+
+                    prbot.intake.stopIt();
 
                     //prbot.drivetrain.pointTurnRight();
                     break;
                 case CENTER:
                     //forward
-                    prbot.drivetrain.backward(12);
+                    prbot.drivetrain.backward(14.5);
                     sleep(wait);
 
                     // Push shipping element for space
@@ -263,6 +277,7 @@ public class BlueLeftCVPID extends LinearOpMode {
                     prbot.lift.updateLevel();
                     sleep(wait);
 
+                    prbot.outtake.forwardPosition();
                     prbot.drivetrain.backward(2);
                     sleep(wait);
 
@@ -278,14 +293,28 @@ public class BlueLeftCVPID extends LinearOpMode {
                     sleep(wait);
 
                     prbot.drivetrain.setPower(.3);
-                    prbot.drivetrain.PIDTurn(-180);
+                    prbot.drivetrain.PIDTurn(-150);
                     sleep(wait);
+
+                    prbot.intake.spinForward(1);
+                    prbot.drivetrain.backward(8);
+                    sleep(500);
+
+                    prbot.intake.spinBackward(1);
+                    prbot.drivetrain.backward(5);
+
+                    prbot.drivetrain.forward(14);
+
+                    prbot.drivetrain.PIDTurn(-30);
+                    prbot.drivetrain.forward(2);
+
+                    prbot.intake.stopIt();
 
                     //prbot.drivetrain.pointTurnRight();
                     break;
                 case RIGHT:
                     //forward
-                    prbot.drivetrain.backward(12);
+                    prbot.drivetrain.backward(14.5);
                     sleep(wait);
 
                     // Push shipping element for space
@@ -328,6 +357,7 @@ public class BlueLeftCVPID extends LinearOpMode {
                     prbot.lift.updateLevel();
                     sleep(wait);
 
+                    prbot.outtake.forwardPosition();
                     prbot.drivetrain.backward(2);
                     sleep(wait);
 
@@ -343,8 +373,22 @@ public class BlueLeftCVPID extends LinearOpMode {
                     sleep(wait);
 
                     prbot.drivetrain.setPower(.3);
-                    prbot.drivetrain.PIDTurn(-180);
+                    prbot.drivetrain.PIDTurn(-150);
                     sleep(wait);
+
+                    prbot.intake.spinForward(1);
+                    prbot.drivetrain.backward(8);
+                    sleep(500);
+
+                    prbot.intake.spinBackward(1);
+                    prbot.drivetrain.backward(5);
+
+                    prbot.drivetrain.forward(14);
+
+                    prbot.drivetrain.PIDTurn(-30);
+                    prbot.drivetrain.forward(2);
+
+                    prbot.intake.stopIt();
 
                     //prbot.drivetrain.pointTurnRight();
                     break;

@@ -34,6 +34,7 @@ public class Robot implements Constants {
         lift.setTimer(new ElapsedTime());
         lift.setLiftTimeout(new ElapsedTime());
         carousel.setTimer(new ElapsedTime());
+        arm.setExtendTime(new ElapsedTime());
     }
 
     public void setMode(Status mode) {
@@ -77,6 +78,7 @@ public class Robot implements Constants {
     public void resetTimers() {
         lift.getTimer().reset();
         carousel.getTimer().reset();
+        arm.getExtendTime().reset();
     }
 }
 

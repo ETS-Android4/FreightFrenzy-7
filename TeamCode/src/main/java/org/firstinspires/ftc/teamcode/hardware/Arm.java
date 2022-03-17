@@ -9,7 +9,7 @@ public class Arm implements Constants {
     private double pos;
 
     public enum ArmState {
-        START, EXTEND, END
+        START, EXTEND, MANUAL, END
     }
 
     ElapsedTime extendTime;
@@ -34,8 +34,18 @@ public class Arm implements Constants {
         arm.setPosition(pos);
     }
 
+    public void rest() {
+        pos = armRestPos;
+        arm.setPosition(pos);
+    }
+
     public void increase() {
         pos += 5 / 300.0;
+        checkPos();
+    }
+
+    public void decrease() {
+        pos -= 5 / 300.0;
         checkPos();
     }
 
@@ -44,9 +54,8 @@ public class Arm implements Constants {
         start();
     }
 
-
-    public void decrease() {
-        pos -= 5 / 300.0;
+    public void setPos(double pos) {
+        this.pos = pos;
         checkPos();
     }
 
